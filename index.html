@@ -64,23 +64,28 @@
                     <i data-feather="git-branch"></i>
                     <span>Kiến trúc và Mocking</span>
                 </li>
+                <li class="nav-category">Tài nguyên</li>
+                <li class="nav-item" data-target="glossary">
+                    <i data-feather="book-open"></i>
+                    <span>Từ điển thuật ngữ</span>
+                </li>
             </ul>
         </nav>
 
         <main class="main-content">
             <section id="home" class="content-section active">
                 <h1>Chào mừng đến với Wiki Unit Test</h1>
-                <p>Đây là trang tài liệu tổng hợp các kiến thức, nguyên tắc và bài học thực tế về Unit Testing trong phát triển phần mềm. Mục tiêu của trang wiki này là biến những kiến thức phức tạp thành một nguồn tài liệu <strong>dễ học, dễ tra cứu</strong> cho các lập trình viên.</p>
+                <p>Đây là trang tài liệu tổng hợp các kiến thức, nguyên tắc và bài học thực tế về <span class="keyword" data-keyword="unit-testing">Unit Testing</span> trong phát triển phần mềm. Mục tiêu của trang wiki này là biến những kiến thức phức tạp thành một nguồn tài liệu <strong>dễ học, dễ tra cứu</strong> cho các lập trình viên.</p>
 
                 <h2>Tóm tắt cốt lõi</h2>
                 <ul>
-                    <li><strong>Unit testing là một mạng lưới an toàn (safety net)</strong> giúp phát hiện lỗi hồi quy (regressions) và duy trì tốc độ phát triển của dự án về lâu dài.</li>
-                    <li>Nếu code của bạn <strong>khó để viết unit test</strong>, đó thường là một dấu hiệu của thiết kế kém (ví dụ: tight coupling - liên kết chặt chẽ). Ngược lại, code dễ test không đảm bảo rằng đó là code hoàn hảo.</li>
+                    <li><strong><span class="keyword" data-keyword="unit-testing">Unit testing</span> là một mạng lưới an toàn (safety net)</strong> giúp phát hiện lỗi hồi quy (<span class="keyword" data-keyword="regression">regressions</span>) và duy trì tốc độ phát triển của dự án về lâu dài.</li>
+                    <li>Nếu code của bạn <strong>khó để viết unit test</strong>, đó thường là một dấu hiệu của thiết kế kém (ví dụ: <span class="keyword" data-keyword="tight-coupling">tight coupling</span> - liên kết chặt chẽ). Ngược lại, code dễ test không đảm bảo rằng đó là code hoàn hảo.</li>
                     <li><strong>Mục tiêu chính khi viết test:</strong>
                         <ol>
                             <li>Phát hiện lỗi hồi quy một cách hiệu quả.</li>
                             <li>Giảm chi phí bảo trì bộ test.</li>
-                            <li>Cho phép tái cấu trúc (refactor) code một cách an toàn và tự tin.</li>
+                            <li>Cho phép tái cấu trúc (<span class="keyword" data-keyword="refactor">refactor</span>) code một cách an toàn và tự tin.</li>
                         </ol>
                     </li>
                     <li><strong>Không có test:</strong> Dự án có thể phát triển nhanh lúc đầu, nhưng sẽ chậm lại đáng kể về sau do sự entropy của mã nguồn (code ngày càng phức tạp, rối rắm và dễ hỏng).</li>
@@ -88,7 +93,7 @@
                 </ul>
 
                 <blockquote>
-                    <p>Code không phải là một tài sản (asset), nó là một khoản nợ (liability). Code càng nhiều, rủi ro tiềm ẩn bug càng lớn. Unit test chính là "tấm khiên" bảo vệ bạn khỏi khoản nợ đó.</p>
+                    <p>Code không phải là một tài sản (asset), nó là một khoản nợ (liability). Code càng nhiều, rủi ro tiềm ẩn bug càng lớn. <span class="keyword" data-keyword="unit-test">Unit test</span> chính là "tấm khiên" bảo vệ bạn khỏi khoản nợ đó.</p>
                 </blockquote>
                 <p>Hãy bắt đầu khám phá các chủ đề chi tiết hơn qua thanh điều hướng bên trái!</p>
             </section>
@@ -105,7 +110,7 @@
                             <li>Chạy nhanh.</li>
                             <li>Mục đích rõ ràng, dễ đọc.</li>
                             <li>Độc lập, không phụ thuộc vào các test khác.</li>
-                            <li>Ít chi phí bảo trì khi code thay đổi (chống chịu được refactor).</li>
+                            <li>Ít chi phí bảo trì khi code thay đổi (chống chịu được <span class="keyword" data-keyword="refactor">refactor</span>).</li>
                             <li>Tập trung vào các hành vi (behavior) quan trọng của hệ thống.</li>
                         </ul>
                     </li>
@@ -113,32 +118,32 @@
                         <ul>
                             <li>Chạy chậm.</li>
                             <li>Dễ bị "vỡ" (fail) dù logic của ứng dụng vẫn đúng.</li>
-                            <li>Có nhiều code thừa (boilerplate).</li>
-                            <li>Gây ra các cảnh báo giả (false positive), làm mất niềm tin của lập trình viên.</li>
-                            <li>Bị trùng lặp (redundant) với các test khác.</li>
+                            <li>Có nhiều code thừa (<span class="keyword" data-keyword="boilerplate">boilerplate</span>).</li>
+                            <li>Gây ra các cảnh báo giả (<span class="keyword" data-keyword="false-positive">false positive</span>), làm mất niềm tin của lập trình viên.</li>
+                            <li>Bị trùng lặp (<span class="keyword" data-keyword="redundant">redundant</span>) với các test khác.</li>
                         </ul>
                     </li>
                 </ul>
 
                 <h2>Phân loại các cấp độ Test</h2>
-                <p>Trong phát triển phần mềm, có nhiều cấp độ kiểm thử khác nhau, mỗi loại có một mục đích riêng. Ba loại phổ biến nhất thường được minh họa qua mô hình Kim tự tháp Kiểm thử.</p>
+                <p>Trong phát triển phần mềm, có nhiều cấp độ kiểm thử khác nhau, mỗi loại có một mục đích riêng. Ba loại phổ biến nhất thường được minh họa qua mô hình <span class="keyword" data-keyword="test-pyramid">Kim tự tháp Kiểm thử</span>.</p>
                 <ol>
-                    <li><strong>Unit Test (Kiểm thử đơn vị):</strong>
+                    <li><strong><span class="keyword" data-keyword="unit-test">Unit Test</span> (Kiểm thử đơn vị):</strong>
                         <p><strong>Mục tiêu:</strong> Kiểm tra một đơn vị (unit) code nhỏ và cô lập (ví dụ: một hàm, một class).<br>
-                        <strong>Đặc điểm:</strong> Chạy hoàn toàn trong bộ nhớ (in-memory), không phụ thuộc vào các hệ thống bên ngoài như database, file system hay network. Rất nhanh.</p>
+                        <strong>Đặc điểm:</strong> Chạy hoàn toàn trong bộ nhớ (in-memory), không phụ thuộc vào các hệ thống bên ngoài như <span class="keyword" data-keyword="database">database</span>, file system hay network. Rất nhanh.</p>
                     </li>
-                    <li><strong>Integration Test (Kiểm thử tích hợp):</strong>
-                        <p><strong>Mục tiêu:</strong> Kiểm tra sự tương tác và phối hợp giữa hai hay nhiều thành phần của hệ thống, hoặc giữa hệ thống của bạn và một hệ thống bên ngoài (database, API của bên thứ ba).<br>
-                        <strong>Đặc điểm:</strong> Chậm hơn Unit Test vì cần truy cập vào các tài nguyên ngoài process.</p>
+                    <li><strong><span class="keyword" data-keyword="integration-test">Integration Test</span> (Kiểm thử tích hợp):</strong>
+                        <p><strong>Mục tiêu:</strong> Kiểm tra sự tương tác và phối hợp giữa hai hay nhiều thành phần của hệ thống, hoặc giữa hệ thống của bạn và một hệ thống bên ngoài (<span class="keyword" data-keyword="database">database</span>, <span class="keyword" data-keyword="api">API</span> của bên thứ ba).<br>
+                        <strong>Đặc điểm:</strong> Chậm hơn <span class="keyword" data-keyword="unit-test">Unit Test</span> vì cần truy cập vào các tài nguyên ngoài process.</p>
                     </li>
-                    <li><strong>End-to-end (E2E) Test (Kiểm thử đầu-cuối):</strong>
+                    <li><strong><span class="keyword" data-keyword="e2e-test">End-to-end (E2E) Test</span> (Kiểm thử đầu-cuối):</strong>
                         <p><strong>Mục tiêu:</strong> Kiểm tra toàn bộ luồng hoạt động của ứng dụng từ góc nhìn của người dùng cuối.<br>
-                        <strong>Đặc điểm:</strong> Mô phỏng một người dùng thật, tương tác từ giao diện người dùng (UI) xuống tới database. Rất chậm và chi phí bảo trì cao.</p>
+                        <strong>Đặc điểm:</strong> Mô phỏng một người dùng thật, tương tác từ giao diện người dùng (UI) xuống tới <span class="keyword" data-keyword="database">database</span>. Rất chậm và chi phí bảo trì cao.</p>
                     </li>
                 </ol>
 
-                <h2>Mô hình Kim tự tháp Kiểm thử (Test Pyramid)</h2>
-                <p>Đây là một mô hình trực quan giúp định hướng chiến lược viết test: hãy viết thật nhiều Unit Test, ít hơn Integration Test và số lượng E2E Test là ít nhất.</p>
+                <h2>Mô hình <span class="keyword" data-keyword="test-pyramid">Kim tự tháp Kiểm thử (Test Pyramid)</span></h2>
+                <p>Đây là một mô hình trực quan giúp định hướng chiến lược viết test: hãy viết thật nhiều <span class="keyword" data-keyword="unit-test">Unit Test</span>, ít hơn <span class="keyword" data-keyword="integration-test">Integration Test</span> và số lượng <span class="keyword" data-keyword="e2e-test">E2E Test</span> là ít nhất.</p>
                 <img src="images/test_pyramid.png" alt="Test Pyramid">
                 <p><em>Bạn có thể tìm thấy mã nguồn của sơ đồ này tại <code>plantuml_sources/test_pyramid.puml</code> để tự render.</em></p>
             </section>
@@ -147,12 +152,12 @@
                 <h1>Cấu trúc và Đánh giá Test</h1>
                 <p>Sau khi nắm được các khái niệm cơ bản, bước tiếp theo là tìm hiểu cách cấu trúc một bài test cho dễ đọc và cách đánh giá bộ test của bạn một cách đúng đắn.</p>
 
-                <h2>Mẫu AAA — Arrange / Act / Assert</h2>
+                <h2>Mẫu <span class="keyword" data-keyword="aaa">AAA — Arrange / Act / Assert</span></h2>
                 <p>Đây là một mẫu cấu trúc (pattern) cực kỳ phổ biến giúp cho các bài test trở nên rõ ràng và nhất quán. Một bài test nên được chia thành 3 phần riêng biệt:</p>
                 <ol>
                     <li><strong>Arrange (Sắp đặt):</strong>
                         <p><strong>Mục đích:</strong> Chuẩn bị mọi thứ cần thiết để bài test có thể chạy.<br>
-                        <strong>Công việc:</strong> Khởi tạo đối tượng, chuẩn bị dữ liệu đầu vào, thiết lập các mock/stub.</p>
+                        <strong>Công việc:</strong> Khởi tạo đối tượng, chuẩn bị dữ liệu đầu vào, thiết lập các <span class="keyword" data-keyword="mock">mock</span>/<span class="keyword" data-keyword="stub">stub</span>.</p>
                     </li>
                     <li><strong>Act (Hành động):</strong>
                         <p><strong>Mục đích:</strong> Thực thi hành vi (behavior) mà bạn muốn kiểm tra.<br>
@@ -169,8 +174,8 @@
                 <img src="images/aaa_pattern_sequence.png" alt="AAA Pattern Sequence">
                 <p><em>Bạn có thể tìm thấy mã nguồn của sơ đồ này tại <code>plantuml_sources/aaa_pattern_sequence.puml</code> để tự render.</em></p>
 
-                <h2>Các chỉ số Độ bao phủ (Coverage Metrics) — Hiểu cho đúng</h2>
-                <p>Độ bao phủ (code coverage) là một chỉ số đo lường tỷ lệ code của bạn được thực thi bởi các bài test. Tuy nhiên, đây là một chỉ số rất dễ bị hiểu sai.</p>
+                <h2>Các chỉ số <span class="keyword" data-keyword="code-coverage">Độ bao phủ (Coverage Metrics)</span> — Hiểu cho đúng</h2>
+                <p><span class="keyword" data-keyword="code-coverage">Độ bao phủ (code coverage)</span> là một chỉ số đo lường tỷ lệ code của bạn được thực thi bởi các bài test. Tuy nhiên, đây là một chỉ số rất dễ bị hiểu sai.</p>
                 <ul>
                     <li><strong>Line coverage (Độ phủ dòng lệnh):</strong> Tỷ lệ phần trăm số dòng code đã được chạy qua bởi bộ test.</li>
                     <li><strong>Branch coverage (Độ phủ nhánh):</strong> Tỷ lệ phần trăm các nhánh quyết định (ví dụ: <code>if/else</code>, <code>switch/case</code>) đã được thực thi. Đây là chỉ số quan trọng hơn line coverage.</li>
@@ -192,12 +197,12 @@
 
             <section id="london-vs-classical" class="content-section">
                 <h1>Hai trường phái Unit Testing: London vs. Classical</h1>
-                <p>Trong cộng đồng phát triển phần mềm, có hai trường phái tư duy chính về cách tiếp cận unit testing, đặc biệt là về vấn đề "cách ly" (isolation) và việc sử dụng các đối tượng giả (test doubles).</p>
+                <p>Trong cộng đồng phát triển phần mềm, có hai trường phái tư duy chính về cách tiếp cận <span class="keyword" data-keyword="unit-testing">unit testing</span>, đặc biệt là về vấn đề "cách ly" (isolation) và việc sử dụng các đối tượng giả (<span class="keyword" data-keyword="test-double">test doubles</span>).</p>
 
-                <h2>Trường phái London (còn gọi là Mockist)</h2>
+                <h2>Trường phái <span class="keyword" data-keyword="london-school">London (còn gọi là Mockist)</span></h2>
                 <ul>
-                    <li><strong>Triết lý:</strong> Một "unit" (đơn vị) được kiểm thử là một <strong>class duy nhất</strong>. Mọi dependency (đối tượng phụ thuộc) của class đó, dù là một class khác trong hệ thống của bạn, đều phải được thay thế bằng mock.</li>
-                    <li><strong>Tập trung vào Tương tác (Interaction):</strong> Các bài test theo trường phái này xác minh xem class đang được test (SUT - System Under Test) có gọi đúng các phương thức của dependency hay không. Đây được gọi là <em>interaction testing</em>.</li>
+                    <li><strong>Triết lý:</strong> Một "unit" (đơn vị) được kiểm thử là một <strong>class duy nhất</strong>. Mọi <span class="keyword" data-keyword="dependency">dependency</span> (đối tượng phụ thuộc) của class đó, dù là một class khác trong hệ thống của bạn, đều phải được thay thế bằng <span class="keyword" data-keyword="mock">mock</span>.</li>
+                    <li><strong>Tập trung vào Tương tác (Interaction):</strong> Các bài test theo trường phái này xác minh xem class đang được test (<span class="keyword" data-keyword="sut">SUT - System Under Test</span>) có gọi đúng các phương thức của <span class="keyword" data-keyword="dependency">dependency</span> hay không. Đây được gọi là <em>interaction testing</em>.</li>
                     <li><strong>Ưu điểm:</strong>
                         <ul>
                             <li>Khi một bài test fail, bạn biết chính xác class nào đang bị lỗi.</li>
@@ -206,20 +211,20 @@
                     </li>
                     <li><strong>Nhược điểm:</strong>
                         <ul>
-                            <li>Các bài test bị <strong>gắn chặt vào chi tiết cài đặt (implementation details)</strong>. Nếu bạn refactor code bằng cách thay đổi cách các class tương tác với nhau (nhưng vẫn giữ đúng kết quả cuối cùng), các bài test sẽ bị hỏng (false positive). Điều này làm tăng đáng kể chi phí bảo trì.</li>
+                            <li>Các bài test bị <strong>gắn chặt vào <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt (implementation details)</span></strong>. Nếu bạn <span class="keyword" data-keyword="refactor">refactor</span> code bằng cách thay đổi cách các class tương tác với nhau (nhưng vẫn giữ đúng kết quả cuối cùng), các bài test sẽ bị hỏng (<span class="keyword" data-keyword="false-positive">false positive</span>). Điều này làm tăng đáng kể chi phí bảo trì.</li>
                         </ul>
                     </li>
                 </ul>
 
-                <h2>Trường phái Classical (còn gọi là Detroit hoặc Classicist)</h2>
+                <h2>Trường phái <span class="keyword" data-keyword="classical-school">Classical (còn gọi là Detroit hoặc Classicist)</span></h2>
                 <ul>
                     <li><strong>Triết lý:</strong> Một "unit" là một <strong>hành vi nghiệp vụ (unit of behavior)</strong>. Nó có thể bao gồm một class hoặc một nhóm các class làm việc cùng nhau để hoàn thành một nhiệm vụ.</li>
                     <li><strong>Tập trung vào Kết quả (State):</strong> Các bài test theo trường phái này kiểm tra kết quả cuối cùng hoặc sự thay đổi trạng thái của hệ thống sau khi hành động được thực hiện. Đây được gọi là <em>state testing</em>.</li>
                     <li><strong>Cách ly:</strong> Trường phái này định nghĩa "cách ly" là việc các <strong>bài test phải độc lập với nhau</strong>. Test A không được ảnh hưởng đến kết quả của Test B.</li>
-                    <li><strong>Sử dụng Test Doubles:</strong> Chỉ sử dụng mock/stub cho các <strong>dependency thực sự bên ngoài và chậm</strong>, như network, database, file system (được gọi là <em>shared dependencies</em>). Các class thông thường trong cùng một hệ thống được sử dụng trực tiếp.</li>
+                    <li><strong>Sử dụng <span class="keyword" data-keyword="test-double">Test Doubles</span>:</strong> Chỉ sử dụng <span class="keyword" data-keyword="mock">mock</span>/<span class="keyword" data-keyword="stub">stub</span> cho các <strong><span class="keyword" data-keyword="dependency">dependency</span> thực sự bên ngoài và chậm</strong>, như network, <span class="keyword" data-keyword="database">database</span>, file system (được gọi là <em><span class="keyword" data-keyword="shared-dependency">shared dependencies</span></em>). Các class thông thường trong cùng một hệ thống được sử dụng trực tiếp.</li>
                     <li><strong>Ưu điểm:</strong>
                         <ul>
-                            <li>Các bài test có khả năng <strong>chống chịu refactoring cao</strong>. Bạn có thể tự do thay đổi cấu trúc code nội bộ miễn là kết quả đầu ra không đổi.</li>
+                            <li>Các bài test có khả năng <strong>chống chịu <span class="keyword" data-keyword="refactor">refactoring</span> cao</strong>. Bạn có thể tự do thay đổi cấu trúc code nội bộ miễn là kết quả đầu ra không đổi.</li>
                             <li>Bộ test phản ánh đúng hơn giá trị nghiệp vụ của ứng dụng.</li>
                         </ul>
                     </li>
@@ -231,7 +236,7 @@
                 </ul>
 
                 <h2>Lời khuyên</h2>
-                <p>Cả hai trường phái đều có ưu và nhược điểm riêng. Tuy nhiên, để xây dựng một bộ test bền vững và ít chi phí bảo trì, <strong>trường phái Classical thường được ưu tiên hơn</strong>. Việc các bài test có khả năng chống chịu refactoring là một trong những yếu tố quan trọng nhất của một bộ test tốt.</p>
+                <p>Cả hai trường phái đều có ưu và nhược điểm riêng. Tuy nhiên, để xây dựng một bộ test bền vững và ít chi phí bảo trì, <strong>trường phái <span class="keyword" data-keyword="classical-school">Classical</span> thường được ưu tiên hơn</strong>. Việc các bài test có khả năng chống chịu <span class="keyword" data-keyword="refactor">refactoring</span> là một trong những yếu tố quan trọng nhất của một bộ test tốt.</p>
                 <blockquote>
                     <p><strong>Quan trọng:</strong> Hãy chọn một phong cách nhất quán cho toàn bộ đội nhóm và tuân thủ nó. Việc trộn lẫn hai phong cách này trong cùng một codebase có thể dẫn đến những cuộc tranh cãi không cần thiết và làm cho bộ test trở nên khó hiểu.</p>
                 </blockquote>
@@ -239,7 +244,7 @@
 
             <section id="test-data-patterns" class="content-section">
                 <h1>Các mẫu (Patterns) xử lý dữ liệu Test</h1>
-                <p>Khi viết unit test, phần <code>Arrange</code> (chuẩn bị dữ liệu) thường là phần dài dòng và lặp đi lặp lại nhất. Nếu không được quản lý tốt, nó có thể làm cho các bài test trở nên khó đọc và khó bảo trì. Dưới đây là một số mẫu thiết kế phổ biến giúp bạn giải quyết vấn đề này.</p>
+                <p>Khi viết <span class="keyword" data-keyword="unit-test">unit test</span>, phần <code>Arrange</code> (chuẩn bị dữ liệu) thường là phần dài dòng và lặp đi lặp lại nhất. Nếu không được quản lý tốt, nó có thể làm cho các bài test trở nên khó đọc và khó bảo trì. Dưới đây là một số mẫu thiết kế phổ biến giúp bạn giải quyết vấn đề này.</p>
 
                 <h2>Vấn đề: Phần <code>Arrange</code> quá dài</h2>
                 <p>Hãy xem xét một ví dụ với các model <code>Customer</code>, <code>Order</code>, <code>Item</code>.</p>
@@ -326,7 +331,7 @@ def test_order_total_with_object_mother():
                 </ul>
 
                 <h2>Mẫu 2: Test Data Builder</h2>
-                <p><strong>Ý tưởng:</strong> Tạo một class <code>Builder</code> với một API linh hoạt (fluent interface) cho phép bạn tùy chỉnh các thuộc tính của đối tượng một cách dễ dàng.</p>
+                <p><strong>Ý tưởng:</strong> Tạo một class <code>Builder</code> với một <span class="keyword" data-keyword="api">API</span> linh hoạt (fluent interface) cho phép bạn tùy chỉnh các thuộc tính của đối tượng một cách dễ dàng.</p>
 <pre><code class="language-python"># test_builder.py
 from models import Item, Order
 
@@ -373,11 +378,11 @@ def test_order_with_builder():
 
             <section id="four-pillars" class="content-section">
                 <h1>Bốn trụ cột của một Unit Test tốt</h1>
-                <p>Để một bài test thực sự có giá trị, nó không chỉ cần tìm ra lỗi. Một bài test tốt phải cân bằng giữa việc phát hiện lỗi và chi phí bảo trì nó. Tác giả Vladimir Khorikov đã định nghĩa một hệ thống gồm bốn trụ cột để đánh giá chất lượng của một unit test.</p>
+                <p>Để một bài test thực sự có giá trị, nó không chỉ cần tìm ra lỗi. Một bài test tốt phải cân bằng giữa việc phát hiện lỗi và chi phí bảo trì nó. Tác giả Vladimir Khorikov đã định nghĩa một hệ thống gồm bốn trụ cột để đánh giá chất lượng của một <span class="keyword" data-keyword="unit-test">unit test</span>.</p>
                 <p>Một bài test tốt phải đứng vững trên cả bốn trụ cột này:</p>
                 <ol>
-                    <li><strong>Protection against regressions (Bảo vệ khỏi lỗi hồi quy)</strong></li>
-                    <li><strong>Resistance to refactoring (Chống chịu được tái cấu trúc)</strong></li>
+                    <li><strong>Protection against <span class="keyword" data-keyword="regression">regressions</span> (Bảo vệ khỏi lỗi hồi quy)</strong></li>
+                    <li><strong>Resistance to <span class="keyword" data-keyword="refactor">refactoring</span> (Chống chịu được tái cấu trúc)</strong></li>
                     <li><strong>Fast feedback (Phản hồi nhanh)</strong></li>
                     <li><strong>Maintainability (Dễ bảo trì)</strong></li>
                 </ol>
@@ -385,7 +390,7 @@ def test_order_with_builder():
                 <h2>Trụ cột 1: Bảo vệ khỏi lỗi hồi quy</h2>
                 <p>Đây là mục đích cơ bản nhất của mọi bài test.</p>
                 <ul>
-                    <li><strong>Lỗi hồi quy (Regression) là gì?</strong> Là khi một tính năng đang hoạt động bình thường bỗng dưng bị hỏng sau khi bạn thay đổi code ở một nơi khác.</li>
+                    <li><strong>Lỗi hồi quy (<span class="keyword" data-keyword="regression">Regression</span>) là gì?</strong> Là khi một tính năng đang hoạt động bình thường bỗng dưng bị hỏng sau khi bạn thay đổi code ở một nơi khác.</li>
                     <li><strong>Làm sao để một bài test có khả năng bảo vệ tốt?</strong>
                         <ul>
                             <li><strong>Thực thi nhiều code:</strong> Bài test chạy qua càng nhiều logic nghiệp vụ thì khả năng phát hiện lỗi càng cao.</li>
@@ -399,8 +404,8 @@ def test_order_with_builder():
                 <h2>Trụ cột 2: Chống chịu được tái cấu trúc</h2>
                 <p>Đây là trụ cột quan trọng nhất và thường bị bỏ qua nhất, quyết định chi phí bảo trì của bộ test.</p>
                 <ul>
-                    <li><strong>Tái cấu trúc (Refactoring) là gì?</strong> Là việc thay đổi cấu trúc code bên trong (ví dụ: tối ưu thuật toán, đổi tên biến) mà <strong>không làm thay đổi hành vi có thể quan sát được bên ngoài</strong>.</li>
-                    <li><strong>Báo động giả (False Positive):</strong> Nếu bạn tái cấu trúc code mà bài test bị "đỏ" (fail), trong khi chức năng vẫn đúng, thì bài test đó đã tạo ra một báo động giả.</li>
+                    <li><strong>Tái cấu trúc (<span class="keyword" data-keyword="refactor">Refactoring</span>) là gì?</strong> Là việc thay đổi cấu trúc code bên trong (ví dụ: tối ưu thuật toán, đổi tên biến) mà <strong>không làm thay đổi <span class="keyword" data-keyword="observable-behavior">hành vi có thể quan sát được bên ngoài</span></strong>.</li>
+                    <li><strong>Báo động giả (<span class="keyword" data-keyword="false-positive">False Positive</span>):</strong> Nếu bạn <span class="keyword" data-keyword="refactor">tái cấu trúc</span> code mà bài test bị "đỏ" (fail), trong khi chức năng vẫn đúng, thì bài test đó đã tạo ra một báo động giả.</li>
                     <li><strong>Tại sao báo động giả lại nguy hiểm?</strong>
                         <ul>
                             <li><strong>Mất niềm tin:</strong> Khi test báo lỗi giả quá nhiều, lập trình viên sẽ dần mất tin tưởng vào bộ test. Họ sẽ bắt đầu lờ đi các cảnh báo, và đó là lúc lỗi thật sự (true positive) sẽ bị bỏ lọt.</li>
@@ -414,7 +419,7 @@ def test_order_with_builder():
                 <p>Tốc độ là yếu tố quyết định tần suất bạn chạy bộ test.</p>
                 <ul>
                     <li><strong>Vòng lặp phản hồi (Feedback Loop):</strong> Test càng nhanh, bạn càng có thể chạy chúng thường xuyên hơn. Điều này giúp bạn phát hiện lỗi ngay khi nó vừa được tạo ra, làm cho việc sửa lỗi trở nên dễ dàng và ít tốn kém hơn rất nhiều.</li>
-                    <li><strong>Phân biệt Unit Test và Integration Test:</strong> Đây chính là yếu tố khác biệt lớn nhất. Unit test phải chạy trong vài mili giây, trong khi integration test có thể mất vài giây hoặc hơn.</li>
+                    <li><strong>Phân biệt <span class="keyword" data-keyword="unit-test">Unit Test</span> và <span class="keyword" data-keyword="integration-test">Integration Test</span>:</strong> Đây chính là yếu tố khác biệt lớn nhất. <span class="keyword" data-keyword="unit-test">Unit test</span> phải chạy trong vài mili giây, trong khi <span class="keyword" data-keyword="integration-test">integration test</span> có thể mất vài giây hoặc hơn.</li>
                 </ul>
                 <hr>
                 <h2>Trụ cột 4: Dễ bảo trì</h2>
@@ -423,53 +428,53 @@ def test_order_with_builder():
                     <li><strong>Độ khó hiểu:</strong>
                         <ul>
                             <li><strong>Ngắn gọn:</strong> Một bài test nên ngắn gọn và tập trung vào một kịch bản duy nhất.</li>
-                            <li><strong>Dễ đọc:</strong> Sử dụng các mẫu như AAA, đặt tên test rõ ràng để thể hiện ý định.</li>
+                            <li><strong>Dễ đọc:</strong> Sử dụng các mẫu như <span class="keyword" data-keyword="aaa">AAA</span>, đặt tên test rõ ràng để thể hiện ý định.</li>
                         </ul>
                     </li>
                     <li><strong>Độ khó vận hành:</strong>
                         <ul>
-                            <li>Một unit test tốt phải có thể chạy mà không cần một môi trường phức tạp (không cần database, không cần server, không cần file cấu hình).</li>
+                            <li>Một <span class="keyword" data-keyword="unit-test">unit test</span> tốt phải có thể chạy mà không cần một môi trường phức tạp (không cần <span class="keyword" data-keyword="database">database</span>, không cần server, không cần file cấu hình).</li>
                         </ul>
                     </li>
                 </ul>
                 <hr>
                 <h2>Sự đánh đổi</h2>
-                <p>Không thể có một bài test hoàn hảo đạt điểm tối đa ở cả 4 trụ cột. Sẽ luôn có sự đánh đổi, đặc biệt là giữa <strong>Trụ cột 1 (Bảo vệ)</strong> và <strong>Trụ cột 2 (Chống chịu refactor) & 3 (Tốc độ)</strong>.</p>
+                <p>Không thể có một bài test hoàn hảo đạt điểm tối đa ở cả 4 trụ cột. Sẽ luôn có sự đánh đổi, đặc biệt là giữa <strong>Trụ cột 1 (Bảo vệ)</strong> và <strong>Trụ cột 2 (Chống chịu <span class="keyword" data-keyword="refactor">refactor</span>) & 3 (Tốc độ)</strong>.</p>
                 <ul>
-                    <li><strong>E2E Test:</strong> Bảo vệ tốt nhất, chống chịu refactor tốt, nhưng phản hồi cực kỳ chậm.</li>
-                    <li><strong>Unit Test mong manh:</strong> Bảo vệ tốt, phản hồi nhanh, nhưng chống chịu refactor cực tệ.</li>
-                    <li><strong>Unit Test tốt:</strong> Cân bằng giữa cả bốn yếu tố, trong đó <strong>khả năng chống chịu refactor và dễ bảo trì là không thể nhân nhượng</strong>.</li>
+                    <li><strong><span class="keyword" data-keyword="e2e-test">E2E Test</span>:</strong> Bảo vệ tốt nhất, chống chịu <span class="keyword" data-keyword="refactor">refactor</span> tốt, nhưng phản hồi cực kỳ chậm.</li>
+                    <li><strong><span class="keyword" data-keyword="unit-test">Unit Test</span> mong manh:</strong> Bảo vệ tốt, phản hồi nhanh, nhưng chống chịu <span class="keyword" data-keyword="refactor">refactor</span> cực tệ.</li>
+                    <li><strong><span class="keyword" data-keyword="unit-test">Unit Test</span> tốt:</strong> Cân bằng giữa cả bốn yếu tố, trong đó <strong>khả năng chống chịu <span class="keyword" data-keyword="refactor">refactor</span> và dễ bảo trì là không thể nhân nhượng</strong>.</li>
                 </ul>
             </section>
 
             <section id="behavior-vs-implementation" class="content-section">
                 <h1>Behavior vs. Implementation Details</h1>
-                <p>Để viết được những bài test có khả năng chống chịu tái cấu trúc (resistant to refactoring), bạn buộc phải hiểu rõ và phân biệt được đâu là <strong>hành vi quan sát được</strong> và đâu là <strong>chi tiết cài đặt</strong>.</p>
+                <p>Để viết được những bài test có khả năng chống chịu tái cấu trúc (resistant to <span class="keyword" data-keyword="refactor">refactoring</span>), bạn buộc phải hiểu rõ và phân biệt được đâu là <strong><span class="keyword" data-keyword="observable-behavior">hành vi quan sát được</span></strong> và đâu là <strong><span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span></strong>.</p>
                 <ul>
-                    <li><strong>Kiểm tra hành vi quan sát được:</strong> Giúp bài test của bạn trở nên bền vững.</li>
-                    <li><strong>Kiểm tra chi tiết cài đặt:</strong> Khiến bài test của bạn trở nên mong manh (brittle).</li>
+                    <li><strong>Kiểm tra <span class="keyword" data-keyword="observable-behavior">hành vi quan sát được</span>:</strong> Giúp bài test của bạn trở nên bền vững.</li>
+                    <li><strong>Kiểm tra <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span>:</strong> Khiến bài test của bạn trở nên mong manh (brittle).</li>
                 </ul>
                 <h2>Định nghĩa</h2>
                 <p>Mọi đoạn code đều có thể được phân loại theo hai góc nhìn:</p>
                 <ol>
-                    <li><strong>Góc nhìn Công khai (Public vs. Private):</strong>
+                    <li><strong>Góc nhìn Công khai (<span class="keyword" data-keyword="public-api">Public</span> vs. <span class="keyword" data-keyword="private-api">Private</span>):</strong>
                         <ul>
-                            <li><strong>Public API:</strong> Các phương thức và thuộc tính mà code bên ngoài (client) được phép truy cập.</li>
-                            <li><strong>Private API:</strong> Các phương thức và thuộc tính chỉ được sử dụng trong nội bộ của class.</li>
+                            <li><strong><span class="keyword" data-keyword="public-api">Public API</span>:</strong> Các phương thức và thuộc tính mà code bên ngoài (client) được phép truy cập và sử dụng.</li>
+                            <li><strong><span class="keyword" data-keyword="private-api">Private API</span>:</strong> Các phương thức và thuộc tính của một class chỉ được sử dụng trong nội bộ và không dành cho bên ngoài truy cập.</li>
                         </ul>
                     </li>
                     <li><strong>Góc nhìn Mục đích (Behavior vs. Implementation):</strong>
                         <ul>
-                            <li><strong>Hành vi quan sát được (Observable Behavior):</strong> Là những kết quả hoặc tác dụng phụ (side effect) mà client mong đợi khi tương tác với đối tượng. Đây là "cái gì" (what) mà code của bạn làm.</li>
-                            <li><strong>Chi tiết cài đặt (Implementation Details):</strong> Là các bước, thuật toán, hoặc cấu trúc dữ liệu nội bộ được sử dụng để tạo ra hành vi đó. Đây là "làm thế nào" (how) mà code của bạn thực hiện công việc.</li>
+                            <li><strong><span class="keyword" data-keyword="observable-behavior">Hành vi quan sát được (Observable Behavior)</span>:</strong> Là những kết quả hoặc tác dụng phụ (side effect) mà client mong đợi khi tương tác với đối tượng. Đây là "cái gì" (what) mà code của bạn làm.</li>
+                            <li><strong><span class="keyword" data-keyword="implementation-details">Chi tiết cài đặt (Implementation Details)</span>:</strong> Là các bước, thuật toán, hoặc cấu trúc dữ liệu nội bộ được sử dụng để tạo ra hành vi đó. Đây là "làm thế nào" (how) mà code của bạn thực hiện công việc.</li>
                         </ul>
                     </li>
                 </ol>
                 <h3>Mối quan hệ</h3>
-                <p>Một API được thiết kế tốt (well-designed) là khi <strong>Public API và Observable Behavior là một</strong>. Tất cả các chi tiết cài đặt phải được che giấu (encapsulated) và là <code>private</code>.</p>
+                <p>Một <span class="keyword" data-keyword="api">API</span> được thiết kế tốt (well-designed) là khi <strong><span class="keyword" data-keyword="public-api">Public API</span> và <span class="keyword" data-keyword="observable-behavior">Observable Behavior</span> là một</strong>. Tất cả các <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span> phải được che giấu (<span class="keyword" data-keyword="encapsulation">encapsulated</span>) và là <code>private</code>.</p>
                 <img src="images/api_design.png" alt="Well-designed API vs. Leaking API">
                 <p><em>Bạn có thể tạo sơ đồ này bằng mã nguồn <code>plantuml_sources/api_design.puml</code>.</em></p>
-                <p>Khi một chi tiết cài đặt bị "rò rỉ" (leak) ra Public API, nó sẽ cám dỗ bạn viết những bài test kiểm tra vào đó, và đó là nguồn gốc của các bài test mong manh.</p>
+                <p>Khi một <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span> bị "rò rỉ" (leak) ra <span class="keyword" data-keyword="public-api">Public API</span>, nó sẽ cám dỗ bạn viết những bài test kiểm tra vào đó, và đó là nguồn gốc của các bài test mong manh.</p>
 
                 <h2>Ví dụ: Rò rỉ Logic</h2>
                 <p>Hãy xem xét một class <code>User</code> cần đảm bảo tên người dùng không dài quá 50 ký tự.</p>
@@ -519,24 +524,24 @@ class UserController:
                 <p><strong>Lợi ích:</strong> Bây giờ bạn có thể thay đổi hoàn toàn logic <code>_normalize_name</code> mà không làm hỏng <code>UserController</code> hoặc các bài test của nó.</p>
 
                 <h2>Nguyên lý Tell, Don't Ask</h2>
-                <p>Nguyên lý này là kim chỉ nam giúp bạn thiết kế API tốt:</p>
+                <p>Nguyên lý này là kim chỉ nam giúp bạn thiết kế <span class="keyword" data-keyword="api">API</span> tốt:</p>
                 <ul>
                     <li><strong>Ask (Hỏi - Xấu):</strong> Hỏi một đối tượng về trạng thái của nó, thực hiện logic ở bên ngoài, rồi cập nhật lại trạng thái cho đối tượng đó. (Đây là ví dụ sai ở trên).</li>
                     <li><strong>Tell (Bảo - Tốt):</strong> Ra lệnh cho một đối tượng thực hiện một hành động. Đối tượng sẽ tự sử dụng trạng thái nội bộ của nó để thực hiện hành động đó. (Đây là ví dụ đúng ở trên).</li>
                 </ul>
-                <p>Bằng cách tuân thủ "Tell, Don't Ask", bạn sẽ tự động tạo ra các API đóng gói tốt, che giấu các chi tiết cài đặt và giúp cho các bài test của bạn trở nên bền vững hơn.</p>
+                <p>Bằng cách tuân thủ "Tell, Don't Ask", bạn sẽ tự động tạo ra các <span class="keyword" data-keyword="api">API</span> đóng gói tốt, che giấu các <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span> và giúp cho các bài test của bạn trở nên bền vững hơn.</p>
             </section>
 
             <section id="test-doubles" class="content-section">
                 <h1>Mocks, Stubs và Test Doubles</h1>
-                <p>Khi viết unit test, chúng ta cần "cách ly" đơn vị đang được test (SUT - System Under Test) khỏi các dependency (đối tượng phụ thuộc) của nó. <strong>Test Doubles</strong> là thuật ngữ chung chỉ các đối tượng giả được tạo ra để thay thế các dependency thật trong môi trường test.</p>
-                <p>Mặc dù chúng ta hay gọi chung là "mock", nhưng có nhiều loại Test Double khác nhau, mỗi loại có một mục đích riêng. Phân biệt rõ chúng là chìa khóa để viết các bài test đúng đắn.</p>
+                <p>Khi viết <span class="keyword" data-keyword="unit-test">unit test</span>, chúng ta cần "cách ly" đơn vị đang được test (<span class="keyword" data-keyword="sut">SUT - System Under Test</span>) khỏi các <span class="keyword" data-keyword="dependency">dependency</span> (đối tượng phụ thuộc) của nó. <strong><span class="keyword" data-keyword="test-double">Test Doubles</span></strong> là thuật ngữ chung chỉ các đối tượng giả được tạo ra để thay thế các <span class="keyword" data-keyword="dependency">dependency</span> thật trong môi trường test.</p>
+                <p>Mặc dù chúng ta hay gọi chung là "<span class="keyword" data-keyword="mock">mock</span>", nhưng có nhiều loại <span class="keyword" data-keyword="test-double">Test Double</span> khác nhau, mỗi loại có một mục đích riêng. Phân biệt rõ chúng là chìa khóa để viết các bài test đúng đắn.</p>
 
-                <h2>Stub (Giả lập dữ liệu)</h2>
+                <h2><span class="keyword" data-keyword="stub">Stub</span> (Giả lập dữ liệu)</h2>
                 <ul>
-                    <li><strong>Mục đích:</strong> Cung cấp dữ liệu đầu vào (input) cho SUT để nó có thể chạy. Stub giúp mô phỏng các trạng thái và giá trị khác nhau.</li>
-                    <li><strong>Vai trò:</strong> Đóng vai trò "người cung cấp thông tin". SUT sẽ <strong>lấy dữ liệu từ</strong> Stub.</li>
-                    <li><strong>Quy tắc vàng:</strong> <strong>Đừng bao giờ xác minh (verify) một lời gọi đến Stub.</strong> Việc SUT gọi Stub một hay nhiều lần không quan trọng, miễn là kết quả cuối cùng đúng. Việc verify Stub sẽ khiến test bị gắn chặt vào chi tiết cài đặt.</li>
+                    <li><strong>Mục đích:</strong> Cung cấp dữ liệu đầu vào (input) cho <span class="keyword" data-keyword="sut">SUT</span> để nó có thể chạy. <span class="keyword" data-keyword="stub">Stub</span> giúp mô phỏng các trạng thái và giá trị khác nhau.</li>
+                    <li><strong>Vai trò:</strong> Đóng vai trò "người cung cấp thông tin". <span class="keyword" data-keyword="sut">SUT</span> sẽ <strong>lấy dữ liệu từ</strong> <span class="keyword" data-keyword="stub">Stub</span>.</li>
+                    <li><strong>Quy tắc vàng:</strong> <strong>Đừng bao giờ xác minh (verify) một lời gọi đến <span class="keyword" data-keyword="stub">Stub</span>.</strong> Việc <span class="keyword" data-keyword="sut">SUT</span> gọi <span class="keyword" data-keyword="stub">Stub</span> một hay nhiều lần không quan trọng, miễn là kết quả cuối cùng đúng. Việc verify <span class="keyword" data-keyword="stub">Stub</span> sẽ khiến test bị gắn chặt vào <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span>.</li>
                 </ul>
 <pre><code class="language-python">from unittest.mock import Mock
 
@@ -548,11 +553,11 @@ database_stub.get_user.return_value = {"name": "Alice", "email": "alice@example.
 user_service = UserService(database_stub)
 </code></pre>
 
-                <h2>Mock (Giả lập hành động)</h2>
+                <h2><span class="keyword" data-keyword="mock">Mock</span> (Giả lập hành động)</h2>
                 <ul>
-                    <li><strong>Mục đích:</strong> Giả lập và xác minh các tương tác đi ra (outcoming interaction) từ SUT đến các hệ thống bên ngoài.</li>
-                    <li><strong>Vai trò:</strong> Đóng vai trò "người nhận lệnh". SUT sẽ <strong>gửi lệnh đến</strong> Mock.</li>
-                    <li><strong>Cách dùng:</strong> Sau khi hành động (Act) diễn ra, bạn sẽ xác minh (verify) xem SUT đã gọi đúng phương thức của Mock với đúng tham số hay chưa.</li>
+                    <li><strong>Mục đích:</strong> Giả lập và xác minh các tương tác đi ra (outcoming interaction) từ <span class="keyword" data-keyword="sut">SUT</span> đến các hệ thống bên ngoài.</li>
+                    <li><strong>Vai trò:</strong> Đóng vai trò "người nhận lệnh". <span class="keyword" data-keyword="sut">SUT</span> sẽ <strong>gửi lệnh đến</strong> <span class="keyword" data-keyword="mock">Mock</span>.</li>
+                    <li><strong>Cách dùng:</strong> Sau khi hành động (Act) diễn ra, bạn sẽ xác minh (verify) xem <span class="keyword" data-keyword="sut">SUT</span> đã gọi đúng phương thức của <span class="keyword" data-keyword="mock">Mock</span> với đúng tham số hay chưa.</li>
                 </ul>
 <pre><code class="language-python">from unittest.mock import Mock
 
@@ -567,54 +572,54 @@ email_sender_mock.send_welcome_email.assert_called_with("alice@example.com")
 </code></pre>
 
                 <h2>Phân biệt qua Nguyên lý CQS (Command-Query Separation)</h2>
-                <p>Một cách tuyệt vời để phân biệt khi nào dùng Stub và khi nào dùng Mock là dựa vào nguyên lý CQS:</p>
+                <p>Một cách tuyệt vời để phân biệt khi nào dùng <span class="keyword" data-keyword="stub">Stub</span> và khi nào dùng <span class="keyword" data-keyword="mock">Mock</span> là dựa vào nguyên lý CQS:</p>
                 <ul>
                     <li><strong>Query (Truy vấn):</strong> Một phương thức trả về giá trị nhưng không làm thay đổi trạng thái hệ thống.
-                        <ul><li>Các dependency dạng Query nên được thay thế bằng <strong>Stub</strong>.</li></ul>
+                        <ul><li>Các <span class="keyword" data-keyword="dependency">dependency</span> dạng Query nên được thay thế bằng <strong><span class="keyword" data-keyword="stub">Stub</span></strong>.</li></ul>
                     </li>
                     <li><strong>Command (Lệnh):</strong> Một phương thức làm thay đổi trạng thái hệ thống (side effect) nhưng không trả về giá trị (void).
-                        <ul><li>Các dependency dạng Command nên được thay thế bằng <strong>Mock</strong>.</li></ul>
+                        <ul><li>Các <span class="keyword" data-keyword="dependency">dependency</span> dạng Command nên được thay thế bằng <strong><span class="keyword" data-keyword="mock">Mock</span></strong>.</li></ul>
                     </li>
                 </ul>
 
-                <h2>Các loại Test Double khác</h2>
+                <h2>Các loại <span class="keyword" data-keyword="test-double">Test Double</span> khác</h2>
                 <ul>
                     <li><strong>Dummy:</strong> Một đối tượng được truyền vào chỉ để lấp đầy danh sách tham số, nhưng không bao giờ được sử dụng thực sự.</li>
-                    <li><strong>Fake:</strong> Một đối tượng có một phiên bản cài đặt hoạt động thực sự, nhưng đơn giản hơn nhiều so với bản production (ví dụ: in-memory database thay vì một database thật).</li>
-                    <li><strong>Spy:</strong> Một đối tượng vừa đóng vai trò là Stub (cung cấp dữ liệu), vừa ghi lại thông tin về các lời gọi đến nó (giống Mock). Spy thường được dùng để bao bọc một đối tượng thật.</li>
+                    <li><strong>Fake:</strong> Một đối tượng có một phiên bản cài đặt hoạt động thực sự, nhưng đơn giản hơn nhiều so với bản production (ví dụ: in-memory <span class="keyword" data-keyword="database">database</span> thay vì một <span class="keyword" data-keyword="database">database</span> thật).</li>
+                    <li><strong>Spy:</strong> Một đối tượng vừa đóng vai trò là <span class="keyword" data-keyword="stub">Stub</span> (cung cấp dữ liệu), vừa ghi lại thông tin về các lời gọi đến nó (giống <span class="keyword" data-keyword="mock">Mock</span>). Spy thường được dùng để bao bọc một đối tượng thật.</li>
                 </ul>
                 <blockquote>
-                    <p><strong>Lưu ý:</strong> Các thư viện như <code>unittest.mock</code> của Python hay <code>Moq</code> của C# thường cung cấp một class <code>Mock</code> đa năng. Bạn có thể sử dụng class này để tạo ra cả Stub, Mock, và Spy. Điều quan trọng là <strong>cách bạn sử dụng</strong> đối tượng đó trong bài test sẽ quyết định vai trò thực sự của nó.</p>
+                    <p><strong>Lưu ý:</strong> Các thư viện như <code>unittest.mock</code> của Python hay <code>Moq</code> của C# thường cung cấp một class <code>Mock</code> đa năng. Bạn có thể sử dụng class này để tạo ra cả <span class="keyword" data-keyword="stub">Stub</span>, <span class="keyword" data-keyword="mock">Mock</span>, và Spy. Điều quan trọng là <strong>cách bạn sử dụng</strong> đối tượng đó trong bài test sẽ quyết định vai trò thực sự của nó.</p>
                 </blockquote>
             </section>
 
             <section id="architecture-mocking" class="content-section">
                 <h1>Kiến trúc và Quy tắc Mocking</h1>
-                <p>Việc quyết định "nên mock cái gì" và "không nên mock cái gì" là một trong những quyết định khó khăn nhất khi viết test. Một quy tắc sai lầm có thể dẫn đến một bộ test mong manh, khó bảo trì. Câu trả lời nằm ở việc hiểu rõ kiến trúc ứng dụng của bạn.</p>
+                <p>Việc quyết định "nên <span class="keyword" data-keyword="mock">mock</span> cái gì" và "không nên <span class="keyword" data-keyword="mock">mock</span> cái gì" là một trong những quyết định khó khăn nhất khi viết test. Một quy tắc sai lầm có thể dẫn đến một bộ test mong manh, khó bảo trì. Câu trả lời nằm ở việc hiểu rõ kiến trúc ứng dụng của bạn.</p>
 
-                <h2>Kiến trúc Lục giác (Hexagonal Architecture)</h2>
+                <h2><span class="keyword" data-keyword="hexagonal-architecture">Kiến trúc Lục giác (Hexagonal Architecture)</span></h2>
                 <p>Kiến trúc này chia ứng dụng của bạn thành hai phần chính:</p>
                 <ol>
-                    <li><strong>Lõi ứng dụng (Domain Layer & Application Services Layer):</strong> Đây là nơi chứa toàn bộ logic nghiệp vụ của bạn. Lõi này hoàn toàn không biết gì về thế giới bên ngoài (như database, API, UI).</li>
-                    <li><strong>Các Adapter:</strong> Là các cổng giao tiếp giúp lõi ứng dụng nói chuyện với thế giới bên ngoài. Ví dụ: một API controller là một adapter nhận request từ HTTP, một repository là một adapter nói chuyện với database.</li>
+                    <li><strong>Lõi ứng dụng (<span class="keyword" data-keyword="domain-layer">Domain Layer</span> & <span class="keyword" data-keyword="application-services-layer">Application Services Layer</span>):</strong> Đây là nơi chứa toàn bộ logic nghiệp vụ của bạn. Lõi này hoàn toàn không biết gì về thế giới bên ngoài (như <span class="keyword" data-keyword="database">database</span>, <span class="keyword" data-keyword="api">API</span>, UI).</li>
+                    <li><strong>Các Adapter:</strong> Là các cổng giao tiếp giúp lõi ứng dụng nói chuyện với thế giới bên ngoài. Ví dụ: một <span class="keyword" data-keyword="api">API</span> controller là một adapter nhận request từ HTTP, một repository là một adapter nói chuyện với <span class="keyword" data-keyword="database">database</span>.</li>
                 </ol>
                 <p>Mục tiêu của kiến trúc này là <strong>bảo vệ lõi nghiệp vụ khỏi những thay đổi của công nghệ bên ngoài</strong>.</p>
 
                 <h2>Phân biệt hai loại Giao tiếp</h2>
-                <p>Đây là chìa khóa để đưa ra quyết định mocking đúng đắn:</p>
+                <p>Đây là chìa khóa để đưa ra quyết định <span class="keyword" data-keyword="mock">mocking</span> đúng đắn:</p>
                 <ol>
                     <li><strong>Giao tiếp nội bộ (Intra-system communications):</strong>
                         <ul>
                             <li><strong>Là gì:</strong> Sự tương tác giữa các class <strong>bên trong</strong> lõi ứng dụng của bạn (ví dụ: <code>Customer</code> gọi <code>Store</code>).</li>
-                            <li><strong>Bản chất:</strong> Đây là <strong>chi tiết cài đặt (Implementation Details)</strong>.</li>
-                            <li><strong>Quy tắc:</strong> <strong>KHÔNG ĐƯỢC MOCK.</strong> Việc mock các giao tiếp nội bộ sẽ khiến test của bạn bị gắn chặt vào thiết kế hiện tại và sẽ bị hỏng khi bạn refactor.</li>
+                            <li><strong>Bản chất:</strong> Đây là <strong><span class="keyword" data-keyword="implementation-details">chi tiết cài đặt (Implementation Details)</span></strong>.</li>
+                            <li><strong>Quy tắc:</strong> <strong>KHÔNG ĐƯỢC MOCK.</strong> Việc <span class="keyword" data-keyword="mock">mock</span> các giao tiếp nội bộ sẽ khiến test của bạn bị gắn chặt vào thiết kế hiện tại và sẽ bị hỏng khi bạn <span class="keyword" data-keyword="refactor">refactor</span>.</li>
                         </ul>
                     </li>
                     <li><strong>Giao tiếp liên hệ thống (Inter-system communications):</strong>
                         <ul>
-                            <li><strong>Là gì:</strong> Sự tương tác từ lõi ứng dụng của bạn đi ra một <strong>hệ thống bên ngoài</strong> mà bạn không kiểm soát (ví dụ: gửi email qua SMTP server, gọi API thanh toán của bên thứ ba).</li>
-                            <li><strong>Bản chất:</strong> Đây là <strong>hành vi quan sát được (Observable Behavior)</strong>.</li>
-                            <li><strong>Quy tắc:</strong> <strong>NÊN DÙNG MOCK.</strong> Mocking ở đây giúp bạn xác minh rằng ứng dụng của bạn đã tuân thủ đúng "hợp đồng" (contract) khi giao tiếp với thế giới bên ngoài.</li>
+                            <li><strong>Là gì:</strong> Sự tương tác từ lõi ứng dụng của bạn đi ra một <strong>hệ thống bên ngoài</strong> mà bạn không kiểm soát (ví dụ: gửi email qua SMTP server, gọi <span class="keyword" data-keyword="api">API</span> thanh toán của bên thứ ba).</li>
+                            <li><strong>Bản chất:</strong> Đây là <strong><span class="keyword" data-keyword="observable-behavior">hành vi quan sát được (Observable Behavior)</span></strong>.</li>
+                            <li><strong>Quy tắc:</strong> <strong>NÊN DÙNG MOCK.</strong> <span class="keyword" data-keyword="mock">Mocking</span> ở đây giúp bạn xác minh rằng ứng dụng của bạn đã tuân thủ đúng "hợp đồng" (contract) khi giao tiếp với thế giới bên ngoài.</li>
                         </ul>
                     </li>
                 </ol>
@@ -623,15 +628,21 @@ email_sender_mock.send_welcome_email.assert_called_with("alice@example.com")
                 <img src="images/hexagonal_mocking.png" alt="Hexagonal Architecture Mocking Rule">
                 <p><em>Bạn có thể tạo sơ đồ này bằng mã nguồn <code>plantuml_sources/hexagonal_mocking.puml</code>.</em></p>
 
-                <h2>Cú lừa về Database</h2>
-                <p>Một sai lầm phổ biến là coi <strong>database của chính ứng dụng</strong> là một hệ thống bên ngoài và luôn luôn mock nó.</p>
+                <h2>Cú lừa về <span class="keyword" data-keyword="database">Database</span></h2>
+                <p>Một sai lầm phổ biến là coi <strong><span class="keyword" data-keyword="database">database</span> của chính ứng dụng</strong> là một hệ thống bên ngoài và luôn luôn <span class="keyword" data-keyword="mock">mock</span> nó.</p>
                 <ul>
-                    <li><strong>Database của ứng dụng:</strong> Là database mà chỉ có ứng dụng của bạn sử dụng và bạn có toàn quyền kiểm soát (đổi schema, xóa bảng...). Nó nên được coi là một <strong>chi tiết cài đặt</strong> của ứng dụng. Việc mock nó sẽ làm giảm giá trị của bài test.</li>
-                    <li><strong>Hệ thống bên ngoài:</strong> Là những hệ thống bạn không kiểm soát, như một API của đối tác.</li>
+                    <li><strong><span class="keyword" data-keyword="database">Database</span> của ứng dụng:</strong> Là <span class="keyword" data-keyword="database">database</span> mà chỉ có ứng dụng của bạn sử dụng và bạn có toàn quyền kiểm soát (đổi schema, xóa bảng...). Nó nên được coi là một <strong><span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span></strong> của ứng dụng. Việc <span class="keyword" data-keyword="mock">mock</span> nó sẽ làm giảm giá trị của bài test.</li>
+                    <li><strong>Hệ thống bên ngoài:</strong> Là những hệ thống bạn không kiểm soát, như một <span class="keyword" data-keyword="api">API</span> của đối tác.</li>
                 </ul>
                 <blockquote>
-                    <p><strong>Lời khuyên:</strong> Thay vì mock database, hãy viết các bài <strong>Integration Test</strong> chạy trên một database thật (hoặc một phiên bản trong Docker). Điều này sẽ mang lại sự tự tin cao hơn nhiều. Các bài <strong>Unit Test</strong> nên tập trung vào các logic nghiệp vụ thuần túy không phụ thuộc vào I/O.</p>
+                    <p><strong>Lời khuyên:</strong> Thay vì <span class="keyword" data-keyword="mock">mock</span> <span class="keyword" data-keyword="database">database</span>, hãy viết các bài <strong><span class="keyword" data-keyword="integration-test">Integration Test</span></strong> chạy trên một <span class="keyword" data-keyword="database">database</span> thật (hoặc một phiên bản trong Docker). Điều này sẽ mang lại sự tự tin cao hơn nhiều. Các bài <strong><span class="keyword" data-keyword="unit-test">Unit Test</span></strong> nên tập trung vào các logic nghiệp vụ thuần túy không phụ thuộc vào I/O.</p>
                 </blockquote>
+            </section>
+
+            <section id="glossary" class="content-section">
+                <h1>Từ điển thuật ngữ</h1>
+                <p>Đây là nơi tổng hợp định nghĩa chi tiết cho các thuật ngữ quan trọng được sử dụng trong wiki này.</p>
+                <!-- Định nghĩa chi tiết sẽ được JS chèn vào đây -->
             </section>
         </main>
     </div>
