@@ -145,8 +145,7 @@
 
                 <h2>Mô hình <span class="keyword" data-keyword="test-pyramid">Kim tự tháp Kiểm thử (Test Pyramid)</span></h2>
                 <p>Đây là một mô hình trực quan giúp định hướng chiến lược viết test: hãy viết thật nhiều <span class="keyword" data-keyword="unit-test">Unit Test</span>, ít hơn <span class="keyword" data-keyword="integration-test">Integration Test</span> và số lượng <span class="keyword" data-keyword="e2e-test">E2E Test</span> là ít nhất.</p>
-                <img src="images/test_pyramid.png" alt="Test Pyramid">
-                <p><em>Bạn có thể tìm thấy mã nguồn của sơ đồ này tại <code>plantuml_sources/test_pyramid.puml</code> để tự render.</em></p>
+                <img src="images/test_pyramid.svg" alt="Test Pyramid">
             </section>
 
             <section id="structuring-metrics" class="content-section">
@@ -172,8 +171,7 @@
 
                 <h3>Sơ đồ tuần tự của mẫu AAA</h3>
                 <p>Sơ đồ này minh họa luồng hoạt động của một bài test theo mẫu AAA.</p>
-                <img src="images/aaa_pattern_sequence.png" alt="AAA Pattern Sequence">
-                <p><em>Bạn có thể tìm thấy mã nguồn của sơ đồ này tại <code>plantuml_sources/aaa_pattern_sequence.puml</code> để tự render.</em></p>
+                <img src="images/aaa_pattern_sequence.svg" alt="AAA Pattern Sequence">
 
                 <h2>Các chỉ số <span class="keyword" data-keyword="code-coverage">Độ bao phủ (Coverage Metrics)</span> — Hiểu cho đúng</h2>
                 <p><span class="keyword" data-keyword="code-coverage">Độ bao phủ (code coverage)</span> là một chỉ số đo lường tỷ lệ code của bạn được thực thi bởi các bài test. Tuy nhiên, đây là một chỉ số rất dễ bị hiểu sai.</p>
@@ -473,8 +471,7 @@ def test_order_with_builder():
                 </ol>
                 <h3>Mối quan hệ</h3>
                 <p>Một <span class="keyword" data-keyword="api">API</span> được thiết kế tốt (well-designed) là khi <strong><span class="keyword" data-keyword="public-api">Public API</span> và <span class="keyword" data-keyword="observable-behavior">Observable Behavior</span> là một</strong>. Tất cả các <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span> phải được che giấu (<span class="keyword" data-keyword="encapsulation">encapsulated</span>) và là <code>private</code>.</p>
-                <img src="images/api_design.png" alt="Well-designed API vs. Leaking API">
-                <p><em>Bạn có thể tạo sơ đồ này bằng mã nguồn <code>plantuml_sources/api_design.puml</code>.</em></p>
+                <img src="images/api_design.svg" alt="Well-designed API vs. Leaking API">
                 <p>Khi một <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span> bị "rò rỉ" (leak) ra <span class="keyword" data-keyword="public-api">Public API</span>, nó sẽ cám dỗ bạn viết những bài test kiểm tra vào đó, và đó là nguồn gốc của các bài test mong manh.</p>
 
                 <h2>Ví dụ: Rò rỉ Logic</h2>
@@ -620,14 +617,13 @@ email_sender_mock.send_welcome_email.assert_called_with("alice@example.com")
                         <ul>
                             <li><strong>Là gì:</strong> Sự tương tác từ lõi ứng dụng của bạn đi ra một <strong>hệ thống bên ngoài</strong> mà bạn không kiểm soát (ví dụ: gửi email qua SMTP server, gọi <span class="keyword" data-keyword="api">API</span> thanh toán của bên thứ ba).</li>
                             <li><strong>Bản chất:</strong> Đây là <strong><span class="keyword" data-keyword="observable-behavior">hành vi quan sát được (Observable Behavior)</span></strong>.</li>
-                            <li><strong>Quy tắc:</strong> <strong>NÊN DÙNG MOCK.</strong> <span class="keyword" data-keyword="mock">Mocking</span> ở đây giúp bạn xác minh rằng ứng dụng của bạn đã tuân thủ đúng "hợp đồng" (contract) khi giao tiếp với thế giới bên ngoài.</li>
+                            <li><strong>Quy tắc:</strong> <strong>NÊN DÙNG MOCK.</strong> <span class="keyword" data-keyword="mocking</span> ở đây giúp bạn xác minh rằng ứng dụng của bạn đã tuân thủ đúng "hợp đồng" (contract) khi giao tiếp với thế giới bên ngoài.</li>
                         </ul>
                     </li>
                 </ol>
 
                 <h3>Sơ đồ Quy tắc Mocking</h3>
-                <img src="images/hexagonal_mocking.png" alt="Hexagonal Architecture Mocking Rule">
-                <p><em>Bạn có thể tạo sơ đồ này bằng mã nguồn <code>plantuml_sources/hexagonal_mocking.puml</code>.</em></p>
+                <img src="images/hexagonal_mocking.svg" alt="Hexagonal Architecture Mocking Rule">
 
                 <h2>Cú lừa về <span class="keyword" data-keyword="database">Database</span></h2>
                 <p>Một sai lầm phổ biến là coi <strong><span class="keyword" data-keyword="database">database</span> của chính ứng dụng</strong> là một hệ thống bên ngoài và luôn luôn <span class="keyword" data-keyword="mock">mock</span> nó.</p>
@@ -649,9 +645,6 @@ email_sender_mock.send_welcome_email.assert_called_with("alice@example.com")
     </div>
 
     <script src="js/main.js"></script>
-    <script>
-        feather.replace();
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
