@@ -1,9 +1,0 @@
-@startuml
-actor Tester
-participant "Arrange" as A
-participant "Act" as B
-participant "Assert" as C
-Tester -> A: prepare objects
-Tester -> B: invoke behavior
-Tester -> C: verify expectations
-@enduml
