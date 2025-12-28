@@ -246,3 +246,48 @@ img {
     border-radius: 8px;
     margin: 1.5em 0;
 }
+
+/* --- Keyword & Tooltip Styles --- */
+.keyword {
+    color: var(--accent-color);
+    border-bottom: 1px dotted var(--accent-color);
+    cursor: help;
+    position: relative;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    width: 300px;
+    font-size: 14px;
+    line-height: 1.5;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+    pointer-events: none;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--bg-secondary) transparent transparent transparent;
+}
+
+.keyword:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-5px);
+}
