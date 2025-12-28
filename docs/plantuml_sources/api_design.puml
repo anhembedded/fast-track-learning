@@ -1,0 +1,25 @@
+@startuml
+skinparam componentStyle rectangle
+
+package "Well-Designed API" {
+  [Private API] as Priv1
+  [Implementation Details] as Impl1
+  [Public API] as Pub1
+  [Observable Behavior] as Obs1
+
+  Impl1 -down-> Priv1 : Phải nằm trong
+  Obs1 -down-> Pub1 : Phải là duy nhất
+}
+
+package "Leaking API (Bad Design)" {
+  [Private API] as Priv2
+  [Implementation Details] as Impl2
+  [Public API] as Pub2
+  [Observable Behavior] as Obs2
+
+  Impl2 -down-> Pub2 : ⚠️ Rò rỉ ra ngoài!
+  Obs2 -down-> Pub2
+}
+
+note bottom of Impl2: Đây là nguyên nhân khiến\nTest bị vỡ khi Refactoring
+@enduml
