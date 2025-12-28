@@ -1,0 +1,10 @@
+@startuml
+skinparam handwritten true
+package "Tests" {
+  rectangle "Unit Tests\n(fast, many)" #palegreen
+  rectangle "Integration Tests\n(slower, fewer)" #lightyellow
+  rectangle "E2E Tests\n(expensive, few)" #lightpink
+}
+Unit Tests -down-> Integration Tests
+Integration Tests -down-> E2E Tests
+@enduml
