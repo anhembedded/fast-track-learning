@@ -65,6 +65,15 @@
                     <i data-feather="git-branch"></i>
                     <span>Kiến trúc và Mocking</span>
                 </li>
+                <li class="nav-category">Thực hành (Hands-on)</li>
+                <li class="nav-item" data-target="pytest-hands-on">
+                    <i data-feather="terminal"></i>
+                    <span>PyTest</span>
+                </li>
+                <li class="nav-item" data-target="gtest-hands-on">
+                    <i data-feather="code"></i>
+                    <span>GTest</span>
+                </li>
                 <li class="nav-category">Tài nguyên</li>
                 <li class="nav-item" data-target="glossary">
                     <i data-feather="book-open"></i>
@@ -168,6 +177,10 @@
                         <strong>Công việc:</strong> So sánh kết quả trả về hoặc trạng thái của đối tượng với một giá trị kỳ vọng.</p>
                     </li>
                 </ol>
+
+                <div class="practice-link-box">
+                    <p>💡 <strong>Xem thực hành:</strong> Để xem cách áp dụng mẫu AAA vào thực tế, hãy tham khảo các ví dụ trong phần <a href="#" class="nav-item" data-target="pytest-hands-on">Thực hành PyTest</a> và <a href="#" class="nav-item" data-target="gtest-hands-on">Thực hành GTest</a>.</p>
+                </div>
 
                 <h3>Sơ đồ tuần tự của mẫu AAA</h3>
                 <p>Sơ đồ này minh họa luồng hoạt động của một bài test theo mẫu AAA.</p>
@@ -541,6 +554,10 @@ class UserController:
                     <li><strong>Vai trò:</strong> Đóng vai trò "người cung cấp thông tin". <span class="keyword" data-keyword="sut">SUT</span> sẽ <strong>lấy dữ liệu từ</strong> <span class="keyword" data-keyword="stub">Stub</span>.</li>
                     <li><strong>Quy tắc vàng:</strong> <strong>Đừng bao giờ xác minh (verify) một lời gọi đến <span class="keyword" data-keyword="stub">Stub</span>.</strong> Việc <span class="keyword" data-keyword="sut">SUT</span> gọi <span class="keyword" data-keyword="stub">Stub</span> một hay nhiều lần không quan trọng, miễn là kết quả cuối cùng đúng. Việc verify <span class="keyword" data-keyword="stub">Stub</span> sẽ khiến test bị gắn chặt vào <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span>.</li>
                 </ul>
+
+                <div class="practice-link-box">
+                    <p>💡 <strong>Xem thực hành:</strong> Để xem cách tạo Stubs và Mocks trong thực tế, hãy tham khảo các ví dụ trong phần <a href="#" class="nav-item" data-target="pytest-hands-on">Thực hành PyTest</a> và <a href="#" class="nav-item" data-target="gtest-hands-on">Thực hành GTest</a>.</p>
+                </div>
 <pre><code class="language-python">from unittest.mock import Mock
 
 # database_stub là một Stub vì nó cung cấp dữ liệu cho SUT
@@ -604,13 +621,13 @@ email_sender_mock.send_welcome_email.assert_called_with("alice@example.com")
                 <p>Mục tiêu của kiến trúc này là <strong>bảo vệ lõi nghiệp vụ khỏi những thay đổi của công nghệ bên ngoài</strong>.</p>
 
                 <h2>Phân biệt hai loại Giao tiếp</h2>
-                <p>Đây là chìa khóa để đưa ra quyết định <span class="keyword" data-keyword="mock">mocking</span> đúng đắn:</p>
+                <p>Đây là chìa khóa để đưa ra quyết định <span class="keyword" data-keyword="mocking</span> đúng đắn:</p>
                 <ol>
                     <li><strong>Giao tiếp nội bộ (Intra-system communications):</strong>
                         <ul>
                             <li><strong>Là gì:</strong> Sự tương tác giữa các class <strong>bên trong</strong> lõi ứng dụng của bạn (ví dụ: <code>Customer</code> gọi <code>Store</code>).</li>
                             <li><strong>Bản chất:</strong> Đây là <strong><span class="keyword" data-keyword="implementation-details">chi tiết cài đặt (Implementation Details)</span></strong>.</li>
-                            <li><strong>Quy tắc:</strong> <strong>KHÔNG ĐƯỢC MOCK.</strong> Việc <span class="keyword" data-keyword="mock">mock</span> các giao tiếp nội bộ sẽ khiến test của bạn bị gắn chặt vào thiết kế hiện tại và sẽ bị hỏng khi bạn <span class="keyword" data-keyword="refactor">refactor</span>.</li>
+                            <li><strong>Quy tắc:</strong> <strong>KHÔNG ĐƯỢC MOCK.</strong> Việc <span class="keyword" data-keyword="mock</span> các giao tiếp nội bộ sẽ khiến test của bạn bị gắn chặt vào thiết kế hiện tại và sẽ bị hỏng khi bạn <span class="keyword" data-keyword="refactor">refactor</span>.</li>
                         </ul>
                     </li>
                     <li><strong>Giao tiếp liên hệ thống (Inter-system communications):</strong>
@@ -641,7 +658,435 @@ email_sender_mock.send_welcome_email.assert_called_with("alice@example.com")
                 <p>Đây là nơi tổng hợp định nghĩa chi tiết cho các thuật ngữ quan trọng được sử dụng trong wiki này.</p>
                 <!-- Định nghĩa chi tiết sẽ được JS chèn vào đây -->
             </section>
+
+            <section id="pytest-hands-on" class="content-section">
+                <h1>Thực hành với PyTest</h1>
+                <p>PyTest là một testing framework mạnh mẽ và phổ biến trong hệ sinh thái Python. Nó nổi tiếng với cú pháp đơn giản, dễ đọc và khả năng mở rộng tuyệt vời.</p>
+
+                <h2>1. Cấu trúc Test cơ bản & Mẫu AAA</h2>
+                <p>PyTest tự động phát hiện các file test (có tên `test_*.py` hoặc `*_test.py`) và các hàm test (có tên `test_*`). Hãy xem cách áp dụng mẫu <span class="keyword" data-keyword="aaa">AAA</span> với PyTest.</p>
+
+                <h3>Ví dụ: Một hàm tính tổng đơn giản</h3>
+                <p>Giả sử chúng ta có một hàm `add` trong file `calculator.py`:</p>
+<pre><code class="language-python"># calculator.py
+def add(a, b):
+    return a + b
+</code></pre>
+
+                <p>Bây giờ, chúng ta sẽ viết một bài test cho hàm này trong file `test_calculator.py`:</p>
+<pre><code class="language-python"># test_calculator.py
+from calculator import add
+
+def test_add_positive_numbers():
+    # 1. Arrange (Sắp đặt)
+    num1 = 5
+    num2 = 10
+
+    # 2. Act (Hành động)
+    result = add(num1, num2)
+
+    # 3. Assert (Xác minh)
+    assert result == 15
+</code></pre>
+                <p>Chỉ cần chạy lệnh `pytest` trong terminal, PyTest sẽ tự động tìm và chạy bài test này.</p>
+
+                <div class="question-box">
+                    <p><strong>Câu hỏi củng cố:</strong> Dựa vào ví dụ trên, hãy viết một bài test khác có tên là `test_add_negative_numbers` để kiểm tra trường hợp cộng hai số âm (-2 và -3).</p>
+                    <button class="btn show-answer-btn">Xem đáp án</button>
+                    <div class="answer-content" style="display: none;">
+<pre><code class="language-python"># test_calculator.py
+from calculator import add
+
+# ... (bài test cũ) ...
+
+def test_add_negative_numbers():
+    # Arrange
+    num1 = -2
+    num2 = -3
+
+    # Act
+    result = add(num1, num2)
+
+    # Assert
+    assert result == -5
+</code></pre>
+                    </div>
+                </div>
+
+                <h2>2. Assertions (Xác minh)</h2>
+                <p>PyTest sử dụng câu lệnh `assert` tiêu chuẩn của Python, giúp cho các bài test trở nên rất tự nhiên và dễ đọc. PyTest sẽ cung cấp thông tin chi tiết khi một `assert` thất bại.</p>
+
+                <h3>Các loại Assertions phổ biến</h3>
+                <ul>
+                    <li>`assert a == b` (So sánh bằng)</li>
+                    <li>`assert a != b` (So sánh khác)</li>
+                    <li>`assert a < b` hoặc `assert a > b` (So sánh lớn/nhỏ hơn)</li>
+                    <li>`assert item in collection` (Kiểm tra sự tồn tại trong list/tuple/dict)</li>
+                    <li>`assert isinstance(obj, MyClass)` (Kiểm tra kiểu của đối tượng)</li>
+                </ul>
+
+                <h3>Ví dụ: Kiểm tra một ngoại lệ (Exception)</h3>
+                <p>Nếu hàm của bạn cần phải ném ra một ngoại lệ trong một trường hợp nào đó, bạn có thể dùng `pytest.raises`:</p>
+<pre><code class="language-python"># calculator.py
+def divide(a, b):
+    if b == 0:
+        raise ValueError("Cannot divide by zero")
+    return a / b
+
+# test_calculator.py
+import pytest
+from calculator import divide
+
+def test_divide_by_zero_raises_exception():
+    # Arrange
+    num1 = 10
+    num2 = 0
+
+    # Act & Assert
+    with pytest.raises(ValueError) as exc_info:
+        divide(num1, num2)
+
+    # (Optional) Kiểm tra nội dung của exception
+    assert "Cannot divide by zero" in str(exc_info.value)
+</code></pre>
+
+                <h2>3. Test Doubles (Mocks & Stubs) với `pytest-mock`</h2>
+                <p>Để sử dụng Mocks và Stubs trong PyTest, thư viện `pytest-mock` là lựa chọn phổ biến nhất. Nó cung cấp một fixture tên là `mocker` để dễ dàng tạo các đối tượng giả.</p>
+                <p>Đầu tiên, bạn cần cài đặt nó: `pip install pytest-mock`</p>
+
+                <h3>Ví dụ: Giả lập một API call (Stub)</h3>
+                <p>Hãy tưởng tượng chúng ta có một hàm lấy tỉ giá Bitcoin từ một API bên ngoài.</p>
+<pre><code class="language-python"># currency_service.py
+import requests
+
+def get_bitcoin_price_in_usd():
+    try:
+        response = requests.get("https://api.coindesk.com/v1/bpi/currentprice/USD.json")
+        response.raise_for_status() # Ném lỗi nếu request thất bại
+        data = response.json()
+        return data["bpi"]["USD"]["rate_float"]
+    except requests.RequestException:
+        return None
+</code></pre>
+                <p>Việc gọi API thật trong unit test sẽ làm test chậm và không ổn định. Chúng ta sẽ dùng `mocker` để giả lập (stub) lời gọi `requests.get`.</p>
+<pre><code class="language-python"># test_currency_service.py
+from currency_service import get_bitcoin_price_in_usd
+
+def test_get_bitcoin_price_success(mocker):
+    # Arrange
+    # Tạo một đối tượng mock response
+    mock_response = mocker.Mock()
+    mock_response.json.return_value = {
+        "bpi": {
+            "USD": {
+                "rate_float": 50000.0
+            }
+        }
+    }
+    mock_response.raise_for_status.return_value = None # Không làm gì khi gọi
+
+    # Giả lập 'requests.get' và bảo nó trả về mock_response
+    mocker.patch("requests.get", return_value=mock_response)
+
+    # Act
+    price = get_bitcoin_price_in_usd()
+
+    # Assert
+    assert price == 50000.0
+</code></pre>
+
+                <h3>Ví dụ: Xác minh một hành động (Mock)</h3>
+                <p>Giả sử sau khi đăng ký người dùng, hệ thống cần phải gửi một email chào mừng.</p>
+<pre><code class="language-python"># user_service.py
+from email_sender import send_welcome_email
+
+class UserService:
+    def __init__(self, db_connection):
+        self.db = db_connection
+
+    def register_user(self, email, password):
+        # ... logic lưu user vào database ...
+        user = {"email": email}
+        self.db.save(user)
+
+        # Gửi email sau khi lưu thành công
+        send_welcome_email(email)
+        return user
+</code></pre>
+                <p>Chúng ta không muốn gửi email thật. Chúng ta chỉ muốn xác minh rằng hàm `send_welcome_email` đã được gọi đúng.</p>
+<pre><code class="language-python"># test_user_service.py
+from user_service import UserService
+
+def test_register_user_sends_welcome_email(mocker):
+    # Arrange
+    # Giả lập hàm send_welcome_email
+    mock_send_email = mocker.patch("user_service.send_welcome_email")
+
+    # Tạo một DB connection giả
+    mock_db = mocker.Mock()
+
+    service = UserService(db_connection=mock_db)
+
+    # Act
+    service.register_user("test@example.com", "password123")
+
+    # Assert
+    # Xác minh rằng mock_send_email đã được gọi đúng một lần với đúng tham số
+    mock_send_email.assert_called_once_with("test@example.com")
+
+    # Cũng có thể xác minh rằng user đã được lưu
+    mock_db.save.assert_called_once()
+</code></pre>
+
+                <div class="question-box">
+                    <p><strong>Câu hỏi củng cố:</strong> Trong ví dụ về `test_get_bitcoin_price_success`, chúng ta đã stub trường hợp thành công. Hãy viết một bài test mới tên là `test_get_bitcoin_price_failure` để kiểm tra trường hợp `requests.get` ném ra một lỗi `RequestException`.</p>
+                    <button class="btn show-answer-btn">Xem đáp án</button>
+                    <div class="answer-content" style="display: none;">
+<pre><code class="language-python"># test_currency_service.py
+import requests
+from currency_service import get_bitcoin_price_in_usd
+
+# ... (bài test cũ) ...
+
+def test_get_bitcoin_price_failure(mocker):
+    # Arrange
+    # Giả lập 'requests.get' để nó ném ra một lỗi khi được gọi
+    mocker.patch("requests.get", side_effect=requests.RequestException("API is down"))
+
+    # Act
+    price = get_bitcoin_price_in_usd()
+
+    # Assert
+    # Mong đợi kết quả là None khi có lỗi xảy ra
+    assert price is None
+</code></pre>
+                    </div>
+                </div>
+
+            </section>
+
+            <section id="gtest-hands-on" class="content-section">
+                <h1>Thực hành với GoogleTest (GTest)</h1>
+                <p>GoogleTest (thường gọi là GTest) là một framework unit testing hàng đầu cho C++. Nó cung cấp một bộ assertions phong phú, cơ chế test fixtures mạnh mẽ, và được tích hợp chặt chẽ với GoogleMock (GMock) để tạo các đối tượng giả.</p>
+                <p><em>Lưu ý: Các ví dụ dưới đây giả định bạn đã thiết lập GTest và GMock trong môi trường build của mình (ví dụ: qua CMake).</em></p>
+
+                <h2>1. Cấu trúc Test cơ bản & Mẫu AAA</h2>
+                <p>Trong GTest, các bài test được nhóm lại trong các "Test Case" (hoặc "Test Suite") bằng macro `TEST()`. Macro này nhận hai tham số: tên của Test Case và tên của bài test cụ thể.</p>
+
+                <h3>Ví dụ: Một hàm tính tổng đơn giản</h3>
+                <p>Giả sử chúng ta có một hàm `add` trong file `calculator.h`:</p>
+<pre><code class="language-cpp">// calculator.h
+#ifndef CALCULATOR_H
+#define CALCULATOR_H
+
+int add(int a, int b);
+
+#endif // CALCULATOR_H
+
+// calculator.cpp
+#include "calculator.h"
+
+int add(int a, int b) {
+    return a + b;
+}
+</code></pre>
+
+                <p>File test (`test_calculator.cpp`) sẽ trông như sau:</p>
+<pre><code class="language-cpp">// test_calculator.cpp
+#include &lt;gtest/gtest.h&gt;
+#include "calculator.h" // Include file chứa code cần test
+
+// Cú pháp: TEST(TestCaseName, TestName)
+TEST(CalculatorTest, AddPositiveNumbers) {
+    // 1. Arrange (Sắp đặt)
+    int num1 = 5;
+    int num2 = 10;
+
+    // 2. Act (Hành động)
+    int result = add(num1, num2);
+
+    // 3. Assert (Xác minh)
+    ASSERT_EQ(result, 15);
+}
+</code></pre>
+
+                <div class="question-box">
+                    <p><strong>Câu hỏi củng cố:</strong> Dựa vào ví dụ trên, hãy viết một bài test khác có tên là `AddNegativeNumbers` trong cùng Test Case `CalculatorTest` để kiểm tra trường hợp cộng hai số âm (-5 và -10).</p>
+                    <button class="btn show-answer-btn">Xem đáp án</button>
+                    <div class="answer-content" style="display: none;">
+<pre><code class="language-cpp">// test_calculator.cpp
+#include &lt;gtest/gtest.h&gt;
+#include "calculator.h"
+
+// ... (bài test cũ) ...
+
+TEST(CalculatorTest, AddNegativeNumbers) {
+    // Arrange
+    int num1 = -5;
+    int num2 = -10;
+
+    // Act
+    int result = add(num1, num2);
+
+    // Assert
+    ASSERT_EQ(result, -15);
+}
+</code></pre>
+                    </div>
+                </div>
+
+                <h2>2. Assertions (Xác minh)</h2>
+                <p>GTest cung cấp một bộ macro assertion đa dạng, được chia thành hai loại:</p>
+                <ul>
+                    <li>`ASSERT_*`: Khi một assertion này thất bại, nó sẽ <strong>chấm dứt bài test ngay lập tức</strong>.</li>
+                    <li>`EXPECT_*`: Khi một assertion này thất bại, nó sẽ ghi nhận lỗi nhưng <strong>vẫn tiếp tục chạy các phần còn lại</strong> của bài test. Hầu hết các trường hợp bạn nên dùng `EXPECT_*`.</li>
+                </ul>
+
+                <h3>Các Assertions phổ biến</h3>
+                <ul>
+                    <li>`EXPECT_EQ(val1, val2);` (Bằng nhau)</li>
+                    <li>`EXPECT_NE(val1, val2);` (Không bằng nhau)</li>
+                    <li>`EXPECT_LT(val1, val2);` (Nhỏ hơn)</li>
+                    <li>`EXPECT_GT(val1, val2);` (Lớn hơn)</li>
+                    <li>`EXPECT_TRUE(condition);` (Điều kiện là đúng)</li>
+                    <li>`EXPECT_FALSE(condition);` (Điều kiện là sai)</li>
+                    <li>`EXPECT_THROW(statement, exception_type);` (Ném ra ngoại lệ)</li>
+                </ul>
+
+                <h3>Ví dụ: Kiểm tra ngoại lệ</h3>
+<pre><code class="language-cpp">// calculator.h
+#include &lt;stdexcept&gt;
+// ...
+double divide(double a, double b) {
+    if (b == 0) {
+        throw std::invalid_argument("Cannot divide by zero");
+    }
+    return a / b;
+}
+
+// test_calculator.cpp
+TEST(CalculatorTest, DivideByZeroThrowsException) {
+    // Arrange
+    double num1 = 10.0;
+    double num2 = 0.0;
+
+    // Act & Assert
+    EXPECT_THROW(divide(num1, num2), std::invalid_argument);
+}
+</code></pre>
+
+                <h2>3. Test Doubles với GoogleMock (GMock)</h2>
+                <p>GMock được dùng để tạo các đối tượng giả (mocks) trong C++. Điều này đặc biệt hữu ích khi bạn cần giả lập một dependency là một interface (một class trừu tượng với các hàm virtual thuần túy).</p>
+
+                <h3>Ví dụ: Giả lập một Database (Stub & Mock)</h3>
+                <p>Giả sử chúng ta có một interface `Database` và một class `UserService` sử dụng nó.</p>
+<pre><code class="language-cpp">// database.h
+class Database {
+public:
+    virtual ~Database() = default;
+    virtual bool userExists(const std::string& email) = 0;
+    virtual void saveUser(const std::string& email) = 0;
+};
+
+// user_service.h
+#include "database.h"
+class UserService {
+public:
+    explicit UserService(Database* db) : database(db) {}
+
+    bool registerUser(const std::string& email) {
+        if (database-&gt;userExists(email)) {
+            return false; // User đã tồn tại
+        }
+        database-&gt;saveUser(email);
+        return true;
+    }
+private:
+    Database* database;
+};
+</code></pre>
+
+                <p>Để test `UserService`, chúng ta sẽ tạo một `MockDatabase` bằng GMock.</p>
+<pre><code class="language-cpp">// test_user_service.cpp
+#include &lt;gtest/gtest.h&gt;
+#include &lt;gmock/gmock.h&gt;
+#include "user_service.h"
+#include "database.h"
+
+// 1. Tạo class Mock từ interface
+class MockDatabase : public Database {
+public:
+    // MOCK_METHOD(return_type, method_name, (arg_types), (qualifiers));
+    MOCK_METHOD(bool, userExists, (const std::string& email), (override));
+    MOCK_METHOD(void, saveUser, (const std::string& email), (override));
+};
+
+TEST(UserServiceTest, RegisterNewUserSuccessfully) {
+    // Arrange
+    MockDatabase mockDb;
+    UserService service(&amp;mockDb);
+    std::string newUserEmail = "new_user@test.com";
+
+    // Thiết lập hành vi cho Mock (đóng vai trò Stub)
+    // Khi userExists được gọi với email này, hãy trả về false
+    EXPECT_CALL(mockDb, userExists(newUserEmail))
+        .WillOnce(testing::Return(false));
+
+    // Thiết lập kỳ vọng (đóng vai trò Mock)
+    // Kỳ vọng rằng saveUser sẽ được gọi đúng một lần với email này
+    EXPECT_CALL(mockDb, saveUser(newUserEmail))
+        .Times(1);
+
+    // Act
+    bool result = service.registerUser(newUserEmail);
+
+    // Assert
+    ASSERT_TRUE(result);
+}
+</code></pre>
+
+                <div class="question-box">
+                    <p><strong>Câu hỏi củng cố:</strong> Hãy viết một bài test mới tên là `RegisterExistingUserFails` để kiểm tra trường hợp người dùng đã tồn tại. Trong trường hợp này, hàm `saveUser` không bao giờ được phép gọi tới.</p>
+                    <button class="btn show-answer-btn">Xem đáp án</button>
+                    <div class="answer-content" style="display: none;">
+<pre><code class="language-cpp">TEST(UserServiceTest, RegisterExistingUserFails) {
+    // Arrange
+    MockDatabase mockDb;
+    UserService service(&amp;mockDb);
+    std::string existingUserEmail = "exists@test.com";
+
+    // Thiết lập hành vi (Stub)
+    // Khi userExists được gọi, hãy trả về true
+    EXPECT_CALL(mockDb, userExists(existingUserEmail))
+        .WillOnce(testing::Return(true));
+
+    // Thiết lập kỳ vọng (Mock)
+    // Kỳ vọng rằng saveUser sẽ không bao giờ được gọi
+    EXPECT_CALL(mockDb, saveUser(testing::_))
+        .Times(0);
+
+    // Act
+    bool result = service.registerUser(existingUserEmail);
+
+    // Assert
+    ASSERT_FALSE(result);
+}
+</code></pre>
+                        <p>Lưu ý: `testing::_` là một "matcher" trong GMock, có nghĩa là "bất kỳ giá trị nào".</p>
+                    </div>
+                </div>
+
+            </section>
         </main>
+    </div>
+
+    <div id="answer-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            <div id="modal-answer-content">
+                <!-- Answer content will be injected here by JS -->
+            </div>
+        </div>
     </div>
 
     <script src="js/main.js"></script>

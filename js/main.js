@@ -127,10 +127,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- Theme Toggler ---
+    // --- DOM Elements ---
     const themeToggle = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
+    const navItems = document.querySelectorAll('.nav-item');
+    const contentSections = document.querySelectorAll('.content-section');
+    const mainContent = document.querySelector('.main-content');
+    const modalOverlay = document.getElementById('answer-modal');
+    const modalContent = document.getElementById('modal-answer-content');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
 
+    // --- Theme Toggler ---
     const setTheme = (theme) => {
         htmlElement.classList.remove('light', 'dark');
         htmlElement.classList.add(theme);
@@ -147,9 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- SPA Navigation ---
-    const navItems = document.querySelectorAll('.nav-item');
-    const contentSections = document.querySelectorAll('.content-section');
-
     const navigateTo = (targetId) => {
         navItems.forEach(item => {
             item.classList.toggle('active', item.dataset.target === targetId);
@@ -157,15 +161,43 @@ document.addEventListener('DOMContentLoaded', () => {
         contentSections.forEach(section => {
             section.classList.toggle('active', section.id === targetId);
         });
-        document.querySelector('.main-content').scrollTop = 0;
+        mainContent.scrollTop = 0;
     };
 
     navItems.forEach(item => {
-        item.addEventListener('click', () => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
             const targetId = item.dataset.target;
             navigateTo(targetId);
         });
     });
+
+    // --- Answer Modal Logic ---
+    const openModal = (answerHtml) => {
+        modalContent.innerHTML = answerHtml;
+        modalOverlay.classList.add('visible');
+    };
+
+    const closeModal = () => {
+        modalOverlay.classList.remove('visible');
+    };
+
+    mainContent.addEventListener('click', (e) => {
+        if (e.target.classList.contains('show-answer-btn')) {
+            const answerContainer = e.target.nextElementSibling;
+            if (answerContainer && answerContainer.classList.contains('answer-content')) {
+                openModal(answerContainer.innerHTML);
+            }
+        }
+    });
+
+    modalCloseBtn.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            closeModal();
+        }
+    });
+
 
     // --- Keyword Tooltip Initialization ---
     const keywords = document.querySelectorAll('.keyword');
@@ -184,23 +216,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Glossary Page Generation ---
     const generateGlossary = () => {
         const glossarySection = document.getElementById('glossary');
-        const glossaryContent = glossarySection.querySelector('p').nextElementSibling; // Get element after the intro 'p'
+        const glossaryContentContainer = glossarySection.querySelector('p').nextElementSibling;
 
-        let html = '';
-        const sortedKeys = Object.keys(glossaryData).sort();
+        if (!glossaryContentContainer || glossaryContentContainer.tagName === 'TEMPLATE') {
+             // Avoid re-generating if content is already there
+            let html = '';
+            const sortedKeys = Object.keys(glossaryData).sort();
 
-        sortedKeys.forEach(key => {
-            const term = glossaryData[key];
-            const termName = key.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-            html += `<h3>${termName}</h3>`;
-            html += `<p>${term.long}</p>`;
-        });
+            sortedKeys.forEach(key => {
+                const term = glossaryData[key];
+                const termName = key.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                html += `<h3>${termName}</h3>`;
+                html += `<p>${term.long}</p>`;
+            });
 
-        // If there's no dedicated container, append after the intro paragraph
-        if(glossaryContent){
-            glossaryContent.innerHTML = html;
-        } else {
-            glossarySection.innerHTML += html;
+            const container = document.createElement('div');
+            container.innerHTML = html;
+            glossarySection.appendChild(container);
         }
     };
 
