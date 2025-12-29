@@ -343,18 +343,10 @@ img {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
+    display: none; /* JS will change this to 'flex' */
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-}
-
-.modal-overlay.visible {
-    opacity: 1;
-    visibility: visible;
 }
 
 .modal-content {
@@ -365,12 +357,6 @@ img {
     width: 90%;
     max-width: 600px;
     position: relative;
-    transform: scale(0.95);
-    transition: transform 0.3s;
-}
-
-.modal-overlay.visible .modal-content {
-    transform: scale(1);
 }
 
 .modal-close-btn {
@@ -383,4 +369,70 @@ img {
     color: var(--text-secondary);
     cursor: pointer;
     line-height: 1;
+}
+
+/* --- Example & Pitfall Boxes --- */
+.example-box, .pitfall-box {
+    padding: 20px;
+    margin: 2em 0;
+    border-radius: 8px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+.example-box {
+    border-left: 4px solid #28a745; /* Green for good examples */
+}
+
+.pitfall-box {
+    border-left: 4px solid #dc3545; /* Red for pitfalls */
+}
+
+.example-box p:last-child,
+.pitfall-box p:last-child,
+.example-box ul:last-child,
+.pitfall-box ul:last-child {
+    margin-bottom: 0;
+}
+
+/* --- Table Styles --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2em 0;
+    font-size: 15px;
+    box-shadow: var(--shadow);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+thead tr {
+    background-color: var(--bg-primary);
+}
+html.dark thead tr {
+    background-color: #3a3a5e;
+}
+
+th {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+tbody tr {
+    background-color: var(--bg-secondary);
+}
+
+tbody tr:last-of-type td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background-color: var(--bg-primary);
 }

@@ -175,11 +175,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Answer Modal Logic ---
     const openModal = (answerHtml) => {
         modalContent.innerHTML = answerHtml;
-        modalOverlay.classList.add('visible');
+        // Directly manipulate the style for robustness
+        modalOverlay.style.display = 'flex';
     };
 
     const closeModal = () => {
-        modalOverlay.classList.remove('visible');
+        // Directly manipulate the style for robustness
+        modalOverlay.style.display = 'none';
     };
 
     mainContent.addEventListener('click', (e) => {

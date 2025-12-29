@@ -211,44 +211,110 @@
                 <h1>Hai trường phái Unit Testing: London vs. Classical</h1>
                 <p>Trong cộng đồng phát triển phần mềm, có hai trường phái tư duy chính về cách tiếp cận <span class="keyword" data-keyword="unit-testing">unit testing</span>, đặc biệt là về vấn đề "cách ly" (isolation) và việc sử dụng các đối tượng giả (<span class="keyword" data-keyword="test-double">test doubles</span>).</p>
 
-                <h2>Trường phái <span class="keyword" data-keyword="london-school">London (còn gọi là Mockist)</span></h2>
-                <ul>
-                    <li><strong>Triết lý:</strong> Một "unit" (đơn vị) được kiểm thử là một <strong>class duy nhất</strong>. Mọi <span class="keyword" data-keyword="dependency">dependency</span> (đối tượng phụ thuộc) của class đó, dù là một class khác trong hệ thống của bạn, đều phải được thay thế bằng <span class="keyword" data-keyword="mock">mock</span>.</li>
-                    <li><strong>Tập trung vào Tương tác (Interaction):</strong> Các bài test theo trường phái này xác minh xem class đang được test (<span class="keyword" data-keyword="sut">SUT - System Under Test</span>) có gọi đúng các phương thức của <span class="keyword" data-keyword="dependency">dependency</span> hay không. Đây được gọi là <em>interaction testing</em>.</li>
-                    <li><strong>Ưu điểm:</strong>
-                        <ul>
-                            <li>Khi một bài test fail, bạn biết chính xác class nào đang bị lỗi.</li>
-                            <li>Không cần phải khởi tạo một đồ thị đối tượng (object graph) phức tạp.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Nhược điểm:</strong>
-                        <ul>
-                            <li>Các bài test bị <strong>gắn chặt vào <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt (implementation details)</span></strong>. Nếu bạn <span class="keyword" data-keyword="refactor">refactor</span> code bằng cách thay đổi cách các class tương tác với nhau (nhưng vẫn giữ đúng kết quả cuối cùng), các bài test sẽ bị hỏng (<span class="keyword" data-keyword="false-positive">false positive</span>). Điều này làm tăng đáng kể chi phí bảo trì.</li>
-                        </ul>
-                    </li>
-                </ul>
+                <h2>So sánh tổng quan</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tiêu chí</th>
+                            <th>Trường phái London (Mockist)</th>
+                            <th>Trường phái Classical (Classicist)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Định nghĩa "Unit"</strong></td>
+                            <td>Một class duy nhất.</td>
+                            <td>Một đơn vị hành vi (có thể gồm nhiều class).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Đối tượng Mock</strong></td>
+                            <td>Mọi dependency (kể cả class nội bộ).</td>
+                            <td>Chỉ dependency ngoài (I/O: network, DB...).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Loại Test</strong></td>
+                            <td>Kiểm tra tương tác (Interaction Testing).</td>
+                            <td>Kiểm tra trạng thái (State Testing).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Khả năng chống chịu Refactor</strong></td>
+                            <td>Thấp 👎 (Test dễ hỏng).</td>
+                            <td>Cao 👍 (Test bền vững).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mức độ cô lập</strong></td>
+                            <td>Cô lập class đang test.</td>
+                            <td>Cô lập giữa các bài test với nhau.</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                <h2>Trường phái <span class="keyword" data-keyword="classical-school">Classical (còn gọi là Detroit hoặc Classicist)</span></h2>
-                <ul>
-                    <li><strong>Triết lý:</strong> Một "unit" là một <strong>hành vi nghiệp vụ (unit of behavior)</strong>. Nó có thể bao gồm một class hoặc một nhóm các class làm việc cùng nhau để hoàn thành một nhiệm vụ.</li>
-                    <li><strong>Tập trung vào Kết quả (State):</strong> Các bài test theo trường phái này kiểm tra kết quả cuối cùng hoặc sự thay đổi trạng thái của hệ thống sau khi hành động được thực hiện. Đây được gọi là <em>state testing</em>.</li>
-                    <li><strong>Cách ly:</strong> Trường phái này định nghĩa "cách ly" là việc các <strong>bài test phải độc lập với nhau</strong>. Test A không được ảnh hưởng đến kết quả của Test B.</li>
-                    <li><strong>Sử dụng <span class="keyword" data-keyword="test-double">Test Doubles</span>:</strong> Chỉ sử dụng <span class="keyword" data-keyword="mock">mock</span>/<span class="keyword" data-keyword="stub">stub</span> cho các <strong><span class="keyword" data-keyword="dependency">dependency</span> thực sự bên ngoài và chậm</strong>, như network, <span class="keyword" data-keyword="database">database</span>, file system (được gọi là <em><span class="keyword" data-keyword="shared-dependency">shared dependencies</span></em>). Các class thông thường trong cùng một hệ thống được sử dụng trực tiếp.</li>
-                    <li><strong>Ưu điểm:</strong>
-                        <ul>
-                            <li>Các bài test có khả năng <strong>chống chịu <span class="keyword" data-keyword="refactor">refactoring</span> cao</strong>. Bạn có thể tự do thay đổi cấu trúc code nội bộ miễn là kết quả đầu ra không đổi.</li>
-                            <li>Bộ test phản ánh đúng hơn giá trị nghiệp vụ của ứng dụng.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Nhược điểm:</strong>
-                        <ul>
-                            <li>Khi một bài test fail, có thể khó xác định ngay lập tức class nào gây ra lỗi.</li>
-                        </ul>
-                    </li>
-                </ul>
+                <h2>Ví dụ thực tế: Chuyển tiền</h2>
+                <p>Hãy xem xét một ví dụ: User A chuyển 100$ cho User B. Logic này được xử lý bởi `AccountService`, và `AccountService` sử dụng một `Ledger` để ghi lại giao dịch.</p>
+<pre><code class="language-python"># a_service.py
+class Ledger:
+    def record_transaction(self, from_acc, to_acc, amount):
+        # ... logic ghi vào sổ sách ...
+        print(f"Recorded ${amount} from {from_acc} to {to_acc}")
 
-                <h2>Lời khuyên</h2>
-                <p>Cả hai trường phái đều có ưu và nhược điểm riêng. Tuy nhiên, để xây dựng một bộ test bền vững và ít chi phí bảo trì, <strong>trường phái <span class="keyword" data-keyword="classical-school">Classical</span> thường được ưu tiên hơn</strong>. Việc các bài test có khả năng chống chịu <span class="keyword" data-keyword="refactor">refactoring</span> là một trong những yếu tố quan trọng nhất của một bộ test tốt.</p>
+class AccountService:
+    def __init__(self, ledger: Ledger):
+        self._ledger = ledger
+
+    def transfer(self, from_acc, to_acc, amount):
+        # ... logic kiểm tra số dư, v.v...
+        self._ledger.record_transaction(from_acc, to_acc, amount)
+        return True
+</code></pre>
+
+                <div class="example-box">
+                    <h3>Cách test của trường phái London (Mockist)</h3>
+                    <p>Trường phái này sẽ <strong>mock</strong> `Ledger` và xác minh rằng phương thức `record_transaction` được gọi đúng.</p>
+<pre><code class="language-python">from unittest.mock import Mock
+from a_service import AccountService
+
+def test_transfer_calls_ledger_correctly_LONDON(mocker):
+    # Arrange
+    mock_ledger = mocker.Mock() # Mock dependency
+    service = AccountService(ledger=mock_ledger)
+
+    # Act
+    service.transfer("A", "B", 100)
+
+    # Assert (Kiểm tra tương tác - Interaction)
+    mock_ledger.record_transaction.assert_called_once_with("A", "B", 100)
+</code></pre>
+                    <p><strong>Vấn đề:</strong> Nếu sau này bạn đổi tên `record_transaction` thành `log_transaction` (một hoạt động <span class="keyword" data-keyword="refactor">refactor</span>), bài test này sẽ <strong>thất bại</strong>, dù chức năng chuyển tiền vẫn hoạt động đúng. Đây là một <strong>báo động giả (<span class="keyword" data-keyword="false-positive">false positive</span>)</strong>.</p>
+                </div>
+
+                <div class="example-box">
+                    <h3>Cách test của trường phái Classical (Classicist)</h3>
+                    <p>Trường phái này sẽ dùng một `Ledger` <strong>thật</strong> (hoặc một phiên bản `Fake` chạy trong bộ nhớ) và kiểm tra kết quả cuối cùng.</p>
+<pre><code class="language-python">from a_service import AccountService, Ledger
+
+def test_transfer_updates_balances_correctly_CLASSICAL():
+    # Arrange
+    ledger = Ledger() # Dùng dependency thật
+    service = AccountService(ledger=ledger)
+
+    # Giả sử chúng ta có thể kiểm tra trạng thái của Ledger
+    # (trong thực tế có thể là kiểm tra DB hoặc một Fake object)
+    # ledger.set_balance("A", 200)
+    # ledger.set_balance("B", 50)
+
+    # Act
+    service.transfer("A", "B", 100)
+
+    # Assert (Kiểm tra trạng thái - State)
+    # assert ledger.get_balance("A") == 100
+    # assert ledger.get_balance("B") == 150
+    # (Ví dụ này chỉ in ra, nên không assert được, nhưng ý tưởng là vậy)
+</code></pre>
+                    <p><strong>Ưu điểm:</strong> Nếu bạn đổi tên `record_transaction` thành `log_transaction`, bài test này <strong>vẫn pass</strong> vì kết quả cuối cùng (số dư tài khoản) không thay đổi. Bài test này có khả năng chống chịu <span class="keyword" data-keyword="refactor">refactoring</span> cao hơn nhiều.</p>
+                </div>
+
+                <h2>Lời khuyên: Hãy là một Classicist</h2>
+                <p>Cả hai trường phái đều có ưu và nhược điểm riêng. Tuy nhiên, để xây dựng một bộ test bền vững, ít chi phí bảo trì và thực sự đóng vai trò là một mạng lưới an toàn, <strong>trường phái <span class="keyword" data-keyword="classical-school">Classical</span> thường là lựa chọn vượt trội</strong>. Việc các bài test có khả năng chống chịu <span class="keyword" data-keyword="refactor">refactoring</span> là một trong những yếu tố quan trọng nhất của một bộ test tốt.</p>
                 <blockquote>
                     <p><strong>Quan trọng:</strong> Hãy chọn một phong cách nhất quán cho toàn bộ đội nhóm và tuân thủ nó. Việc trộn lẫn hai phong cách này trong cùng một codebase có thể dẫn đến những cuộc tranh cãi không cần thiết và làm cho bộ test trở nên khó hiểu.</p>
                 </blockquote>
@@ -400,7 +466,7 @@ def test_order_with_builder():
                 </ol>
                 <hr>
                 <h2>Trụ cột 1: Bảo vệ khỏi lỗi hồi quy</h2>
-                <p>Đây là mục đích cơ bản nhất của mọi bài test.</p>
+                <p>Đây là mục đích cơ bản nhất của mọi bài test. Một bài test có giá trị cao khi nó có khả năng phát hiện lỗi trong những phần code quan trọng.</p>
                 <ul>
                     <li><strong>Lỗi hồi quy (<span class="keyword" data-keyword="regression">Regression</span>) là gì?</strong> Là khi một tính năng đang hoạt động bình thường bỗng dưng bị hỏng sau khi bạn thay đổi code ở một nơi khác.</li>
                     <li><strong>Làm sao để một bài test có khả năng bảo vệ tốt?</strong>
@@ -408,53 +474,95 @@ def test_order_with_builder():
                             <li><strong>Thực thi nhiều code:</strong> Bài test chạy qua càng nhiều logic nghiệp vụ thì khả năng phát hiện lỗi càng cao.</li>
                             <li><strong>Kiểm tra code phức tạp:</strong> Test một thuật toán phức tạp có giá trị hơn là test một hàm getter/setter đơn giản.</li>
                             <li><strong>Tập trung vào nghiệp vụ cốt lõi:</strong> Test các logic quan trọng như thanh toán, phân quyền sẽ có giá trị cao hơn.</li>
+                            <li><strong>Kiểm tra các trường hợp biên (edge cases):</strong> Test với dữ liệu đầu vào là rỗng, null, số âm, số 0...</li>
                         </ul>
                     </li>
-                    <li><strong>Lời khuyên:</strong> Đừng lãng phí thời gian test những đoạn code tầm thường (trivial code) không chứa logic.</li>
                 </ul>
+                <div class="example-box">
+                    <p><strong>Ví dụ thực tế:</strong> Xét hàm `calculate_total` cho giỏ hàng. Ban đầu, nó chỉ cộng giá sản phẩm. Bài test xác nhận `add(100, 50)` trả về `150`. Sau đó, một lập trình viên thêm logic giảm giá 10% nhưng vô tình áp dụng hai lần. Bài test cũ, giờ đóng vai trò là test hồi quy, sẽ thất bại vì kết quả không còn là `135` (đúng) mà là `121.5` (sai). Bài test đã bảo vệ bạn khỏi một lỗi nghiêm trọng.</p>
+                </div>
+                <div class="pitfall-box">
+                    <p><strong>Cạm bẫy thường gặp:</strong></p>
+                    <ul>
+                        <li><strong>Test code tầm thường (trivial code):</strong> Viết test cho các hàm getter/setter đơn giản chỉ làm tăng coverage nhưng không mang lại giá trị bảo vệ.</li>
+                        <li><strong>Chỉ test "happy path":</strong> Bỏ qua các kịch bản lỗi (ví dụ: người dùng nhập sai, API trả về lỗi) khiến nhiều lỗi tiềm ẩn không được phát hiện.</li>
+                    </ul>
+                </div>
                 <hr>
                 <h2>Trụ cột 2: Chống chịu được tái cấu trúc</h2>
-                <p>Đây là trụ cột quan trọng nhất và thường bị bỏ qua nhất, quyết định chi phí bảo trì của bộ test.</p>
+                <p>Đây là trụ cột quan trọng nhất và thường bị bỏ qua nhất. Nó quyết định chi phí bảo trì của bộ test và sự tự tin của đội ngũ khi thay đổi code.</p>
                 <ul>
                     <li><strong>Tái cấu trúc (<span class="keyword" data-keyword="refactor">Refactoring</span>) là gì?</strong> Là việc thay đổi cấu trúc code bên trong (ví dụ: tối ưu thuật toán, đổi tên biến) mà <strong>không làm thay đổi <span class="keyword" data-keyword="observable-behavior">hành vi có thể quan sát được bên ngoài</span></strong>.</li>
-                    <li><strong>Báo động giả (<span class="keyword" data-keyword="false-positive">False Positive</span>):</strong> Nếu bạn <span class="keyword" data-keyword="refactor">tái cấu trúc</span> code mà bài test bị "đỏ" (fail), trong khi chức năng vẫn đúng, thì bài test đó đã tạo ra một báo động giả.</li>
+                    <li><strong>Báo động giả (<span class="keyword" data-keyword="false-positive">False Positive</span>):</strong> Nếu bạn <span class="keyword" data-keyword="refactor">tái cấu trúc</span> code mà bài test bị "đỏ" (fail), trong khi chức năng vẫn đúng, thì bài test đó đã tạo ra một báo động giả. Đây là kẻ thù số một của một bộ test hiệu quả.</li>
                     <li><strong>Tại sao báo động giả lại nguy hiểm?</strong>
                         <ul>
-                            <li><strong>Mất niềm tin:</strong> Khi test báo lỗi giả quá nhiều, lập trình viên sẽ dần mất tin tưởng vào bộ test. Họ sẽ bắt đầu lờ đi các cảnh báo, và đó là lúc lỗi thật sự (true positive) sẽ bị bỏ lọt.</li>
+                            <li><strong>Mất niềm tin:</strong> Khi test báo lỗi giả quá nhiều, lập trình viên sẽ dần mất tin tưởng vào bộ test và bắt đầu lờ đi các cảnh báo.</li>
                             <li><strong>Ngại thay đổi:</strong> Một bộ test "mong manh" (brittle) sẽ cản trở việc tái cấu trúc, khiến cho codebase ngày càng xuống cấp.</li>
                         </ul>
                     </li>
                     <li><strong>Làm sao để test chống chịu được tái cấu trúc?</strong> Hãy kiểm tra <strong>"Cái gì" (What - kết quả cuối cùng)</strong> thay vì <strong>"Làm thế nào" (How - các bước thực hiện bên trong)</strong>.</li>
                 </ul>
+                <div class="example-box">
+                    <p><strong>Ví dụ thực tế:</strong> Một class `Authenticator` có hàm `login(user, pass)`. Bên trong, nó gọi hai hàm private là `_checkPassword()` và `_generateToken()`.
+                    <br> - <strong>Test mong manh (Sai):</strong> Mock và xác minh rằng `_checkPassword` và `_generateToken` được gọi.
+                    <br> - <strong>Test bền vững (Đúng):</strong> Gọi `login("correct", "pass")` và xác minh rằng kết quả trả về là một token hợp lệ.
+                    <br>Khi bạn <span class="keyword" data-keyword="refactor">refactor</span> bằng cách gộp hai hàm private thành một, test mong manh sẽ hỏng (báo động giả), còn test bền vững vẫn pass vì hành vi cuối cùng không đổi.</p>
+                </div>
+                <div class="pitfall-box">
+                    <p><strong>Cạm bẫy thường gặp:</strong></p>
+                    <ul>
+                        <li><strong>Mocking quá nhiều:</strong> Mock các class nội bộ (không phải dependency ngoài) sẽ khiến test bị gắn chặt vào cấu trúc hiện tại.</li>
+                        <li><strong>Kiểm tra private state:</strong> Cố gắng truy cập và kiểm tra các thuộc tính/phương thức private là một dấu hiệu rõ ràng của test mong manh.</li>
+                    </ul>
+                </div>
                 <hr>
                 <h2>Trụ cột 3: Phản hồi nhanh</h2>
-                <p>Tốc độ là yếu tố quyết định tần suất bạn chạy bộ test.</p>
+                <p>Tốc độ là yếu tố quyết định tần suất bạn chạy bộ test. Một bộ test chậm sẽ không được chạy thường xuyên, làm mất đi lợi ích lớn nhất của nó.</p>
                 <ul>
-                    <li><strong>Vòng lặp phản hồi (Feedback Loop):</strong> Test càng nhanh, bạn càng có thể chạy chúng thường xuyên hơn. Điều này giúp bạn phát hiện lỗi ngay khi nó vừa được tạo ra, làm cho việc sửa lỗi trở nên dễ dàng và ít tốn kém hơn rất nhiều.</li>
-                    <li><strong>Phân biệt <span class="keyword" data-keyword="unit-test">Unit Test</span> và <span class="keyword" data-keyword="integration-test">Integration Test</span>:</strong> Đây chính là yếu tố khác biệt lớn nhất. <span class="keyword" data-keyword="unit-test">Unit test</span> phải chạy trong vài mili giây, trong khi <span class="keyword" data-keyword="integration-test">integration test</span> có thể mất vài giây hoặc hơn.</li>
+                    <li><strong>Vòng lặp phản hồi (Feedback Loop):</strong> Test càng nhanh, bạn càng có thể chạy chúng thường xuyên hơn (ví dụ: sau mỗi lần lưu file). Điều này giúp bạn phát hiện lỗi ngay khi nó vừa được tạo ra, làm cho việc sửa lỗi trở nên dễ dàng và ít tốn kém hơn rất nhiều.</li>
+                    <li><strong>Phân biệt <span class="keyword" data-keyword="unit-test">Unit Test</span> và <span class="keyword" data-keyword="integration-test">Integration Test</span>:</strong> Đây chính là yếu tố khác biệt lớn nhất. <span class="keyword" data-keyword="unit-test">Unit test</span> phải chạy trong vài mili giây, trong khi <span class="keyword" data-keyword="integration-test">integration test</span> (liên quan đến network, DB, file system) có thể mất vài giây hoặc hơn.</li>
                 </ul>
+                <div class="pitfall-box">
+                    <p><strong>Cạm bẫy thường gặp:</strong></p>
+                    <ul>
+                        <li><strong>Dùng `sleep()` trong test:</strong> Cố gắng chờ một tác vụ bất đồng bộ bằng cách "ngủ" là một cách làm không ổn định và làm chậm test. Hãy dùng các cơ chế testing bất đồng bộ chuyên dụng.</li>
+                        <li><strong>Để <span class="keyword" data-keyword="unit-test">unit test</span> thực hiện I/O:</strong> Một <span class="keyword" data-keyword="unit-test">unit test</span> thực sự không bao giờ được phép truy cập network, <span class="keyword" data-keyword="database">database</span>, hay file system.</li>
+                    </ul>
+                </div>
                 <hr>
                 <h2>Trụ cột 4: Dễ bảo trì</h2>
-                <p>Code test cũng quan trọng như code sản phẩm. Một bài test khó đọc, khó chạy sẽ trở thành gánh nặng.</p>
+                <p>Code test cũng quan trọng như code sản phẩm và cần được chăm sóc cẩn thận. Một bài test khó đọc, khó chạy sẽ nhanh chóng trở thành gánh nặng.</p>
                 <ul>
                     <li><strong>Độ khó hiểu:</strong>
                         <ul>
-                            <li><strong>Ngắn gọn:</strong> Một bài test nên ngắn gọn và tập trung vào một kịch bản duy nhất.</li>
-                            <li><strong>Dễ đọc:</strong> Sử dụng các mẫu như <span class="keyword" data-keyword="aaa">AAA</span>, đặt tên test rõ ràng để thể hiện ý định.</li>
+                            <li><strong>Ngắn gọn & Tập trung:</strong> Một bài test nên ngắn gọn và chỉ kiểm tra một kịch bản duy nhất (single concern).</li>
+                            <li><strong>Dễ đọc:</strong> Sử dụng các mẫu như <span class="keyword" data-keyword="aaa">AAA</span>, đặt tên test rõ ràng để thể hiện ý định (ví dụ: `test_Login_WithInvalidPassword_ReturnsFalse`).</li>
                         </ul>
                     </li>
                     <li><strong>Độ khó vận hành:</strong>
                         <ul>
-                            <li>Một <span class="keyword" data-keyword="unit-test">unit test</span> tốt phải có thể chạy mà không cần một môi trường phức tạp (không cần <span class="keyword" data-keyword="database">database</span>, không cần server, không cần file cấu hình).</li>
+                            <li>Một <span class="keyword" data-keyword="unit-test">unit test</span> tốt phải có thể chạy mà không cần một môi trường phức tạp (không cần <span class="keyword" data-keyword="database">database</span>, không cần server, không cần file cấu hình đặc biệt).</li>
                         </ul>
                     </li>
                 </ul>
+                 <div class="example-box">
+                    <p><strong>Ví dụ thực tế:</strong>
+                    <br> - <strong>Khó bảo trì:</strong> Test tên là `test1()`, không có comment, tạo đối tượng bằng `new Customer("a", "b", "c", 1, 2, 3, true)`. Rất khó để biết mục đích của test và ý nghĩa của các tham số.
+                    <br> - <strong>Dễ bảo trì:</strong> Test tên là `test_VipCustomer_Gets_PriorityShipping()`. Dữ liệu được tạo bằng Test Data Builder: `customer = new CustomerBuilder().isVip().build()`. Ý định của bài test trở nên cực kỳ rõ ràng.</p>
+                </div>
+                 <div class="pitfall-box">
+                    <p><strong>Cạm bẫy thường gặp:</strong></p>
+                    <ul>
+                        <li><strong>Logic trong test:</strong> Một bài test không nên chứa các vòng lặp, câu lệnh `if/else`. Nếu bạn cần logic, hãy đưa nó ra một hàm helper.</li>
+                        <li><strong>Magic strings/numbers:</strong> Sử dụng các hằng số có tên rõ ràng thay vì các giá trị "ma thuật" không rõ ý nghĩa.</li>
+                    </ul>
+                </div>
                 <hr>
                 <h2>Sự đánh đổi</h2>
                 <p>Không thể có một bài test hoàn hảo đạt điểm tối đa ở cả 4 trụ cột. Sẽ luôn có sự đánh đổi, đặc biệt là giữa <strong>Trụ cột 1 (Bảo vệ)</strong> và <strong>Trụ cột 2 (Chống chịu <span class="keyword" data-keyword="refactor">refactor</span>) & 3 (Tốc độ)</strong>.</p>
                 <ul>
-                    <li><strong><span class="keyword" data-keyword="e2e-test">E2E Test</span>:</strong> Bảo vệ tốt nhất, chống chịu <span class="keyword" data-keyword="refactor">refactor</span> tốt, nhưng phản hồi cực kỳ chậm.</li>
-                    <li><strong><span class="keyword" data-keyword="unit-test">Unit Test</span> mong manh:</strong> Bảo vệ tốt, phản hồi nhanh, nhưng chống chịu <span class="keyword" data-keyword="refactor">refactor</span> cực tệ.</li>
+                    <li><strong><span class="keyword" data-keyword="e2e-test">E2E Test</span>:</strong> Bảo vệ tốt nhất, chống chịu <span class="keyword" data-keyword="refactor">refactor</span> tốt, nhưng phản hồi cực kỳ chậm và khó bảo trì.</li>
+                    <li><strong><span class="keyword" data-keyword="unit-test">Unit Test</span> mong manh:</strong> Bảo vệ tốt, phản hồi nhanh, nhưng chống chịu <span class="keyword" data-keyword="refactor">refactor</span> cực tệ (chi phí bảo trì cao).</li>
                     <li><strong><span class="keyword" data-keyword="unit-test">Unit Test</span> tốt:</strong> Cân bằng giữa cả bốn yếu tố, trong đó <strong>khả năng chống chịu <span class="keyword" data-keyword="refactor">refactor</span> và dễ bảo trì là không thể nhân nhượng</strong>.</li>
                 </ul>
             </section>
@@ -463,8 +571,8 @@ def test_order_with_builder():
                 <h1>Behavior vs. Implementation Details</h1>
                 <p>Để viết được những bài test có khả năng chống chịu tái cấu trúc (resistant to <span class="keyword" data-keyword="refactor">refactoring</span>), bạn buộc phải hiểu rõ và phân biệt được đâu là <strong><span class="keyword" data-keyword="observable-behavior">hành vi quan sát được</span></strong> và đâu là <strong><span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span></strong>.</p>
                 <ul>
-                    <li><strong>Kiểm tra <span class="keyword" data-keyword="observable-behavior">hành vi quan sát được</span>:</strong> Giúp bài test của bạn trở nên bền vững.</li>
-                    <li><strong>Kiểm tra <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span>:</strong> Khiến bài test của bạn trở nên mong manh (brittle).</li>
+                    <li><strong>Kiểm tra <span class="keyword" data-keyword="observable-behavior">hành vi quan sát được</span>:</strong> Giúp bài test của bạn trở nên bền vững. ✅</li>
+                    <li><strong>Kiểm tra <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span>:</strong> Khiến bài test của bạn trở nên mong manh (brittle). ❌</li>
                 </ul>
                 <h2>Định nghĩa</h2>
                 <p>Mọi đoạn code đều có thể được phân loại theo hai góc nhìn:</p>
@@ -487,170 +595,283 @@ def test_order_with_builder():
                 <img src="images/api_design.svg" alt="Well-designed API vs. Leaking API">
                 <p>Khi một <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span> bị "rò rỉ" (leak) ra <span class="keyword" data-keyword="public-api">Public API</span>, nó sẽ cám dỗ bạn viết những bài test kiểm tra vào đó, và đó là nguồn gốc của các bài test mong manh.</p>
 
-                <h2>Ví dụ: Rò rỉ Logic</h2>
-                <p>Hãy xem xét một class <code>User</code> cần đảm bảo tên người dùng không dài quá 50 ký tự.</p>
-                <h3>🔴 Cách làm sai (Rò rỉ)</h3>
-                <p>Logic chuẩn hóa tên (<code>normalize_name</code>) bị để ở dạng <code>public</code>.</p>
-<pre><code class="language-python"># BAD CODE: Logic chuẩn hóa bị rò rỉ
-class User:
-    def __init__(self, name=""):
-        self.name = name
+                <h2>Ví dụ: Rò rỉ Logic tính toán</h2>
+                <p>Hãy xem xét một class `Order` cần tính tổng tiền, bao gồm cả thuế.</p>
+                <h3>🔴 Cách làm sai (Rò rỉ chi tiết cài đặt)</h3>
+                <p>Class `Order` để lộ các phương thức tính toán trung gian. Client phải biết các bước để có được kết quả cuối cùng.</p>
+<pre><code class="language-python"># BAD CODE: Rò rỉ "làm thế nào"
+class Order:
+    def __init__(self, price, quantity):
+        self.price = price
+        self.quantity = quantity
 
-    # Đây là chi tiết cài đặt, nhưng lại là public!
-    def normalize_name(self, name):
-        # ... logic cắt chuỗi ...
+    # Chi tiết cài đặt 1, bị để public
+    def get_subtotal(self):
+        return self.price * self.quantity
 
-class UserController:
-    def rename_user(self, user, new_name):
-        # Client phải biết quá nhiều về "làm thế nào"
-        normalized = user.normalize_name(new_name)
-        user.name = normalized
+    # Chi tiết cài đặt 2, bị để public
+    def get_tax(self, subtotal):
+        return subtotal * 0.1 # 10% tax
+
+# Client code (hoặc test code)
+order = Order(price=100, quantity=2)
+subtotal = order.get_subtotal()
+tax = order.get_tax(subtotal)
+total = subtotal + tax
+# ==> Client phải biết quá nhiều!
 </code></pre>
-                <p><strong>Vấn đề:</strong> Client phải gọi 2 phương thức để hoàn thành một mục tiêu. Nếu một client khác quên gọi <code>normalize_name</code>, hệ thống sẽ có dữ liệu không nhất quán.</p>
+                <p><strong>Vấn đề với test:</strong> Một bài test cho `Order` có thể sẽ mock và kiểm tra `get_subtotal` và `get_tax` được gọi. Nếu sau này bạn <span class="keyword" data-keyword="refactor">refactor</span> `Order` để tính thuế theo một cách khác (ví dụ: gộp 2 hàm thành 1), bài test sẽ hỏng dù kết quả cuối cùng vẫn đúng.</p>
 
-                <h3>🟢 Cách làm đúng (Đóng gói)</h3>
-                <p>Logic chuẩn hóa được giấu vào bên trong và trở thành <code>private</code>.</p>
-<pre><code class="language-python"># GOOD CODE: Đóng gói hoàn toàn
-class User:
-    def __init__(self, name=""):
-        self.name = name # Setter sẽ tự động gọi logic chuẩn hóa
+                <h3>🟢 Cách làm đúng (Che giấu chi tiết cài đặt)</h3>
+                <p>Class `Order` chỉ cung cấp một phương thức `public` duy nhất là `get_total`, thể hiện hành vi mà client quan tâm.</p>
+<pre><code class="language-python"># GOOD CODE: Che giấu "làm thế nào"
+class Order:
+    def __init__(self, price, quantity):
+        self._price = price
+        self._quantity = quantity
 
-    @property
-    def name(self):
-        return self._name
+    # --- Hành vi quan sát được ---
+    def get_total(self):
+        subtotal = self._get_subtotal()
+        tax = self._get_tax(subtotal)
+        return subtotal + tax
 
-    @name.setter
-    def name(self, value):
-        self._name = self._normalize_name(value)
+    # --- Chi tiết cài đặt ---
+    def _get_subtotal(self):
+        return self._price * self._quantity
 
-    # Chi tiết cài đặt thực sự
-    def _normalize_name(self, name):
-        # ... logic cắt chuỗi ...
+    def _get_tax(self, subtotal):
+        return subtotal * 0.1
 
-class UserController:
-    def rename_user(self, user, new_name):
-        # Client chỉ cần biết "cái gì", không cần biết "làm thế nào"
-        user.name = new_name
+# Client code (hoặc test code)
+order = Order(price=100, quantity=2)
+total = order.get_total() # ==> Client chỉ cần biết "cái gì"
+assert total == 220
 </code></pre>
-                <p><strong>Lợi ích:</strong> Bây giờ bạn có thể thay đổi hoàn toàn logic <code>_normalize_name</code> mà không làm hỏng <code>UserController</code> hoặc các bài test của nó.</p>
+                <p><strong>Lợi ích:</strong> Bây giờ bạn có thể tự do thay đổi các hàm `private` (`_get_subtotal`, `_get_tax`) mà không làm hỏng bất kỳ client code hay bài test nào, miễn là `get_total()` vẫn trả về kết quả đúng.</p>
 
                 <h2>Nguyên lý Tell, Don't Ask</h2>
-                <p>Nguyên lý này là kim chỉ nam giúp bạn thiết kế <span class="keyword" data-keyword="api">API</span> tốt:</p>
+                <p>Nguyên lý này là kim chỉ nam giúp bạn thiết kế <span class="keyword" data-keyword="api">API</span> tốt và tránh rò rỉ chi tiết cài đặt. Nó đặc biệt quan trọng khi một hành động cần thay đổi trạng thái của đối tượng.</p>
                 <ul>
-                    <li><strong>Ask (Hỏi - Xấu):</strong> Hỏi một đối tượng về trạng thái của nó, thực hiện logic ở bên ngoài, rồi cập nhật lại trạng thái cho đối tượng đó. (Đây là ví dụ sai ở trên).</li>
-                    <li><strong>Tell (Bảo - Tốt):</strong> Ra lệnh cho một đối tượng thực hiện một hành động. Đối tượng sẽ tự sử dụng trạng thái nội bộ của nó để thực hiện hành động đó. (Đây là ví dụ đúng ở trên).</li>
+                    <li><strong>Ask (Hỏi - Xấu):</strong> Hỏi một đối tượng về trạng thái của nó (ví dụ: `get_status()`), thực hiện logic ở bên ngoài, rồi cập nhật lại trạng thái cho đối tượng đó (ví dụ: `set_status()`).</li>
+                    <li><strong>Tell (Bảo - Tốt):</strong> Ra lệnh cho một đối tượng thực hiện một hành động (ví dụ: `approve()`). Đối tượng sẽ tự sử dụng trạng thái nội bộ của nó để thực hiện hành động đó.</li>
                 </ul>
+                <div class="example-box">
+                    <p><strong>Ví dụ: Phê duyệt một tài liệu</strong></p>
+                    <p><strong>- Cách làm "Ask" (Xấu):</strong></p>
+<pre><code class="language-python"># Client code
+if document.get_status() == "PENDING":
+    # Logic nằm bên ngoài, client phải biết về các trạng thái
+    document.set_status("APPROVED")
+    document.set_approved_by(current_user)
+    # ...
+</code></pre>
+                    <p><strong>- Cách làm "Tell" (Tốt):</strong></p>
+<pre><code class="language-python"># Client code
+# Client chỉ ra lệnh, không cần biết logic bên trong
+document.approve(by_user=current_user)
+</code></pre>
+                </div>
                 <p>Bằng cách tuân thủ "Tell, Don't Ask", bạn sẽ tự động tạo ra các <span class="keyword" data-keyword="api">API</span> đóng gói tốt, che giấu các <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span> và giúp cho các bài test của bạn trở nên bền vững hơn.</p>
             </section>
 
             <section id="test-doubles" class="content-section">
                 <h1>Mocks, Stubs và Test Doubles</h1>
                 <p>Khi viết <span class="keyword" data-keyword="unit-test">unit test</span>, chúng ta cần "cách ly" đơn vị đang được test (<span class="keyword" data-keyword="sut">SUT - System Under Test</span>) khỏi các <span class="keyword" data-keyword="dependency">dependency</span> (đối tượng phụ thuộc) của nó. <strong><span class="keyword" data-keyword="test-double">Test Doubles</span></strong> là thuật ngữ chung chỉ các đối tượng giả được tạo ra để thay thế các <span class="keyword" data-keyword="dependency">dependency</span> thật trong môi trường test.</p>
-                <p>Mặc dù chúng ta hay gọi chung là "<span class="keyword" data-keyword="mock">mock</span>", nhưng có nhiều loại <span class="keyword" data-keyword="test-double">Test Double</span> khác nhau, mỗi loại có một mục đích riêng. Phân biệt rõ chúng là chìa khóa để viết các bài test đúng đắn.</p>
-
-                <h2><span class="keyword" data-keyword="stub">Stub</span> (Giả lập dữ liệu)</h2>
-                <ul>
-                    <li><strong>Mục đích:</strong> Cung cấp dữ liệu đầu vào (input) cho <span class="keyword" data-keyword="sut">SUT</span> để nó có thể chạy. <span class="keyword" data-keyword="stub">Stub</span> giúp mô phỏng các trạng thái và giá trị khác nhau.</li>
-                    <li><strong>Vai trò:</strong> Đóng vai trò "người cung cấp thông tin". <span class="keyword" data-keyword="sut">SUT</span> sẽ <strong>lấy dữ liệu từ</strong> <span class="keyword" data-keyword="stub">Stub</span>.</li>
-                    <li><strong>Quy tắc vàng:</strong> <strong>Đừng bao giờ xác minh (verify) một lời gọi đến <span class="keyword" data-keyword="stub">Stub</span>.</strong> Việc <span class="keyword" data-keyword="sut">SUT</span> gọi <span class="keyword" data-keyword="stub">Stub</span> một hay nhiều lần không quan trọng, miễn là kết quả cuối cùng đúng. Việc verify <span class="keyword" data-keyword="stub">Stub</span> sẽ khiến test bị gắn chặt vào <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span>.</li>
-                </ul>
+                <p>Mặc dù chúng ta hay gọi chung là "<span class="keyword" data-keyword="mock">mock</span>", nhưng có nhiều loại <span class="keyword" data-keyword="test-double">Test Double</span> khác nhau, mỗi loại có một mục đích riêng. Phân biệt rõ chúng là chìa khóa để viết các bài test đúng đắn và bền vững.</p>
 
                 <div class="practice-link-box">
                     <p>💡 <strong>Xem thực hành:</strong> Để xem cách tạo Stubs và Mocks trong thực tế, hãy tham khảo các ví dụ trong phần <a href="#" class="nav-item" data-target="pytest-hands-on">Thực hành PyTest</a> và <a href="#" class="nav-item" data-target="gtest-hands-on">Thực hành GTest</a>.</p>
                 </div>
-<pre><code class="language-python">from unittest.mock import Mock
 
-# database_stub là một Stub vì nó cung cấp dữ liệu cho SUT
-database_stub = Mock()
-database_stub.get_user.return_value = {"name": "Alice", "email": "alice@example.com"}
+                <h2>Phân biệt Stub và Mock</h2>
+                <p>Đây là hai loại Test Double quan trọng và thường bị nhầm lẫn nhất. Sự khác biệt nằm ở <strong>hướng của dòng thông tin</strong>.</p>
 
-# SUT sẽ sử dụng dữ liệu này để thực hiện logic
-user_service = UserService(database_stub)
-</code></pre>
+                <div style="text-align: center; margin: 2em 0;">
+                    <img src="images/test_doubles_flow.svg" alt="Luồng dữ liệu của Stub và Mock" style="max-width: 80%;">
+                </div>
 
-                <h2><span class="keyword" data-keyword="mock">Mock</span> (Giả lập hành động)</h2>
+                <h3><span class="keyword" data-keyword="stub">Stub</span> (Giả lập dữ liệu đầu vào)</h3>
                 <ul>
-                    <li><strong>Mục đích:</strong> Giả lập và xác minh các tương tác đi ra (outcoming interaction) từ <span class="keyword" data-keyword="sut">SUT</span> đến các hệ thống bên ngoài.</li>
-                    <li><strong>Vai trò:</strong> Đóng vai trò "người nhận lệnh". <span class="keyword" data-keyword="sut">SUT</span> sẽ <strong>gửi lệnh đến</strong> <span class="keyword" data-keyword="mock">Mock</span>.</li>
-                    <li><strong>Cách dùng:</strong> Sau khi hành động (Act) diễn ra, bạn sẽ xác minh (verify) xem <span class="keyword" data-keyword="sut">SUT</span> đã gọi đúng phương thức của <span class="keyword" data-keyword="mock">Mock</span> với đúng tham số hay chưa.</li>
+                    <li><strong>Mục đích:</strong> Cung cấp dữ liệu hoặc trạng thái giả cho <span class="keyword" data-keyword="sut">SUT</span>. <span class="keyword" data-keyword="stub">Stub</span> trả lời các câu hỏi (queries) từ <span class="keyword" data-keyword="sut">SUT</span>.</li>
+                    <li><strong>Luồng dữ liệu:</strong> Từ <span class="keyword" data-keyword="dependency">Dependency</span> (Stub) <strong>đi vào</strong> <span class="keyword" data-keyword="sut">SUT</span>.</li>
+                    <li><strong>Loại Test:</strong> Dùng trong <strong>State Testing</strong>. Bạn cung cấp trạng thái đầu vào qua <span class="keyword" data-keyword="stub">Stub</span>, và sau đó xác minh trạng thái cuối cùng của <span class="keyword" data-keyword="sut">SUT</span>.</li>
+                    <li><strong>Quy tắc vàng:</strong> <strong>Đừng bao giờ xác minh (verify) một lời gọi đến <span class="keyword" data-keyword="stub">Stub</span>.</strong> Việc verify <span class="keyword" data-keyword="stub">Stub</span> sẽ khiến test bị gắn chặt vào <span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span>.</li>
                 </ul>
 <pre><code class="language-python">from unittest.mock import Mock
 
-# email_sender_mock là một Mock vì nó nhận lệnh từ SUT
-email_sender_mock = Mock()
+# userRepository là một Stub vì nó cung cấp dữ liệu cho SUT
+user_repository = Mock()
+user_repository.get_user_by_id.return_value = {"name": "Alice", "is_admin": True}
 
-user_service = UserService(email_sender_mock)
-user_service.register("alice@example.com")
+# SUT (ví dụ: một service) sử dụng dữ liệu này
+auth_service = AuthenticationService(user_repository)
+result = auth_service.can_user_access_admin_panel(user_id=123)
+
+# Assert trạng thái cuối cùng, không verify lời gọi đến stub
+assert result is True
+</code></pre>
+
+                <h3><span class="keyword" data-keyword="mock">Mock</span> (Giả lập hệ thống bên ngoài)</h3>
+                <ul>
+                    <li><strong>Mục đích:</strong> Ghi lại và xác minh các lệnh (commands) mà <span class="keyword" data-keyword="sut">SUT</span> gửi ra cho các hệ thống bên ngoài.</li>
+                    <li><strong>Luồng dữ liệu:</strong> Từ <span class="keyword" data-keyword="sut">SUT</span> <strong>đi ra</strong> <span class="keyword" data-keyword="dependency">Dependency</span> (Mock).</li>
+                    <li><strong>Loại Test:</strong> Dùng trong <strong>Interaction Testing</strong>. Bạn thực thi một hành động và xác minh rằng <span class="keyword" data-keyword="sut">SUT</span> đã gọi đúng lệnh ra hệ thống ngoài.</li>
+                </ul>
+<pre><code class="language-python">from unittest.mock import Mock
+
+# email_gateway là một Mock vì nó nhận lệnh từ SUT
+email_gateway = Mock()
+
+notification_service = NotificationService(email_gateway)
+notification_service.notify_user_of_login(email="test@example.com")
 
 # Xác minh rằng SUT đã gửi lệnh đi đúng cách
-email_sender_mock.send_welcome_email.assert_called_with("alice@example.com")
+email_gateway.send_notification_email.assert_called_once_with("test@example.com", "Login Alert")
 </code></pre>
 
-                <h2>Phân biệt qua Nguyên lý CQS (Command-Query Separation)</h2>
-                <p>Một cách tuyệt vời để phân biệt khi nào dùng <span class="keyword" data-keyword="stub">Stub</span> và khi nào dùng <span class="keyword" data-keyword="mock">Mock</span> là dựa vào nguyên lý CQS:</p>
-                <ul>
-                    <li><strong>Query (Truy vấn):</strong> Một phương thức trả về giá trị nhưng không làm thay đổi trạng thái hệ thống.
-                        <ul><li>Các <span class="keyword" data-keyword="dependency">dependency</span> dạng Query nên được thay thế bằng <strong><span class="keyword" data-keyword="stub">Stub</span></strong>.</li></ul>
-                    </li>
-                    <li><strong>Command (Lệnh):</strong> Một phương thức làm thay đổi trạng thái hệ thống (side effect) nhưng không trả về giá trị (void).
-                        <ul><li>Các <span class="keyword" data-keyword="dependency">dependency</span> dạng Command nên được thay thế bằng <strong><span class="keyword" data-keyword="mock">Mock</span></strong>.</li></ul>
-                    </li>
-                </ul>
+                <h2>Tóm tắt các loại Test Double</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Loại</th>
+                            <th>Mục đích chính</th>
+                            <th>Khi nào dùng?</th>
+                            <th>Ví dụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Dummy</strong></td>
+                            <td>Lấp đầy tham số, không được sử dụng.</td>
+                            <td>Khi một hàm yêu cầu một đối tượng nhưng logic bạn test không dùng đến nó.</td>
+                            <td>Truyền `None` hoặc một object rỗng.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Stub</strong></td>
+                            <td>Cung cấp dữ liệu/trạng thái cho SUT.</td>
+                            <td>Khi SUT cần lấy dữ liệu từ một dependency để thực hiện logic (ví dụ: đọc từ DB).</td>
+                            <td>Một `UserRepository` giả trả về một User định sẵn.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mock</strong></td>
+                            <td>Xác minh các lệnh gọi đi ra từ SUT.</td>
+                            <td>Khi SUT cần thay đổi trạng thái của một hệ thống bên ngoài (ví dụ: gửi email).</td>
+                            <td>Một `EmailGateway` giả để kiểm tra hàm `send` có được gọi không.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fake</strong></td>
+                            <td>Một phiên bản cài đặt đơn giản hóa.</td>
+                            <td>Khi bạn cần một dependency hoạt động gần giống thật nhưng không muốn sự phức tạp (ví dụ: I/O).</td>
+                            <td>Một `InMemoryDatabase` thay thế cho PostgreSQL.</td>
+                        </tr>
+                         <tr>
+                            <td><strong>Spy</strong></td>
+                            <td>Vừa cung cấp dữ liệu, vừa ghi lại lời gọi.</td>
+                            <td>Khi một dependency vừa là query vừa là command. Thường ít dùng và có thể là dấu hiệu của thiết kế dependency chưa tốt.</td>
+                            <td>Một `Cache` vừa trả về dữ liệu, vừa cần kiểm tra xem hàm `save` có được gọi không.</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                <h2>Các loại <span class="keyword" data-keyword="test-double">Test Double</span> khác</h2>
-                <ul>
-                    <li><strong>Dummy:</strong> Một đối tượng được truyền vào chỉ để lấp đầy danh sách tham số, nhưng không bao giờ được sử dụng thực sự.</li>
-                    <li><strong>Fake:</strong> Một đối tượng có một phiên bản cài đặt hoạt động thực sự, nhưng đơn giản hơn nhiều so với bản production (ví dụ: in-memory <span class="keyword" data-keyword="database">database</span> thay vì một <span class="keyword" data-keyword="database">database</span> thật).</li>
-                    <li><strong>Spy:</strong> Một đối tượng vừa đóng vai trò là <span class="keyword" data-keyword="stub">Stub</span> (cung cấp dữ liệu), vừa ghi lại thông tin về các lời gọi đến nó (giống <span class="keyword" data-keyword="mock">Mock</span>). Spy thường được dùng để bao bọc một đối tượng thật.</li>
-                </ul>
                 <blockquote>
-                    <p><strong>Lưu ý:</strong> Các thư viện như <code>unittest.mock</code> của Python hay <code>Moq</code> của C# thường cung cấp một class <code>Mock</code> đa năng. Bạn có thể sử dụng class này để tạo ra cả <span class="keyword" data-keyword="stub">Stub</span>, <span class="keyword" data-keyword="mock">Mock</span>, và Spy. Điều quan trọng là <strong>cách bạn sử dụng</strong> đối tượng đó trong bài test sẽ quyết định vai trò thực sự của nó.</p>
+                    <p><strong>Lưu ý:</strong> Các thư viện như <code>unittest.mock</code> của Python hay <code>GMock</code> của C++ thường cung cấp một class <code>Mock</code> đa năng. Bạn có thể sử dụng class này để tạo ra cả <span class="keyword" data-keyword="stub">Stub</span>, <span class="keyword" data-keyword="mock">Mock</span>, và Spy. Điều quan trọng là <strong>cách bạn sử dụng</strong> đối tượng đó trong bài test sẽ quyết định vai trò thực sự của nó.</p>
                 </blockquote>
             </section>
 
             <section id="architecture-mocking" class="content-section">
                 <h1>Kiến trúc và Quy tắc Mocking</h1>
-                <p>Việc quyết định "nên <span class="keyword" data-keyword="mock">mock</span> cái gì" và "không nên <span class="keyword" data-keyword="mock">mock</span> cái gì" là một trong những quyết định khó khăn nhất khi viết test. Một quy tắc sai lầm có thể dẫn đến một bộ test mong manh, khó bảo trì. Câu trả lời nằm ở việc hiểu rõ kiến trúc ứng dụng của bạn.</p>
+                <p>Việc quyết định "nên <span class="keyword" data-keyword="mock">mock</span> cái gì" và "không nên <span class="keyword" data-keyword="mock">mock</span> cái gì" là một trong những quyết định khó khăn nhất, nhưng cũng quan trọng nhất, khi viết test. Một quy tắc sai lầm có thể dẫn đến một bộ test mong manh, khó bảo trì. Câu trả lời nằm ở việc hiểu rõ ranh giới kiến trúc của ứng dụng.</p>
 
-                <h2><span class="keyword" data-keyword="hexagonal-architecture">Kiến trúc Lục giác (Hexagonal Architecture)</span></h2>
-                <p>Kiến trúc này chia ứng dụng của bạn thành hai phần chính:</p>
+                <h2>Quy tắc vàng: "Don't mock what you don't own"</h2>
+                <p>Đây là một nguyên tắc chỉ đạo cực kỳ hiệu quả:</p>
+                <blockquote>
+                    <p>Chỉ mock các type (class, interface) mà bạn không sở hữu.</p>
+                </blockquote>
+                <ul>
+                    <li><strong>"Sở hữu" (Own):</strong> Là những code nằm trong codebase của bạn, do đội nhóm của bạn phát triển và có thể thay đổi được. Ví dụ: các class service, domain model, repository của chính bạn.</li>
+                    <li><strong>"Không sở hữu" (Don't Own):</strong> Là những code đến từ thư viện của bên thứ ba hoặc các hệ thống bên ngoài mà bạn không kiểm soát. Ví dụ: `StripeClient` (thanh toán), `SmtpClient` (gửi email), `FileSystem`, `DateTime.Now()`.</li>
+                </ul>
+                <p>Lý do đằng sau quy tắc này là: việc mock các type bạn sở hữu sẽ khiến bài test của bạn bị gắn chặt vào <strong><span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span></strong>, vi phạm Trụ cột số 2 (Chống chịu <span class="keyword" data-keyword="refactor">refactor</span>).</p>
+
+                <h2>Áp dụng vào <span class="keyword" data-keyword="hexagonal-architecture">Kiến trúc Lục giác</span></h2>
+                <p>Kiến trúc này (còn gọi là Ports and Adapters) giúp làm rõ ranh giới "sở hữu".</p>
                 <ol>
-                    <li><strong>Lõi ứng dụng (<span class="keyword" data-keyword="domain-layer">Domain Layer</span> & <span class="keyword" data-keyword="application-services-layer">Application Services Layer</span>):</strong> Đây là nơi chứa toàn bộ logic nghiệp vụ của bạn. Lõi này hoàn toàn không biết gì về thế giới bên ngoài (như <span class="keyword" data-keyword="database">database</span>, <span class="keyword" data-keyword="api">API</span>, UI).</li>
-                    <li><strong>Các Adapter:</strong> Là các cổng giao tiếp giúp lõi ứng dụng nói chuyện với thế giới bên ngoài. Ví dụ: một <span class="keyword" data-keyword="api">API</span> controller là một adapter nhận request từ HTTP, một repository là một adapter nói chuyện với <span class="keyword" data-keyword="database">database</span>.</li>
+                    <li><strong>Lõi ứng dụng (<span class="keyword" data-keyword="domain-layer">Domain Layer</span> & <span class="keyword" data-keyword="application-services-layer">Application Services Layer</span>):</strong> Đây là code bạn "sở hữu" 100%. Nó chứa toàn bộ logic nghiệp vụ và không biết gì về thế giới bên ngoài.</li>
+                    <li><strong>Ports:</strong> Là các interface (ví dụ: `IUserRepository`, `IEmailGateway`) định nghĩa cách lõi ứng dụng muốn giao tiếp. Đây cũng là code bạn "sở hữu".</li>
+                    <li><strong>Adapters:</strong> Là các class cài đặt các Port để giao tiếp với công nghệ cụ thể. Ví dụ: `SqlUserRepository` (nói chuyện với SQL), `SmtpEmailGateway` (nói chuyện với SMTP). Đây là cầu nối giữa code bạn sở hữu và code bạn không sở hữu.</li>
                 </ol>
-                <p>Mục tiêu của kiến trúc này là <strong>bảo vệ lõi nghiệp vụ khỏi những thay đổi của công nghệ bên ngoài</strong>.</p>
 
-                <h2>Phân biệt hai loại Giao tiếp</h2>
-                <p>Đây là chìa khóa để đưa ra quyết định <span class="keyword" data-keyword="mocking</span> đúng đắn:</p>
+                <div style="text-align: center; margin: 2em 0;">
+                     <img src="images/hexagonal_mocking_detailed.svg" alt="Quy tắc Mocking trong Kiến trúc Lục giác" style="max-width: 90%;">
+                </div>
+
+                <h2>Quy tắc Mocking dựa trên ranh giới</h2>
+                <p>Dựa trên kiến trúc trên, quy tắc trở nên rất rõ ràng:</p>
                 <ol>
                     <li><strong>Giao tiếp nội bộ (Intra-system communications):</strong>
                         <ul>
-                            <li><strong>Là gì:</strong> Sự tương tác giữa các class <strong>bên trong</strong> lõi ứng dụng của bạn (ví dụ: <code>Customer</code> gọi <code>Store</code>).</li>
-                            <li><strong>Bản chất:</strong> Đây là <strong><span class="keyword" data-keyword="implementation-details">chi tiết cài đặt (Implementation Details)</span></strong>.</li>
-                            <li><strong>Quy tắc:</strong> <strong>KHÔNG ĐƯỢC MOCK.</strong> Việc <span class="keyword" data-keyword="mock</span> các giao tiếp nội bộ sẽ khiến test của bạn bị gắn chặt vào thiết kế hiện tại và sẽ bị hỏng khi bạn <span class="keyword" data-keyword="refactor">refactor</span>.</li>
+                            <li><strong>Là gì:</strong> Sự tương tác giữa các class <strong>bên trong</strong> lõi ứng dụng của bạn (ví dụ: `OrderService` gọi `ProductRepository`).</li>
+                            <li><strong>Quy tắc:</strong> <strong>KHÔNG ĐƯỢC MOCK.</strong> Vì cả hai đều là code bạn sở hữu. Hãy dùng phiên bản thật hoặc một `Fake` (ví dụ: `InMemoryProductRepository`). Việc mock ở đây sẽ tạo ra các bài test mong manh.</li>
                         </ul>
                     </li>
-                    <li><strong>Giao tiếp liên hệ thống (Inter-system communications):</strong>
+                    <li><strong>Giao tiếp với hệ thống ngoài (Inter-system communications):</strong>
                         <ul>
                             <li><strong>Là gì:</strong> Sự tương tác từ lõi ứng dụng của bạn đi ra một <strong>hệ thống bên ngoài</strong> mà bạn không kiểm soát (ví dụ: gửi email qua SMTP server, gọi <span class="keyword" data-keyword="api">API</span> thanh toán của bên thứ ba).</li>
-                            <li><strong>Bản chất:</strong> Đây là <strong><span class="keyword" data-keyword="observable-behavior">hành vi quan sát được (Observable Behavior)</span></strong>.</li>
-                            <li><strong>Quy tắc:</strong> <strong>NÊN DÙNG MOCK.</strong> <span class="keyword" data-keyword="mocking</span> ở đây giúp bạn xác minh rằng ứng dụng của bạn đã tuân thủ đúng "hợp đồng" (contract) khi giao tiếp với thế giới bên ngoài.</li>
+                            <li><strong>Quy tắc:</strong> <strong>NÊN DÙNG MOCK.</strong> Đây chính là ranh giới của ứng dụng. Bạn mock Port (`IEmailGateway`) để xác minh rằng lõi ứng dụng đã gọi đúng lệnh cần thiết. Bài test không cần quan tâm Adapter (`SmtpEmailGateway`) hoạt động ra sao.</li>
                         </ul>
                     </li>
                 </ol>
 
-                <h3>Sơ đồ Quy tắc Mocking</h3>
-                <img src="images/hexagonal_mocking.svg" alt="Hexagonal Architecture Mocking Rule">
+                <div class="example-box">
+                    <h3>Ví dụ: Mock đúng và sai</h3>
+                    <p>Xét một `UserService` cần lưu người dùng vào DB và gửi email chào mừng.</p>
+<pre><code class="language-python"># --- Code bạn sở hữu ---
+class UserRepository: # Adapter nói chuyện với DB
+    def save(self, user): ...
 
-                <h2>Cú lừa về <span class="keyword" data-keyword="database">Database</span></h2>
-                <p>Một sai lầm phổ biến là coi <strong><span class="keyword" data-keyword="database">database</span> của chính ứng dụng</strong> là một hệ thống bên ngoài và luôn luôn <span class="keyword" data-keyword="mock">mock</span> nó.</p>
-                <ul>
-                    <li><strong><span class="keyword" data-keyword="database">Database</span> của ứng dụng:</strong> Là <span class="keyword" data-keyword="database">database</span> mà chỉ có ứng dụng của bạn sử dụng và bạn có toàn quyền kiểm soát (đổi schema, xóa bảng...). Nó nên được coi là một <strong><span class="keyword" data-keyword="implementation-details">chi tiết cài đặt</span></strong> của ứng dụng. Việc <span class="keyword" data-keyword="mock">mock</span> nó sẽ làm giảm giá trị của bài test.</li>
-                    <li><strong>Hệ thống bên ngoài:</strong> Là những hệ thống bạn không kiểm soát, như một <span class="keyword" data-keyword="api">API</span> của đối tác.</li>
-                </ul>
-                <blockquote>
-                    <p><strong>Lời khuyên:</strong> Thay vì <span class="keyword" data-keyword="mock">mock</span> <span class="keyword" data-keyword="database">database</span>, hãy viết các bài <strong><span class="keyword" data-keyword="integration-test">Integration Test</span></strong> chạy trên một <span class="keyword" data-keyword="database">database</span> thật (hoặc một phiên bản trong Docker). Điều này sẽ mang lại sự tự tin cao hơn nhiều. Các bài <strong><span class="keyword" data-keyword="unit-test">Unit Test</span></strong> nên tập trung vào các logic nghiệp vụ thuần túy không phụ thuộc vào I/O.</p>
-                </blockquote>
+class UserService:
+    def __init__(self, user_repo, email_gateway):
+        self._user_repo = user_repo
+        self._email_gateway = email_gateway
+
+    def register(self, user_data):
+        # ... logic ...
+        self._user_repo.save(user_data)
+        self._email_gateway.send_welcome_email(user_data['email'])
+
+# --- Code bạn không sở hữu (giả định) ---
+# class SmtpEmailGateway: ...
+</code></pre>
+                    <p><strong>❌ Cách test sai (mock cả code sở hữu):</strong></p>
+<pre><code class="language-python">def test_register_user_WRONG(mocker):
+    # SAI: Mock UserRepository là code bạn sở hữu
+    mock_repo = mocker.patch("my_app.UserRepository")
+    mock_email = mocker.patch("my_app.EmailGateway")
+
+    service = UserService(mock_repo, mock_email)
+    service.register({"email": "a@b.com"})
+
+    mock_repo.save.assert_called_once() # Test mong manh!
+    mock_email.send_welcome_email.assert_called_once()
+</code></pre>
+                    <p><strong>✅ Cách test đúng (chỉ mock code không sở hữu):</strong></p>
+<pre><code class="language-python"># Dùng một phiên bản Fake cho code sở hữu
+class FakeUserRepository:
+    def __init__(self): self.users = []
+    def save(self, user): self.users.append(user)
+
+def test_register_user_CORRECT(mocker):
+    fake_repo = FakeUserRepository() # Dùng Fake
+    mock_email = mocker.patch("my_app.EmailGateway") # ĐÚNG: Mock code không sở hữu
+
+    service = UserService(fake_repo, mock_email)
+    service.register({"email": "a@b.com"})
+
+    assert len(fake_repo.users) == 1 # Test trạng thái, bền vững hơn
+    mock_email.send_welcome_email.assert_called_once()
+</code></pre>
+                </div>
             </section>
 
             <section id="glossary" class="content-section">

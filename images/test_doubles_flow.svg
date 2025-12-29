@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="650" height="200" style="background-color: transparent;">
+    <style>
+        .actor { font-family: 'Inter', sans-serif; font-size: 16px; fill: #E0E0FC; }
+        .component { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: bold; fill: #FFFFFF; }
+        .arrow-text { font-family: 'Inter', sans-serif; font-size: 14px; fill: #A0A0D0; }
+        .box { stroke: #3A3A5E; stroke-width: 2; fill: #24243E; }
+        .arrow-head { fill: #4F46E5; }
+        .arrow-line { stroke: #4F46E5; stroke-width: 2; }
+    </style>
+
+    <!-- Stub Flow -->
+    <rect x="20" y="50" width="180" height="80" rx="10" class="box"/>
+    <text x="110" y="95" text-anchor="middle" class="component">SUT</text>
+
+    <rect x="270" y="50" width="180" height="80" rx="10" class="box"/>
+    <text x="360" y="85" text-anchor="middle" class="component">Dependency</text>
+    <text x="360" y="110" text-anchor="middle" class="actor">(Stub)</text>
+
+    <defs>
+        <marker id="arrowhead-stub" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" class="arrow-head" />
+        </marker>
+    </defs>
+    <line x1="265" y1="90" x2="205" y2="90" class="arrow-line" marker-start="url(#arrowhead-stub)" />
+    <text x="235" y="70" text-anchor="middle" class="arrow-text">1. SUT asks for data (Query)</text>
+    <text x="235" y="125" text-anchor="middle" class="arrow-text">2. Stub provides data</text>
+
+    <!-- Mock Flow -->
+    <rect x="470" y="50" width="180" height="80" rx="10" class="box"/>
+    <text x="560" y="95" text-anchor="middle" class="component">SUT</text>
+
+    <rect x="720" y="50" width="180" height="80" rx="10" class="box" visibility="hidden"/> <!-- Dummy for spacing -->
+
+</svg>
