@@ -2,25 +2,16 @@
 :root {
     --font-sans: 'Inter', sans-serif;
 
-    /* Light Theme */
-    --bg-primary-light: #f4f7f9;
-    --bg-secondary-light: #ffffff;
-    --text-primary-light: #2c3e50;
-    --text-secondary-light: #5a6a7a;
-    --border-light: #e6eaed;
+    /* Theme Variables */
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #24243e;
+    --text-primary: #e0e0fc;
+    --text-secondary: #a0a0d0;
+    --border-color: #3a3a5e;
     --accent-color: #4f46e5;
-    --accent-color-light: #e0dffc;
-    --code-bg-light: var(--bg-secondary-light);
-    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.05);
-
-    /* Dark Theme */
-    --bg-primary-dark: #1a1a2e;
-    --bg-secondary-dark: #24243e;
-    --text-primary-dark: #e0e0fc;
-    --text-secondary-dark: #a0a0d0;
-    --border-dark: #3a3a5e;
-    --code-bg-dark: var(--bg-secondary-dark);
-    --shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.2);
+    --accent-color-light: #3a3a5e; /* Used for active nav item bg */
+    --code-bg: var(--bg-secondary);
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 *, *::before, *::after {
@@ -29,32 +20,11 @@
     padding: 0;
 }
 
-html {
-    --bg-primary: var(--bg-primary-light);
-    --bg-secondary: var(--bg-secondary-light);
-    --text-primary: var(--text-primary-light);
-    --text-secondary: var(--text-secondary-light);
-    --border-color: var(--border-light);
-    --code-bg: var(--code-bg-light);
-    --shadow: var(--shadow-light);
-}
-
-html.dark {
-    --bg-primary: var(--bg-primary-dark);
-    --bg-secondary: var(--bg-secondary-dark);
-    --text-primary: var(--text-primary-dark);
-    --text-secondary: var(--text-secondary-dark);
-    --border-color: var(--border-dark);
-    --code-bg: var(--code-bg-dark);
-    --shadow: var(--shadow-dark);
-}
-
 body {
     font-family: var(--font-sans);
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
-    transition: background-color 0.3s, color 0.3s;
 }
 
 /* --- Layout --- */
@@ -108,22 +78,6 @@ body {
     color: var(--text-primary);
 }
 
-.theme-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-secondary);
-    padding: 8px;
-    border-radius: 50%;
-}
-.theme-toggle:hover {
-    background-color: var(--bg-primary);
-}
-
-.icon-sun { display: none; }
-html.dark .icon-moon { display: none; }
-html.dark .icon-sun { display: block; }
-
 /* --- Sidebar Navigation --- */
 .nav-menu {
     list-style: none;
@@ -159,9 +113,6 @@ html.dark .icon-sun { display: block; }
 .nav-item.active {
     background-color: var(--accent-color-light);
     color: var(--accent-color);
-}
-html.dark .nav-item.active {
-    background-color: #3a3a5e;
 }
 
 /* --- Main Content --- */
@@ -205,7 +156,6 @@ strong {
 /* Code Blocks */
 pre {
     background-color: var(--code-bg);
-    color: var(--text-primary);
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 1.5em;
@@ -216,13 +166,10 @@ pre {
 
 code {
     font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
-    background-color: var(--accent-color-light);
+    background-color: var(--bg-primary);
     padding: 0.2em 0.4em;
     border-radius: 4px;
     font-size: 0.9em;
-}
-html.dark code {
-    background-color: var(--bg-primary-dark);
 }
 
 pre code {
@@ -235,8 +182,10 @@ pre[class*="language-"] .line-highlight {
     background: transparent !important;
 }
 
-.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
-    background: transparent !important;
+/* Fix for token backgrounds causing "zebra stripes" */
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string,
+.token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol, .token.deleted {
+	background: transparent !important;
 }
 
 /* Blockquotes */
@@ -423,9 +372,6 @@ th, td {
 }
 
 thead tr {
-    background-color: var(--bg-primary);
-}
-html.dark thead tr {
     background-color: #3a3a5e;
 }
 

@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="650" height="200" style="background-color: transparent;">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="920" height="200" style="background-color: transparent;">
     <style>
+        .heading { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: bold; fill: #E0E0FC; text-anchor: middle; }
         .actor { font-family: 'Inter', sans-serif; font-size: 16px; fill: #E0E0FC; }
         .component { font-family: 'Inter', sans-serif; font-size: 18px; font-weight: bold; fill: #FFFFFF; }
         .arrow-text { font-family: 'Inter', sans-serif; font-size: 14px; fill: #A0A0D0; }
@@ -8,7 +9,14 @@
         .arrow-line { stroke: #4F46E5; stroke-width: 2; }
     </style>
 
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" class="arrow-head" />
+        </marker>
+    </defs>
+
     <!-- Stub Flow -->
+    <text x="235" y="30" class="heading">Stub Flow (State Verification)</text>
     <rect x="20" y="50" width="180" height="80" rx="10" class="box"/>
     <text x="110" y="95" text-anchor="middle" class="component">SUT</text>
 
@@ -16,19 +24,22 @@
     <text x="360" y="85" text-anchor="middle" class="component">Dependency</text>
     <text x="360" y="110" text-anchor="middle" class="actor">(Stub)</text>
 
-    <defs>
-        <marker id="arrowhead-stub" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
-            <polygon points="0 0, 10 3.5, 0 7" class="arrow-head" />
-        </marker>
-    </defs>
-    <line x1="265" y1="90" x2="205" y2="90" class="arrow-line" marker-start="url(#arrowhead-stub)" />
+    <!-- Arrow for Stub -->
+    <line x1="265" y1="90" x2="205" y2="90" class="arrow-line" marker-start="url(#arrowhead)" />
     <text x="235" y="70" text-anchor="middle" class="arrow-text">1. SUT asks for data (Query)</text>
     <text x="235" y="125" text-anchor="middle" class="arrow-text">2. Stub provides data</text>
 
     <!-- Mock Flow -->
+    <text x="685" y="30" class="heading">Mock Flow (Behavior Verification)</text>
     <rect x="470" y="50" width="180" height="80" rx="10" class="box"/>
     <text x="560" y="95" text-anchor="middle" class="component">SUT</text>
 
-    <rect x="720" y="50" width="180" height="80" rx="10" class="box" visibility="hidden"/> <!-- Dummy for spacing -->
+    <rect x="720" y="50" width="180" height="80" rx="10" class="box"/>
+    <text x="810" y="85" text-anchor="middle" class="component">Dependency</text>
+    <text x="810" y="110" text-anchor="middle" class="actor">(Mock)</text>
+
+    <!-- Arrow for Mock -->
+    <line x1="655" y1="90" x2="715" y2="90" class="arrow-line" marker-end="url(#arrowhead)" />
+    <text x="685" y="75" text-anchor="middle" class="arrow-text">SUT sends command</text>
 
 </svg>

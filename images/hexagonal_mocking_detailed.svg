@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" style="background-color: transparent; font-family: 'Inter', sans-serif;">
     <defs>
-        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+        <marker id="arrowhead-blue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
             <polygon points="0 0, 10 3.5, 0 7" fill="#4f46e5"/>
+        </marker>
+        <marker id="arrowhead-white" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#a0a0d0"/>
         </marker>
         <style>
             .core-fill { fill: #4f46e5; opacity: 0.2; }
@@ -14,60 +17,60 @@
             .text-rule { font-size: 16px; font-weight: bold; }
             .text-yes { fill: #28a745; }
             .text-no { fill: #dc3545; }
-            .arrow { stroke: #4f46e5; stroke-width: 2; marker-end: url(#arrowhead); }
             .line-dashed { stroke: #a0a0d0; stroke-width: 1; stroke-dasharray: 4 4; }
         </style>
     </defs>
 
     <!-- Hexagon Core -->
     <path id="hexagon" d="M400 50 L573 150 L573 350 L400 450 L227 350 L227 150 Z" class="core-fill core-stroke"/>
-    <text x="400" y="240" text-anchor="middle" class="text-title">Application Core</text>
-    <text x="400" y="265" text-anchor="middle" class="text-body">(Code you "own")</text>
+    <text x="400" y="205" text-anchor="middle" class="text-title">Application Core</text>
+    <text x="400" y="230" text-anchor="middle" class="text-body">(Code you "own")</text>
 
     <!-- Service inside core -->
-    <circle cx="400" cy="200" r="40" fill="#4f46e5" opacity="0.4"/>
-    <text x="400" y="205" text-anchor="middle" class="text-code">UserService</text>
+    <circle cx="400" cy="150" r="40" fill="#4f46e5" opacity="0.4"/>
+    <text x="400" y="155" text-anchor="middle" class="text-code">UserService</text>
 
     <!-- Repository inside core -->
-    <circle cx="330" cy="300" r="45" fill="#4f46e5" opacity="0.4"/>
-    <text x="330" y="305" text-anchor="middle" class="text-code">IUserRepo</text>
+    <circle cx="330" cy="270" r="45" fill="#4f46e5" opacity="0.4"/>
+    <text x="330" y="275" text-anchor="middle" class="text-code">IUserRepo</text>
 
     <!-- Gateway inside core -->
-    <circle cx="470" cy="300" r="45" fill="#4f46e5" opacity="0.4"/>
-    <text x="470" y="305" text-anchor="middle" class="text-code">IEmailGateway</text>
+    <circle cx="470" cy="270" r="45" fill="#4f46e5" opacity="0.4"/>
+    <text x="470" y="275" text-anchor="middle" class="text-code">IEmailGateway</text>
 
     <!-- Internal Communication -->
-    <path d="M380,235 Q360,250 350,265" stroke="#a0a0d0" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)" transform="rotate(10 360 260)"/>
-    <text x="310" y="250" class="text-body">Intra-system call</text>
-    <text x="315" y="380" class="text-rule text-no">DON'T MOCK!</text>
+    <path d="M375,180 Q360,210 345,235" stroke="#a0a0d0" stroke-width="1.5" fill="none" marker-end="url(#arrowhead-white)"/>
+    <text x="400" y="270" text-anchor="middle" class="text-body">Intra-system call</text>
+    <text x="400" y="400" text-anchor="middle" class="text-rule text-no">DON'T MOCK!</text>
 
     <!-- Left Adapter (DB) -->
     <rect x="50" y="125" width="160" height="90" rx="10" class="adapter-fill adapter-stroke" />
     <text x="130" y="155" text-anchor="middle" class="text-title">Adapter</text>
     <text x="130" y="180" text-anchor="middle" class="text-code">SqlUserRepository</text>
     <text x="130" y="200" text-anchor="middle" class="text-body">(Implements IUserRepo)</text>
-    <line x1="227" y1="170" x2="210" y2="170" class="line-dashed"/>
+    <line x1="210" y1="170" x2="227" y2="170" class="line-dashed"/>
 
     <!-- Right Adapter (Email) -->
-    <rect x="590" y="235" width="160" height="90" rx="10" class="adapter-fill adapter-stroke" />
-    <text x="670" y="265" text-anchor="middle" class="text-title">Adapter</text>
-    <text x="670" y="290" text-anchor="middle" class="text-code">SmtpEmailGateway</text>
-    <text x="670" y="310" text-anchor="middle" class="text-body">(Implements IEmailGateway)</text>
-    <line x1="573" y1="280" x2="590" y2="280" class="line-dashed"/>
+    <rect x="590" y="235" width="180" height="90" rx="10" class="adapter-fill adapter-stroke" />
+    <text x="680" y="265" text-anchor="middle" class="text-title">Adapter</text>
+    <text x="680" y="290" text-anchor="middle" class="text-code">SmtpEmailGateway</text>
+    <text x="680" y="310" text-anchor="middle" class="text-body">(Implements IEmailGateway)</text>
+
+    <!-- Inter-system Communication & Mocking Rule -->
+    <path d="M515,270 L590,270" stroke="#4f46e5" stroke-width="2" fill="none" marker-end="url(#arrowhead-blue)"/>
+    <text x="540" y="255" text-anchor="middle" class="text-body">Inter-system call</text>
+    <text x="680" y="390" text-anchor="middle" class="text-rule text-yes">DO MOCK HERE!</text>
+
+    <!-- Application Boundary -->
+    <line x1="573" y1="230" x2="573" y2="340" stroke="white" stroke-width="2" stroke-dasharray="6 6"/>
+    <text x="595" y="285" fill="white" font-size="10px" transform="rotate(90 595 285)">APPLICATION BOUNDARY</text>
 
     <!-- External Systems -->
     <text x="60" y="80" class="text-title">External Systems</text>
     <text x="60" y="100" class="text-body">(Code you "don't own")</text>
-    <path d="M 50 215 Q 30 250 50 285" fill="none" class="adapter-stroke"/>
-    <text x="80" y="310" class="text-code">PostgreSQL DB</text>
-    <path d="M 750 235 Q 770 200 750 165" fill="none" class="adapter-stroke"/>
-    <text x="690" y="150" class="text-code">SMTP Server</text>
-
-    <!-- Inter-system Communication & Mocking Rule -->
-    <path d="M495,270 Q520,275 570,280" stroke="#a0a0d0" stroke-width="1.5" fill="none" marker-end="url(#arrowhead)"/>
-    <text x="500" y="260" class="text-body">Inter-system call</text>
-    <text x="515" y="350" class="text-rule text-yes">DO MOCK HERE!</text>
-    <line x1="573" y1="250" x2="573" y2="350" stroke="white" stroke-width="3" stroke-dasharray="6 6"/>
-    <text x="580" y="300" fill="white" font-size="12px" transform="rotate(90 580 300)">APPLICATION BOUNDARY</text>
+    <path d="M130,215 C100,245 100,275 130,305" fill="none" stroke="#a0a0d0" stroke-width="1.5"/>
+    <text x="50" y="300" class="text-code">PostgreSQL DB</text>
+    <path d="M680,235 C710,205 710,175 680,145" fill="none" stroke="#a0a0d0" stroke-width="1.5"/>
+    <text x="630" y="135" class="text-code">SMTP Server</text>
 
 </svg>
