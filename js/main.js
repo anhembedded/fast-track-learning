@@ -128,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- DOM Elements ---
-    const themeToggle = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
     const navItems = document.querySelectorAll('.nav-item');
     const contentSections = document.querySelectorAll('.content-section');
@@ -136,22 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalOverlay = document.getElementById('answer-modal');
     const modalContent = document.getElementById('modal-answer-content');
     const modalCloseBtn = document.getElementById('modal-close-btn');
-
-    // --- Theme Toggler ---
-    const setTheme = (theme) => {
-        htmlElement.classList.remove('light', 'dark');
-        htmlElement.classList.add(theme);
-        localStorage.setItem('theme', theme);
-    };
-
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    setTheme(savedTheme);
-
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        setTheme(newTheme);
-    });
 
     // --- SPA Navigation ---
     const navigateTo = (targetId) => {
