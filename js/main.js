@@ -175,6 +175,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Answer Modal Logic ---
     const openModal = (answerHtml) => {
         modalContent.innerHTML = answerHtml;
+        // Re-run Prism syntax highlighting on the new content
+        if (window.Prism) {
+            Prism.highlightAll();
+        }
         // Directly manipulate the style for robustness
         modalOverlay.style.display = 'flex';
     };
