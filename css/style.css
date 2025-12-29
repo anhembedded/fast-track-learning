@@ -10,7 +10,7 @@
     --border-light: #e6eaed;
     --accent-color: #4f46e5;
     --accent-color-light: #e0dffc;
-    --code-bg-light: #2d2d2d;
+    --code-bg-light: var(--bg-secondary-light);
     --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.05);
 
     /* Dark Theme */
@@ -19,7 +19,7 @@
     --text-primary-dark: #e0e0fc;
     --text-secondary-dark: #a0a0d0;
     --border-dark: #3a3a5e;
-    --code-bg-dark: #0f0f1e;
+    --code-bg-dark: var(--bg-secondary-dark);
     --shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -205,7 +205,7 @@ strong {
 /* Code Blocks */
 pre {
     background-color: var(--code-bg);
-    color: #f8f8f2;
+    color: var(--text-primary);
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 1.5em;
@@ -228,6 +228,15 @@ html.dark code {
 pre code {
     background-color: transparent;
     padding: 0;
+}
+
+/* Fix for Prism line-highlight plugin background */
+pre[class*="language-"] .line-highlight {
+    background: transparent !important;
+}
+
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string {
+    background: transparent !important;
 }
 
 /* Blockquotes */
