@@ -1,0 +1,102 @@
+<svg width="850" height="550" viewBox="0 0 850 550" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style>
+            .container { font-family: 'Inter', sans-serif; }
+            .title { font-size: 20px; font-weight: bold; fill: #E0E0E0; text-anchor: middle; }
+            .subtitle { font-size: 16px; font-weight: 500; fill: #C0C0C0; text-anchor: middle; }
+            .label { font-size: 14px; fill: #FFFFFF; text-anchor: middle; }
+            .small-label { font-size: 12px; fill: #E0E0E0; text-anchor: middle; }
+
+            .process-box { fill: #2C3E50; stroke: #4A90E2; stroke-width: 2; rx: 8; }
+            .thread-box { fill: none; stroke: #F39C12; stroke-width: 1.5; stroke-dasharray: 4 2; rx: 5; }
+
+            .shared-mem { fill: #16A085; }
+            .stack-mem { fill: #E67E22; }
+            .data-mem { fill: #27AE60; }
+            .heap-mem { fill: #2ECC71; }
+            .code-mem { fill: #1ABC9C; }
+        </style>
+    </defs>
+
+    <rect width="100%" height="100%" fill="#212529"/>
+
+    <!-- Left Side: Processes -->
+    <g id="processes-group" transform="translate(50, 50)">
+        <text x="175" y="0" class="title">Multiple Processes</text>
+        <text x="175" y="25" class="subtitle">(Isolated Memory)</text>
+
+        <!-- Process A -->
+        <g id="process-a" transform="translate(0, 50)">
+            <rect width="170" height="420" class="process-box"/>
+            <text x="85" y="25" class="label" font-weight="bold">Process A</text>
+
+            <rect x="10" y="50" width="150" height="80" class="code-mem" rx="4"/>
+            <text x="85" y="95" class="label">Code</text>
+
+            <rect x="10" y="140" width="150" height="80" class="data-mem" rx="4"/>
+            <text x="85" y="185" class="label">Data</text>
+
+            <rect x="10" y="230" width="150" height="80" class="heap-mem" rx="4"/>
+            <text x="85" y="275" class="label">Heap</text>
+
+            <rect x="10" y="320" width="150" height="80" class="stack-mem" rx="4"/>
+            <text x="85" y="365" class="label">Stack</text>
+        </g>
+
+        <!-- Process B -->
+        <g id="process-b" transform="translate(180, 50)">
+            <rect width="170" height="420" class="process-box"/>
+            <text x="85" y="25" class="label" font-weight="bold">Process B</text>
+
+            <rect x="10" y="50" width="150" height="80" class="code-mem" rx="4"/>
+            <text x="85" y="95" class="label">Code</text>
+
+            <rect x="10" y="140" width="150" height="80" class="data-mem" rx="4"/>
+            <text x="85" y="185" class="label">Data</text>
+
+            <rect x="10" y="230" width="150" height="80" class="heap-mem" rx="4"/>
+            <text x="85" y="275" class="label">Heap</text>
+
+            <rect x="10" y="320" width="150" height="80" class="stack-mem" rx="4"/>
+            <text x="85" y="365" class="label">Stack</text>
+        </g>
+    </g>
+
+    <!-- Right Side: Threads -->
+    <g id="threads-group" transform="translate(450, 50)">
+        <text x="175" y="0" class="title">Multiple Threads</text>
+        <text x="175" y="25" class="subtitle">(Shared Memory)</text>
+
+        <!-- Single Process Boundary -->
+        <g id="single-process" transform="translate(0, 50)">
+            <rect width="350" height="420" class="process-box"/>
+            <text x="175" y="25" class="label" font-weight="bold">Single Process</text>
+
+            <!-- Shared Memory -->
+            <rect x="10" y="50" width="330" height="80" class="code-mem" rx="4"/>
+            <text x="175" y="95" class="label">Code (Shared)</text>
+
+            <rect x="10" y="140" width="330" height="80" class="data-mem" rx="4"/>
+            <text x="175" y="185" class="label">Data (Shared)</text>
+
+            <rect x="10" y="230" width="330" height="80" class="heap-mem" rx="4"/>
+            <text x="175" y="275" class="label">Heap (Shared)</text>
+
+            <!-- Thread 1 -->
+            <g id="thread-1" transform="translate(20, 320)">
+                <rect width="150" height="80" class="thread-box"/>
+                <text x="75" y="-8" class="small-label" fill="#F39C12">Thread 1</text>
+                <rect x="5" y="5" width="140" height="70" class="stack-mem" rx="4"/>
+                <text x="75" y="45" class="label">Stack 1</text>
+            </g>
+
+            <!-- Thread 2 -->
+            <g id="thread-2" transform="translate(180, 320)">
+                <rect width="150" height="80" class="thread-box"/>
+                <text x="75" y="-8" class="small-label" fill="#F39C12">Thread 2</text>
+                <rect x="5" y="5" width="140" height="70" class="stack-mem" rx="4"/>
+                <text x="75" y="45" class="label">Stack 2</text>
+            </g>
+        </g>
+    </g>
+</svg>
