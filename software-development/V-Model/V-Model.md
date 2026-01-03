@@ -21,10 +21,78 @@ The following diagram illustrates the "V" shape, linking development phases (lef
 
 ![V-Model Conceptual Diagram](v-model-mermaid.svg)
 
+```mermaid
+graph TD
+    subgraph Development [Verification Phase]
+    Req[Requirements Analysis] --> Sys[System Design]
+    Sys --> Arch[Architecture Design]
+    Arch --> Mod[Module Design]
+    end
+
+    subgraph Coding [Implementation]
+    Mod --> Code[Coding / Implementation]
+    end
+
+    subgraph Testing [Validation Phase]
+    Code --> Unit[Unit Testing]
+    Unit --> Integ[Integration Testing]
+    Integ --> SysTest[System Testing]
+    SysTest --> UAT[Acceptance Testing]
+    end
+
+    %% Links between phases
+    Req -.-> UAT
+    Sys -.-> SysTest
+    Arch -.-> Integ
+    Mod -.-> Unit
+```
+
 ### PlantUML Representation
 Here is the alternative representation generated from the PlantUML definition:
 
 ![V-Model PlantUML Representation](v-model-plantuml.svg)
+
+For those using PlantUML, here is the code to generate a standard V-Model diagram:
+
+```plantuml
+@startuml
+skinparam handwritten true
+title "V-Model"
+top to bottom direction
+
+package "Verification" {
+    :Requirements Analysis] as Req
+    :System Design] as Sys
+    :Architecture Design] as Arch
+    :Module Design] as Mod
+}
+
+package "Coding" {
+    :Implementation] as Code
+}
+
+package "Validation" {
+    :Unit Testing] as Unit
+    :Integration Testing] as Integ
+    :System Testing] as SysTest
+    :Acceptance Testing] as UAT
+}
+
+Req -right-> UAT : "Acceptance Plan"
+Sys -right-> SysTest : "System Test Plan"
+Arch -right-> Integ : "Integration Plan"
+Mod -right-> Unit : "Unit Test Plan"
+
+Req --> Sys
+Sys --> Arch
+Arch --> Mod
+Mod --> Code
+Code --> Unit
+Unit --> Integ
+Integ --> SysTest
+SysTest --> UAT
+@enduml
+```
 
 ---
 

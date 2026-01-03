@@ -138,7 +138,7 @@ Trong mọi hệ thống máy tính, bộ nhớ luôn là một tài nguyên kha
 
   #define A_MEGABYTE (1024 * 1024)
   // Điều chỉnh số này dựa trên RAM vật lý của bạn. Ví dụ, nếu bạn có 4GB RAM, đặt 256 để thử 512MB
-  #define PHY_MEM_MEGS 256 
+  #define PHY_MEM_MEGS 256
 
   int main() {
       char *some_memory;

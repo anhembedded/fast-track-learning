@@ -301,7 +301,7 @@ void collect_resource_info() {
     } else {
         info_message += "FDs: N/A. ";
     }
-  
+
     daemon_log(LOG_INFO, "Resource Status: " + info_message);
 }
 
@@ -380,7 +380,7 @@ int main(int argc, char *argv[]) {
     sa.sa_handler = signal_handler;
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = 0; // Không SA_RESTART để các sleep() có thể bị ngắt
-  
+
     // Bắt SIGTERM để thoát duyên dáng
     if (sigaction(SIGTERM, &sa, nullptr) == -1) {
         daemon_log(LOG_CRIT, "Failed to register SIGTERM handler: " + std::string(strerror(errno)));

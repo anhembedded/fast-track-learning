@@ -162,7 +162,7 @@ Gỡ lỗi là một quá trình có hệ thống, không chỉ là sửa lỗi.
   #endif
 
   // Một biến cờ debug toàn cục có thể bật/tắt qua dòng lệnh (ví dụ: -d)
-  bool runtime_debug_enabled = false; 
+  bool runtime_debug_enabled = false;
 
   // Hàm debug tùy chỉnh
   void my_debug_log(const std::string& message, int line, const std::string& file) {

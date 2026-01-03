@@ -155,7 +155,7 @@
       }
 
       // Dọn dẹp FIFO (chỉ nên làm bởi một bên, hoặc khi chắc chắn không còn ai dùng)
-      // unlink(FIFO_NAME); 
+      // unlink(FIFO_NAME);
       // AppLogger::log(AppLogger::INFO_L, "Process " + std::to_string(my_pid) + ": FIFO " + FIFO_NAME + " unlinked.");
 
       return EXIT_SUCCESS;
@@ -320,7 +320,7 @@
       }
 
       // Dọn dẹp FIFO (chỉ nên làm bởi một bên, hoặc khi chắc chắn không còn ai dùng)
-      unlink(FIFO_NAME); 
+      unlink(FIFO_NAME);
       AppLogger::log(AppLogger::INFO_L, "Process " + std::to_string(my_pid) + ": FIFO " + FIFO_NAME + " unlinked.");
 
       return EXIT_SUCCESS;
@@ -391,4 +391,3 @@
      * Quan sát cách `fifo_monitor` phản ứng với dữ liệu và khi không có dữ liệu.
 
 ---
-

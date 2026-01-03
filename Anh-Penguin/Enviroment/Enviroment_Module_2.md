@@ -161,7 +161,7 @@
   #include <unistd.h> // For extern char **environ; on some systems
 
   // Khai báo extern char **environ; để sử dụng biến toàn cục
-  extern char **environ; 
+  extern char **environ;
 
   int main() {
       std::cout << "INFO    : Listing all environment variables using 'environ':" << std::endl;

@@ -278,7 +278,7 @@ Muốn mình format tiếp phần core dump, job control, hay tập tín hiệu 
   }
 
   // Biến cờ để điều khiển vòng lặp chính từ signal handler
-  volatile sig_atomic_t keep_running = 1; 
+  volatile sig_atomic_t keep_running = 1;
 
   // Trình xử lý tín hiệu (Signal Handler)
   // Lưu ý: Chỉ các hàm async-signal-safe mới được gọi an toàn ở đây.

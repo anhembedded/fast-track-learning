@@ -412,7 +412,7 @@ int main(int argc, char *argv[]) {
     std::string command = argv[1];
     std::string key = (argc > 2) ? argv[2] : "";
     std::string value = (argc > 3) ? argv[3] : "";
-  
+
     message_db_t response_msg; // For receiving server response
 
     if (command == "set") {

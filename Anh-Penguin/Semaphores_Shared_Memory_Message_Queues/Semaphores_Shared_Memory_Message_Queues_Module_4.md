@@ -33,7 +33,7 @@ while (true) {
     item = produce_item();         // 1. Tạo dữ liệu
     sem_wait(empty_slots);         // 2. Chờ cho đến khi có ít nhất một ô trống
     sem_wait(mutex);               // 3. Khóa bộ đệm để ghi
-    
+
     // --- Vùng găng ---
     add_item_to_buffer(item);      // 4. Ghi dữ liệu vào bộ đệm
     // --- Hết vùng găng ---
@@ -56,7 +56,7 @@ while (true) {
 
     sem_post(mutex);               // 4. Mở khóa bộ đệm
     sem_post(empty_slots);         // 5. Báo hiệu rằng đã có thêm một ô trống
-    
+
     consume_item(item);            // 6. Xử lý dữ liệu
 }
 ```
@@ -128,7 +128,7 @@ int main() {
     SharedBuffer* shared_data = (SharedBuffer*)mmap(0, sizeof(SharedBuffer), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
     shared_data->in = 0;
     shared_data->out = 0;
-    
+
     // Tạo Semaphores
     sem_t* mutex = sem_open(SEM_MUTEX_NAME, O_CREAT, 0666, 1);
     sem_t* empty_slots = sem_open(SEM_EMPTY_NAME, O_CREAT, 0666, BUFFER_SIZE);
@@ -173,7 +173,7 @@ int main() {
     sem_unlink(SEM_MUTEX_NAME);
     sem_unlink(SEM_EMPTY_NAME);
     sem_unlink(SEM_FULL_NAME);
-    
+
     return 0;
 }
 
@@ -196,7 +196,7 @@ void run_producer(int id) {
 
         sem_wait(empty_slots);
         sem_wait(mutex);
-        
+
         shared_data->buffer[shared_data->in] = item;
         shared_data->in = (shared_data->in + 1) % BUFFER_SIZE;
         std::cout << "[Producer " << id << "] Produced item " << i << std::endl;
@@ -234,7 +234,7 @@ void run_consumer() {
 
         sleep(rand() % 2);
     }
-    
+
     // Dọn dẹp
     munmap(shared_data, sizeof(SharedBuffer));
     close(shm_fd);

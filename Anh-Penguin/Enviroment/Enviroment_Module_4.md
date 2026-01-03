@@ -112,7 +112,7 @@ int main() {
         fprintf(tmp_fp, "Data written to tmpfile.\n");
         AppLogger::log(AppLogger::INFO_L, "Wrote data to tmpfile. It will be deleted automatically.");
         // Đóng file. File sẽ bị xóa.
-        fclose(tmp_fp); 
+        fclose(tmp_fp);
         AppLogger::log(AppLogger::SUCCESS_L, "tmpfile closed.");
     }
 
@@ -120,7 +120,7 @@ int main() {
     AppLogger::log(AppLogger::INFO_L, "\n--- Demonstrating mkstemp() ---");
     // Tạo template (lưu ý: mkstemp sẽ sửa đổi chuỗi template này)
     char template_buffer[256];
-    strcpy(template_buffer, mkstemp_template); 
+    strcpy(template_buffer, mkstemp_template);
 
     // Tạo và mở file tạm thời, trả về FD
     tmp_fd = mkstemp(template_buffer);
@@ -128,7 +128,7 @@ int main() {
         AppLogger::log(AppLogger::ERROR_L, "mkstemp failed: " + std::string(strerror(errno)));
     } else {
         AppLogger::log(AppLogger::SUCCESS_L, "Created temporary file (from mkstemp): " + std::string(template_buffer) + " with FD " + std::to_string(tmp_fd));
-      
+
         // Tạo "Transient File": xóa tên file khỏi thư mục ngay lập tức
         if (unlink(template_buffer) == -1) {
             AppLogger::log(AppLogger::WARNING_L, "Failed to unlink mkstemp file: " + std::string(strerror(errno)));

@@ -57,13 +57,13 @@ int main() {
     sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;
     // INADDR_ANY: Chấp nhận kết nối từ bất kỳ địa chỉ IP nào của máy. Rất hữu dụng.
-    server_addr.sin_addr.s_addr = htonl(INADDR_ANY); 
+    server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     server_addr.sin_port = htons(PORT); // Chuyển port sang network byte order
-    
+
     if (bind(server_fd, (const sockaddr*)&server_addr, sizeof(server_addr)) == -1) {
         perror("bind"); return 1;
     }
-    
+
     // 3. Listen và Accept (logic không đổi)
     listen(server_fd, 5);
     std::cout << "[Server] Waiting for connection on port " << PORT << std::endl;
@@ -76,7 +76,7 @@ int main() {
     read(client_fd, buffer, sizeof(buffer));
     std::cout << "[Server] Received: " << buffer << std::endl;
     write(client_fd, "Hello from INET Server!", 24);
-    
+
     close(client_fd);
     close(server_fd);
 
@@ -105,7 +105,7 @@ int main() {
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(PORT);
     // inet_addr sẽ chuyển đổi địa chỉ IP dạng chuỗi sang dạng số và network byte order
-    server_addr.sin_addr.s_addr = inet_addr(SERVER_IP); 
+    server_addr.sin_addr.s_addr = inet_addr(SERVER_IP);
 
     // 3. Kết nối đến server
     if (connect(client_fd, (const sockaddr*)&server_addr, sizeof(server_addr)) == -1) {

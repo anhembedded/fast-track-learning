@@ -31,7 +31,7 @@ Trong Module này, chúng ta sẽ đi sâu vào các **System Calls** – nhữn
   * **Lý thuyết:** Hàm `open()` là System Call dùng để **tạo một File Descriptor mới** bằng cách mở một file hoặc thiết bị.
 
       * **Syntax:**
-        
+
         ```c
         #include <fcntl.h>   // Cho open, các cờ O_
         #include <sys/types.h> // Cho mode_t (tùy chọn nhưng nên có)
@@ -88,7 +88,7 @@ Trong Module này, chúng ta sẽ đi sâu vào các **System Calls** – nhữn
             return EXIT_FAILURE;
         }
         AppLogger::log(AppLogger::SUCCESS_L, "Successfully opened " + std::string(filename_write) + " with FD: " + std::to_string(fd));
-        
+
         // Ghi vài dữ liệu vào file
         const char *data_to_write = "Hello from Linux File Programming!\n";
         ssize_t bytes_written = write(fd, data_to_write, strlen(data_to_write));
@@ -112,7 +112,7 @@ Trong Module này, chúng ta sẽ đi sâu vào các **System Calls** – nhữn
             return EXIT_FAILURE;
         }
         AppLogger::log(AppLogger::SUCCESS_L, "Successfully opened " + std::string(filename_read) + " with FD: " + std::to_string(fd));
-        
+
         close(fd); // Đóng file
 
         return EXIT_SUCCESS;
@@ -380,7 +380,7 @@ Trong Module này, chúng ta sẽ đi sâu vào các **System Calls** – nhữn
         // Tạo file và thư mục để test
         system("touch my_test_file.txt && mkdir my_test_dir");
         system("ln -s my_test_file.txt my_symlink_to_file");
-        
+
         AppLogger::log(AppLogger::INFO_L, "--- Checking stat() for files and directories ---");
 
         // Kiểm tra file
@@ -427,7 +427,7 @@ Trong Module này, chúng ta sẽ đi sâu vào các **System Calls** – nhữn
             }
             AppLogger::log(AppLogger::INFO_L, "  Size of symlink itself: " + std::to_string(file_stat.st_size) + " bytes");
         }
-        
+
         // Dọn dẹp
         system("rm -rf my_test_file.txt my_test_dir my_symlink_to_file");
         return EXIT_SUCCESS;
@@ -471,7 +471,7 @@ Trong Module này, chúng ta sẽ đi sâu vào các **System Calls** – nhữn
             AppLogger::log(AppLogger::ERROR_L, "Failed to duplicate STDOUT: " + std::string(strerror(errno)));
             return EXIT_FAILURE;
         }
-        
+
         const char *output_filename = "redirected_output.txt";
         int file_fd;
 
@@ -554,7 +554,7 @@ Trong Module này, chúng ta sẽ đi sâu vào các **System Calls** – nhữn
     int main() {
         // Trong thực tế, đây sẽ là File Descriptor của một thiết bị thực sự, ví dụ: /dev/ttyS0
         // Để minh họa, chúng ta sẽ mở /dev/null
-        int device_fd = open("/dev/null", O_RDWR); 
+        int device_fd = open("/dev/null", O_RDWR);
         if (device_fd == -1) {
             AppLogger::log(AppLogger::ERROR_L, "Failed to open device: " + std::string(strerror(errno)));
             return EXIT_FAILURE;
@@ -636,4 +636,3 @@ Trong Module này, chúng ta sẽ đi sâu vào các **System Calls** – nhữn
           * Kiểm tra nội dung của `error_log.txt` sau khi chạy chương trình.
 
 -----
-

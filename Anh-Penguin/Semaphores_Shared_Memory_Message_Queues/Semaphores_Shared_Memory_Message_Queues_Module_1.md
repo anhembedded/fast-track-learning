@@ -189,7 +189,7 @@ int main() {
         perror("sem_open");
         return 1;
     }
-  
+
     // Clear the buffer file at the start
     std::ofstream ofs(BUFFER_FILE, std::ofstream::out | std::ofstream::trunc);
     ofs.close();
@@ -361,7 +361,7 @@ int main() {
         perror("sem_open");
         return 1;
     }
-    
+
     // Các bước tiếp theo sẽ ở đây...
 }
 ```
@@ -412,7 +412,7 @@ int main() {
     // Hành động này sẽ đánh thức tiến trình Waiter đang bị block.
     std::cout << "[Worker] Gửi tín hiệu cho Waiter." << std::endl;
     sem_post(my_sem);
-    
+
     // Các bước tiếp theo...
 }
 ```
@@ -483,7 +483,7 @@ int main() {
     sleep(3);
 
     std::cout << "[Worker] Gửi tín hiệu cho Waiter." << std::endl;
-    
+
     // Post - tăng giá trị semaphore để giải phóng Waiter
     sem_post(my_sem);
 

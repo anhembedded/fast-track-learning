@@ -84,7 +84,7 @@
           AppLogger::log(AppLogger::INFO_L, "Parent Process (PID: " + std::to_string(getpid()) + "): Child created with PID: " + std::to_string(pid) + ". Waiting for child...");
 
           // Tiến trình cha bị chặn tại đây cho đến khi con kết thúc
-          child_pid_returned = wait(&stat_val); 
+          child_pid_returned = wait(&stat_val);
 
           AppLogger::log(AppLogger::SUCCESS_L, "Parent Process: Child (PID: " + std::to_string(child_pid_returned) + ") has finished.");
 

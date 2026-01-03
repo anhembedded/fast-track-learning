@@ -137,7 +137,7 @@ void *cancellable_thread_function(void *arg) {
     AppLogger::log(AppLogger::INFO_L, "Cancellable Thread: Finished loop normally (should not happen if canceled).");
 
     // 3. Bỏ cleanup handler khỏi stack. Tham số 1 nghĩa là thực thi handler.
-    pthread_cleanup_pop(1); 
+    pthread_cleanup_pop(1);
 
     pthread_exit(nullptr); // Luồng tự kết thúc
 }

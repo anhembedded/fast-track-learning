@@ -105,7 +105,7 @@ namespace AppLogger {
 }
 
 // Biến toàn cục được chia sẻ giữa các luồng
-char global_message[] = "Hello from main thread!"; 
+char global_message[] = "Hello from main thread!";
 
 // Hàm mà luồng con sẽ thực thi
 // Chữ ký phải là void* func(void*)
@@ -114,17 +114,17 @@ void *thread_function(void *arg) {
     char *received_message = static_cast<char*>(arg);
     AppLogger::log(AppLogger::INFO_L, "Child Thread (ID: " + std::to_string(pthread_self()) + "): Running.");
     AppLogger::log(AppLogger::INFO_L, "Child Thread: Received argument: '" + std::string(received_message) + "'");
-  
+
     // Giả vờ làm việc
     AppLogger::log(AppLogger::INFO_L, "Child Thread: Working for 3 seconds...");
     sleep(3);
 
     // Sửa đổi biến toàn cục (hiển thị việc chia sẻ bộ nhớ)
-    strcpy(global_message, "Bye from child thread!"); 
+    strcpy(global_message, "Bye from child thread!");
     AppLogger::log(AppLogger::INFO_L, "Child Thread: Modified global_message.");
 
     // Trả về một giá trị từ luồng
-    static char *thread_return_value = (char*)"Thread completed successfully!"; 
+    static char *thread_return_value = (char*)"Thread completed successfully!";
     // Quan trọng: Phải là static hoặc cấp phát động, không phải biến cục bộ
     AppLogger::log(AppLogger::INFO_L, "Child Thread: Exiting with message.");
     pthread_exit(static_cast<void*>(thread_return_value)); // Luồng tự kết thúc và trả về giá trị

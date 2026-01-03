@@ -75,6 +75,23 @@
                     <i data-feather="book-open"></i>
                     <span>Từ điển thuật ngữ</span>
                 </li>
+                <li class="nav-category">Concurrency & Systems</li>
+                <li class="nav-item" data-target="concurrency-intro">
+                    <i data-feather="server"></i>
+                    <span>Introduction</span>
+                </li>
+                <li class="nav-item" data-target="concurrency-processes">
+                    <i data-feather="cpu"></i>
+                    <span>Processes & Signals</span>
+                </li>
+                <li class="nav-item" data-target="concurrency-posix-threads">
+                    <i data-feather="git-merge"></i>
+                    <span>POSIX Threads</span>
+                </li>
+                <li class="nav-item" data-target="concurrency-python">
+                    <i data-feather="wind"></i>
+                    <span>Python Concurrency</span>
+                </li>
             </ul>
         </nav>
 
@@ -1293,6 +1310,485 @@ TEST(UserServiceTest, RegisterNewUserSuccessfully) {
                     </div>
                 </div>
 
+            </section>
+
+            <section id="concurrency-intro" class="content-section">
+                <h1>Chào mừng đến với Concurrency & Systems</h1>
+                <p>Phần này của wiki tập trung vào các khái niệm lập trình hệ thống và đồng thời (concurrency), những nền tảng quan trọng cho bất kỳ lập trình viên nào muốn xây dựng các ứng dụng hiệu suất cao và đáng tin cậy.</p>
+                <h2>Tại sao cần học về Concurrency?</h2>
+                <ul>
+                    <li><strong>Tận dụng phần cứng hiện đại:</strong> Hầu hết các CPU hiện nay đều có nhiều lõi (multi-core). Lập trình đồng thời cho phép bạn thực thi các tác vụ song song, tận dụng tối đa sức mạnh của phần cứng.</li>
+                    <li><strong>Cải thiện khả năng phản hồi (Responsiveness):</strong> Trong các ứng dụng có giao diện người dùng (UI), việc chạy các tác vụ nặng (như xử lý file, gọi mạng) trong một luồng riêng sẽ giúp UI không bị "đóng băng", mang lại trải nghiệm mượt mà cho người dùng.</li>
+                    <li><strong>Xử lý các vấn đề trong thế giới thực:</strong> Nhiều hệ thống trong thực tế vốn có bản chất là đồng thời, ví dụ như một web server phải xử lý hàng ngàn yêu cầu từ client cùng một lúc.</li>
+                </ul>
+                <h2>Nội dung chính</h2>
+                <p>Chúng tôi sẽ khám phá các chủ đề từ cơ bản đến nâng cao, bao gồm:</p>
+                <ol>
+                    <li><strong>Tiến trình (Processes) và Tín hiệu (Signals):</strong> Đơn vị thực thi cơ bản nhất trong hệ điều hành và cách chúng giao tiếp.</li>
+                    <li><strong>Luồng (Threads):</strong> Các đơn vị thực thi "nhẹ" hơn bên trong một tiến trình và cách chúng chia sẻ tài nguyên.</li>
+                    <li><strong>Lập trình đồng thời trong Python:</strong> So sánh giữa `threading`, `multiprocessing` và tìm hiểu về "nút thắt cổ chai" Global Interpreter Lock (GIL).</li>
+                    <li><strong>Các cơ chế Giao tiếp giữa tiến trình (IPC):</strong> Tìm hiểu cách các tiến trình độc lập có thể trao đổi dữ liệu với nhau một cách an toàn.</li>
+                </ol>
+                <blockquote>
+                    <p>Lập trình đồng thời là một chủ đề đầy thách thức, với những cạm bẫy như <strong>race conditions</strong> và <strong>deadlocks</strong>. Tuy nhiên, việc nắm vững nó sẽ mở ra cho bạn một cấp độ mới trong khả năng thiết kế và tối ưu hóa phần mềm.</p>
+                </blockquote>
+                <p>Hãy bắt đầu hành trình này bằng cách chọn một chủ đề từ thanh điều hướng!</p>
+            </section>
+
+            <section id="concurrency-processes" class="content-section">
+                <h1>Processes & Signals 🏃‍♂️🚦</h1>
+                <p>Trong Linux, mọi hoạt động đều xoay quanh khái niệm <strong>tiến trình (process)</strong>. Hiểu rõ tiến trình và cách chúng giao tiếp qua tín hiệu là chìa khóa để làm chủ hệ thống, đặc biệt trong lập trình hệ thống và nhúng.</p>
+
+                <h2>Module 1: Tiến trình là gì?</h2>
+
+                <h3>1.1. Định nghĩa và Cấu trúc</h3>
+                <ul>
+                    <li>Một <strong>tiến trình (process)</strong> là một <strong>chương trình đang thực thi</strong>. Nó là một thực thể độc lập, tự chứa bao gồm không chỉ mã lệnh mà còn tất cả các tài nguyên cần thiết để chạy.</li>
+                    <li><strong>Thành phần của một Tiến trình:</strong>
+                        <ul>
+                            <li><strong>Mã lệnh (Text Segment):</strong> Mã thực thi, chỉ đọc và có thể chia sẻ.</li>
+                            <li><strong>Dữ liệu (Data/BSS Segment):</strong> Biến toàn cục và biến tĩnh.</li>
+                            <li><strong>Heap:</strong> Vùng bộ nhớ động (`malloc`/`new`).</li>
+                            <li><strong>Stack:</strong> Vùng nhớ cho biến cục bộ, tham số hàm.</li>
+                            <li><strong>Process ID (PID):</strong> Một số nguyên duy nhất do Kernel gán cho mỗi tiến trình. PID 1 thường là `init` hoặc `systemd`.</li>
+                        </ul>
+                    </li>
+                    <li>Kernel duy trì một <strong>Bảng Tiến trình (Process Table)</strong> để theo dõi tất cả các tiến trình đang hoạt động.</li>
+                </ul>
+
+                <h3>1.2. Xem Tiến trình</h3>
+                <p>Các lệnh sau cho phép bạn xem thông tin về các tiến trình đang chạy:</p>
+                <ul>
+                    <li><strong><code>ps</code> (Process Status):</strong> Hiển thị ảnh chụp (snapshot) các tiến trình.
+                        <ul>
+                            <li><code>ps -ef</code>: Hiển thị tất cả tiến trình ở định dạng đầy đủ.</li>
+                            <li><code>ps aux</code>: Hiển thị tất cả tiến trình ở định dạng BSD.</li>
+                        </ul>
+                    </li>
+                    <li><strong><code>top</code> / <code>htop</code>:</strong> Cung cấp chế độ xem động, cập nhật liên tục về các tiến trình tiêu thụ nhiều tài nguyên nhất.</li>
+                    <li><strong><code>/proc</code> file system:</strong> Một hệ thống file ảo chứa thông tin chi tiết về mỗi tiến trình trong thư mục <code>/proc/&lt;PID&gt;/</code>.</li>
+                </ul>
+<pre><code class="language-bash"># Hiển thị 5 dòng đầu của cây tiến trình
+pstree | head -n 5
+
+# Hiển thị thông tin chi tiết về các tiến trình
+ps -e -o pid,ppid,user,stat,start,time,cmd
+</code></pre>
+
+                <h3>1.3. Lập lịch Tiến trình (Process Scheduling)</h3>
+                <ul>
+                    <li>Kernel Linux sử dụng một <strong>bộ lập lịch (scheduler)</strong> để phân chia thời gian CPU giữa các tiến trình.</li>
+                    <li><strong>Preemptive Multitasking:</strong> Kernel có thể tạm dừng (preempt) một tiến trình đang chạy để chuyển sang tiến trình khác có độ ưu tiên cao hơn.</li>
+                    <li><strong>Nice Value (`NI`):</strong> Một giá trị từ <code>-20</code> (ưu tiên cao nhất) đến <code>19</code> (ưu tiên thấp nhất) ảnh hưởng đến độ ưu tiên. Chỉ `root` mới có thể tăng ưu tiên (giảm giá trị nice).</li>
+                </ul>
+
+                <hr>
+                <h2>Module 2: Khởi động Tiến trình Mới</h2>
+
+                <h3>2.1. <code>system()</code>: Chạy Lệnh qua Shell</h3>
+                <p>Hàm <code>system()</code> là cách đơn giản nhất để chạy một lệnh bên ngoài. Nó tạo một shell con để thực thi lệnh và tiến trình cha sẽ bị chặn cho đến khi lệnh hoàn thành.</p>
+<pre><code class="language-cpp">#include &lt;cstdlib&gt;
+
+int main() {
+    // Chạy lệnh 'ls -l' và chờ nó kết thúc
+    system("ls -l");
+    return 0;
+}
+</code></pre>
+                <ul>
+                    <li><strong>Ưu điểm:</strong> Đơn giản, tiện lợi.</li>
+                    <li><strong>Nhược điểm:</strong> Kém hiệu quả (tốn overhead), ít kiểm soát, và có rủi ro bảo mật (command injection).</li>
+                </ul>
+
+                <h3>2.2. Họ hàm <code>exec</code>: Thay thế Ảnh Tiến trình</h3>
+                <p>Họ các hàm <code>exec</code> (<code>execlp</code>, <code>execvp</code>, ...) <strong>thay thế hoàn toàn</strong> mã lệnh và dữ liệu của tiến trình hiện tại bằng một chương trình mới. Nó <strong>không tạo tiến trình mới</strong> và giữ nguyên PID.</p>
+<pre><code class="language-cpp">#include &lt;unistd.h&gt;
+
+int main() {
+    // Thay thế tiến trình hiện tại bằng 'ls -l /tmp'
+    // Dòng code sau "execlp" sẽ không bao giờ chạy nếu nó thành công
+    execlp("ls", "ls", "-l", "/tmp", (char *)0);
+    perror("execlp failed"); // Chỉ chạy nếu có lỗi
+    return 1;
+}
+</code></pre>
+
+                <h3>2.3. <code>fork()</code>: Nhân bản Tiến trình</h3>
+                <p>Hàm <code>fork()</code> là system call cơ bản để <strong>tạo một tiến trình con mới</strong> bằng cách nhân bản tiến trình cha. Cả hai tiến trình tiếp tục chạy từ ngay sau lời gọi <code>fork()</code>.</p>
+                <ul>
+                    <li>Trong <strong>tiến trình con</strong>, <code>fork()</code> trả về <strong><code>0</code></strong>.</li>
+                    <li>Trong <strong>tiến trình cha</strong>, <code>fork()</code> trả về <strong>PID của tiến trình con</strong>.</li>
+                    <li>Nếu thất bại, nó trả về <code>-1</code>.</li>
+                </ul>
+
+                <h3>2.4. Mô hình <code>fork()</code> + <code>exec()</code></h3>
+                <p>Đây là cách chuẩn để khởi chạy một chương trình mới trong một tiến trình riêng biệt:</p>
+                <ol>
+                    <li>Tiến trình cha gọi <code>fork()</code> để tạo con.</li>
+                    <li>Trong nhánh của tiến trình con (<code>pid == 0</code>), nó gọi <code>exec()</code> để chạy chương trình mới.</li>
+                    <li>Trong nhánh của tiến trình cha (<code>pid > 0</code>), nó có thể tiếp tục công việc hoặc dùng <code>wait()</code> để chờ con kết thúc.</li>
+                </ol>
+<pre><code class="language-cpp">#include &lt;unistd.h&gt;
+#include &lt;sys/wait.h&gt;
+
+int main() {
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        // Mã của tiến trình con
+        execlp("echo", "echo", "Hello from child!", (char*)0);
+        _exit(127); // Thoát nếu exec thất bại
+    } else if (pid > 0) {
+        // Mã của tiến trình cha
+        wait(NULL); // Chờ con kết thúc
+        printf("Parent knows child has finished.\n");
+    }
+    return 0;
+}
+</code></pre>
+                <hr>
+                <h2>Module 3: Quản lý Tiến trình Con</h2>
+
+                <h3>3.1. <code>wait()</code> và <code>waitpid()</code>: Chờ Con Kết thúc</h3>
+                <p>Tiến trình cha cần chờ con để thu thập trạng thái thoát và ngăn chúng trở thành "zombie".</p>
+                <ul>
+                    <li><strong><code>wait(int *status)</code>:</strong> Chặn cha cho đến khi <strong>bất kỳ</strong> tiến trình con nào kết thúc.</li>
+                    <li><strong><code>waitpid(pid_t pid, int *status, int options)</code>:</strong> Linh hoạt hơn, có thể chờ một PID cụ thể. Với cờ <code>WNOHANG</code>, nó sẽ trả về ngay lập tức nếu không có con nào kết thúc, cho phép cha làm việc khác.</li>
+                </ul>
+                <p>Sử dụng các macro như <code>WIFEXITED(status)</code> và <code>WEXITSTATUS(status)</code> để phân tích giá trị trạng thái.</p>
+
+                <h3>3.2. Zombie Processes 🧟</h3>
+                <p>Một <strong>tiến trình zombie</strong> là một tiến trình con đã kết thúc nhưng cha chưa thu thập trạng thái thoát của nó bằng <code>wait()</code>. Chúng không dùng CPU/RAM nhưng chiếm một chỗ trong bảng tiến trình.</p>
+                <p><strong>Cách tránh Zombie:</strong></p>
+                <ol>
+                    <li><strong>Luôn gọi <code>wait()</code> hoặc <code>waitpid()</code>:</strong> Cách tốt nhất và rõ ràng nhất.</li>
+                    <li><strong>Bỏ qua <code>SIGCHLD</code>:</strong> <code>signal(SIGCHLD, SIG_IGN);</code>. Kernel sẽ tự động dọn dẹp các con đã thoát.</li>
+                    <li><strong>Double Fork:</strong> Tạo một "cháu" và để tiến trình con đầu tiên thoát ngay. Cháu sẽ mồ côi và được `init` (PID 1) nhận nuôi, `init` sẽ tự động dọn dẹp nó.</li>
+                </ol>
+
+                <hr>
+                <h2>Module 4: Signals (Tín hiệu)</h2>
+
+                <h3>4.1. Tín hiệu là gì?</h3>
+                <p><strong>Tín hiệu</strong> là một dạng thông báo phần mềm không đồng bộ được gửi đến một tiến trình để thông báo về một sự kiện. Nó là một cơ chế Giao tiếp giữa các tiến trình (IPC) rất cơ bản.</p>
+                <p>Các tín hiệu phổ biến:</p>
+                <ul>
+                    <li><code>SIGINT (Ctrl+C)</code>: Ngắt từ terminal.</li>
+                    <li><code>SIGTERM</code>: Yêu cầu kết thúc (terminate) một cách duyên dáng.</li>
+                    <li><code>SIGKILL</code>: Buộc kết thúc ngay lập tức (không thể bị bắt hoặc bỏ qua).</li>
+                    <li><code>SIGSEGV</code>: Lỗi phân đoạn bộ nhớ (segmentation fault).</li>
+                    <li><code>SIGCHLD</code>: Gửi đến tiến trình cha khi một tiến trình con kết thúc.</li>
+                </ul>
+
+                <h3>4.2. Gửi và Xử lý Tín hiệu</h3>
+                <ul>
+                    <li><strong>Gửi tín hiệu:</strong> Dùng lệnh <code>kill &lt;PID&gt;</code> hoặc hàm <code>kill(pid_t pid, int sig)</code> trong C++.</li>
+                    <li><strong>Xử lý tín hiệu:</strong>
+                        <ul>
+                            <li><strong>Hành động mặc định:</strong> Mỗi tín hiệu có một hành động mặc định (ví dụ: kết thúc tiến trình, bỏ qua, ...).</li>
+                            <li><strong>Bắt tín hiệu (Catching):</strong> Một tiến trình có thể đăng ký một hàm xử lý (signal handler) để thực thi mã tùy chỉnh khi nhận được tín hiệu.</li>
+                            <li><strong>Bỏ qua tín hiệu (Ignoring):</strong> Yêu cầu kernel bỏ qua tín hiệu (trừ <code>SIGKILL</code> và <code>SIGSTOP</code>).</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>Hàm <strong><code>sigaction()</code></strong> là cách hiện đại và được khuyến nghị để xử lý tín hiệu, vì nó cung cấp nhiều quyền kiểm soát hơn so với hàm <code>signal()</code> cũ.</p>
+<pre><code class="language-cpp">#include &lt;signal.h&gt;
+#include &lt;unistd.h&gt;
+
+void handle_sigint(int sig) {
+    write(STDOUT_FILENO, "Caught SIGINT!\n", 15);
+}
+
+int main() {
+    struct sigaction sa;
+    sa.sa_handler = handle_sigint;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = 0;
+
+    sigaction(SIGINT, &sa, NULL); // Đăng ký handler cho SIGINT
+
+    while(1) {
+        sleep(1);
+    }
+    return 0;
+}
+</code></pre>
+                <div class="pitfall-box">
+                    <p><strong>Cạm bẫy:</strong> Các hàm xử lý tín hiệu phải là <strong>re-entrant</strong>. Chúng có thể bị gọi bất cứ lúc nào, ngay cả khi chương trình đang ở giữa một lời gọi hàm khác. Tránh sử dụng các hàm không an toàn (non-reentrant) như `printf` hoặc `malloc` bên trong handler. Hãy dùng các hàm an toàn như `write`.</p>
+                </div>
+
+                <h3>4.3. Chặn và Chờ Tín hiệu</h3>
+                <ul>
+                    <li><strong><code>sa_mask</code>:</strong> Khi định nghĩa một <code>sigaction</code>, bạn có thể chỉ định một tập hợp các tín hiệu sẽ bị tạm thời chặn trong khi handler đang thực thi.</li>
+                    <li><strong><code>sigsuspend()</code>:</strong> Một hàm quan trọng cho phép một tiến trình tạm thời thay thế signal mask của nó và tự đưa mình vào trạng thái ngủ cho đến khi một tín hiệu không bị chặn được gửi đến. Đây là cách an toàn để chờ tín hiệu mà không gây ra race condition.</li>
+                </ul>
+            </section>
+
+            <section id="concurrency-posix-threads" class="content-section">
+                <h1>POSIX Threads (pthreads) 🧵</h1>
+                <p><strong>Luồng (Thread)</strong> là một đơn vị thực thi "nhẹ" hơn một tiến trình. Nhiều luồng có thể tồn tại bên trong một tiến trình duy nhất, chia sẻ cùng không gian bộ nhớ (mã lệnh, dữ liệu, heap) nhưng có stack và thanh ghi riêng. Điều này cho phép chúng thực hiện các tác vụ song song một cách hiệu quả.</p>
+
+                <h2>Module 1: Giới thiệu về Luồng</h2>
+                <h3>1.1. Luồng vs. Tiến trình</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tiêu chí</th>
+                            <th>Tiến trình (Process)</th>
+                            <th>Luồng (Thread)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Không gian nhớ</strong></td>
+                            <td>Độc lập, cách ly</td>
+                            <td>Chia sẻ (data, code, heap), stack riêng</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tạo mới</strong></td>
+                            <td>Chậm, tốn tài nguyên (`fork()`)</td>
+                            <td>Nhanh, nhẹ hơn (`pthread_create()`)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Giao tiếp (IPC)</strong></td>
+                            <td>Phức tạp (pipes, sockets, shared memory)</td>
+                            <td>Đơn giản (biến toàn cục, con trỏ)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cách ly lỗi</strong></td>
+                            <td>Tốt (một process crash không ảnh hưởng process khác)</td>
+                            <td>Kém (một thread crash làm cả process crash)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <img src="images/process_vs_thread.svg" alt="Process vs. Thread Memory Model">
+
+                <hr>
+                <h2>Module 2: Vòng đời của Luồng</h2>
+                <h3>2.1. Tạo và Kết thúc Luồng</h3>
+                <ul>
+                    <li><strong><code>pthread_create()</code>:</strong> Tạo một luồng mới.
+<pre><code class="language-cpp">#include &lt;pthread.h&gt;
+// int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
+//                    void *(*start_routine) (void *), void *arg);
+</code></pre>
+                        <ul>
+                            <li><code>thread</code>: Con trỏ để lưu ID của luồng mới.</li>
+                            <li><code>attr</code>: Thuộc tính của luồng (thường là `NULL` cho mặc định).</li>
+                            <li><code>start_routine</code>: Con trỏ tới hàm mà luồng sẽ thực thi.</li>
+                            <li><code>arg</code>: Đối số được truyền cho `start_routine`.</li>
+                        </ul>
+                    </li>
+                    <li><strong><code>pthread_join()</code>:</strong> Chờ một luồng kết thúc và thu thập giá trị trả về của nó. Tương tự như `wait()` cho tiến trình.
+<pre><code class="language-cpp">#include &lt;pthread.h&gt;
+// int pthread_join(pthread_t thread, void **retval);
+</code></pre>
+                    </li>
+                    <li><strong><code>pthread_exit()</code>:</strong> Cho phép một luồng tự kết thúc và trả về một giá trị.</li>
+                    <li><strong><code>pthread_self()</code>:</strong> Lấy ID của luồng đang thực thi.</li>
+                </ul>
+
+                <hr>
+                <h2>Module 3: Đồng bộ hóa Luồng (Synchronization)</h2>
+                <p>Khi nhiều luồng cùng truy cập vào dữ liệu chia sẻ, các vấn đề như <strong>điều kiện tranh chấp (race conditions)</strong> có thể xảy ra. Đồng bộ hóa là cần thiết để đảm bảo tính toàn vẹn dữ liệu.</p>
+
+                <h3>3.1. Mutex (Mutual Exclusion)</h3>
+                <p><strong>Mutex</strong> là một khóa bảo vệ. Chỉ luồng nào giữ được khóa mới được phép đi vào "vùng găng" (critical section) - đoạn code truy cập tài nguyên chia sẻ.</p>
+                <ul>
+                    <li><code>pthread_mutex_init()</code> / `PTHREAD_MUTEX_INITIALIZER`: Khởi tạo mutex.</li>
+                    <li><code>pthread_mutex_lock()</code>: Yêu cầu khóa. Nếu khóa đã bị giữ, luồng sẽ bị chặn.</li>
+                    <li><code>pthread_mutex_unlock()</code>: Mở khóa.</li>
+                    <li><code>pthread_mutex_destroy()</code>: Hủy mutex.</li>
+                </ul>
+<pre><code class="language-cpp">pthread_mutex_t my_mutex = PTHREAD_MUTEX_INITIALIZER;
+int shared_variable = 0;
+
+void* thread_function(void* arg) {
+    pthread_mutex_lock(&my_mutex);
+    // --- Vùng găng bắt đầu ---
+    shared_variable++;
+    // --- Vùng găng kết thúc ---
+    pthread_mutex_unlock(&my_mutex);
+    return NULL;
+}
+</code></pre>
+
+                <h3>3.2. Condition Variables</h3>
+                <p><strong>Biến điều kiện (Condition Variable)</strong> cho phép các luồng chờ đợi một điều kiện cụ thể trở thành `true`. Chúng luôn được sử dụng cùng với một mutex.</p>
+                <ul>
+                    <li><code>pthread_cond_init()</code>: Khởi tạo biến điều kiện.</li>
+                    <li><code>pthread_cond_wait()</code>: Mở khóa mutex và đưa luồng vào trạng thái ngủ. Khi được đánh thức, nó sẽ tự động khóa lại mutex trước khi tiếp tục.</li>
+                    <li><code>pthread_cond_signal()</code>: Đánh thức <strong>một</strong> luồng đang chờ.</li>
+                    <li><code>pthread_cond_broadcast()</code>: Đánh thức <strong>tất cả</strong> các luồng đang chờ.</li>
+                </ul>
+                <p>Đây là cơ chế nền tảng để xây dựng các mô hình sản xuất-tiêu dùng (producer-consumer) an toàn.</p>
+
+                <h3>3.3. Semaphores</h3>
+                <p><strong>Semaphore</strong> là một bộ đếm tổng quát được dùng để kiểm soát truy cập vào một tài nguyên có giới hạn số lượng. Ví dụ, quản lý một "bể" (pool) gồm N kết nối cơ sở dữ liệu.</p>
+                <ul>
+                    <li><code>sem_init()</code>: Khởi tạo semaphore với một giá trị ban đầu.</li>
+                    <li><code>sem_wait()</code>: Giảm bộ đếm. Nếu bộ đếm là 0, luồng sẽ bị chặn.</li>
+                    <li><code>sem_post()</code>: Tăng bộ đếm, có thể đánh thức một luồng đang chờ.</li>
+                </ul>
+
+                <hr>
+                <h2>Module 4: Thuộc tính Luồng</h2>
+                <p>Sử dụng đối tượng <code>pthread_attr_t</code> để tùy chỉnh hành vi của luồng trước khi tạo.</p>
+                <ul>
+                    <li><strong>Trạng thái tách rời (Detach State):</strong>
+                        <ul>
+                            <li><code>PTHREAD_CREATE_JOINABLE</code> (mặc định): Luồng có thể được `pthread_join()`. Tài nguyên của nó được giữ lại cho đến khi được join.</li>
+                            <li><code>PTHREAD_CREATE_DETACHED</code>: Luồng "tách rời". Khi nó kết thúc, tài nguyên của nó được tự động giải phóng. Không thể join luồng detached. Dùng <code>pthread_detach()</code> để tách rời một luồng đã tạo.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Lập lịch (Scheduling):</strong>
+                        <ul>
+                            <li><code>SCHED_OTHER</code>: Mặc định, chia sẻ thời gian thông thường.</li>
+                            <li><code>SCHED_FIFO</code> / <code>SCHED_RR</code>: Lập lịch thời gian thực, cần quyền `root`. Luồng ưu tiên cao hơn sẽ chạy trước.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <hr>
+                <h2>Module 5: Hủy một Luồng</h2>
+                <ul>
+                    <li><strong><code>pthread_cancel()</code>:</strong> Gửi một yêu cầu hủy đến một luồng khác.</li>
+                    <li>Luồng nhận yêu cầu có thể kiểm soát cách nó phản ứng:
+                        <ul>
+                            <li><strong>State:</strong> `PTHREAD_CANCEL_ENABLE` (cho phép hủy) vs. `PTHREAD_CANCEL_DISABLE` (tạm thời bỏ qua yêu cầu).</li>
+                            <li><strong>Type:</strong> `PTHREAD_CANCEL_DEFERRED` (chỉ hủy tại các điểm hủy bỏ - an toàn) vs. `PTHREAD_CANCEL_ASYNCHRONOUS` (hủy ngay lập tức - không an toàn).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Điểm hủy bỏ (Cancellation Points):</strong> Các hàm như `read`, `write`, `sleep`, `pthread_join` là các điểm hủy bỏ. <code>pthread_testcancel()</code> có thể được dùng để tạo một điểm hủy bỏ tường minh.</li>
+                    <li><strong>Clean-up Handlers (<code>pthread_cleanup_push/pop</code>):</strong> Đăng ký các hàm sẽ tự động được gọi khi luồng bị hủy, đảm bảo tài nguyên (như mutex) được giải phóng.</li>
+                </ul>
+
+                <hr>
+                <h2>Module 6: Làm việc với nhiều Luồng</h2>
+                <p>Khi tạo nhiều luồng trong một vòng lặp, cẩn thận không truyền địa chỉ của cùng một biến lặp cho tất cả các luồng. Đây là một lỗi phổ biến gây ra race condition.</p>
+                <div class="pitfall-box">
+<pre><code class="language-cpp">// LỖI PHỔ BIẾN
+for (int i = 0; i < 5; i++) {
+    // Tất cả các luồng có thể nhận cùng một giá trị cuối cùng của 'i'
+    pthread_create(&tid, NULL, worker, &i);
+}
+</code></pre>
+                </div>
+                <p><strong>Giải pháp:</strong> Truyền giá trị của biến lặp, hoặc cấp phát bộ nhớ động cho mỗi đối số.</p>
+                <p>Khái niệm <strong>Thread Pool</strong> là một mẫu thiết kế hiệu quả: tạo một số lượng luồng cố định và phân phối công việc cho chúng, tránh overhead của việc tạo và hủy luồng liên tục.</p>
+
+            </section>
+
+            <section id="concurrency-python" class="content-section">
+                <h1>Lập trình đồng thời trong Python 🐍</h1>
+                <p>Python cung cấp nhiều công cụ để lập trình đồng thời, nhưng điều quan trọng là phải hiểu sự khác biệt giữa các module và một khái niệm cốt lõi gọi là <strong>Global Interpreter Lock (GIL)</strong>.</p>
+
+                <h2>1. Global Interpreter Lock (GIL) - Nút thắt cổ chai</h2>
+                <p><strong>GIL</strong> là một mutex cấp tiến trình (process-level) trong CPython (bản cài đặt Python phổ biến nhất) có tác dụng <strong>chỉ cho phép một luồng thực thi bytecode Python tại một thời điểm</strong>. Ngay cả trên một CPU đa lõi, nhiều luồng Python sẽ không bao giờ chạy song song thực sự (true parallelism) cho các tác vụ tốn CPU.</p>
+                <ul>
+                    <li><strong>Tại sao GIL tồn tại?</strong> Nó giúp đơn giản hóa việc quản lý bộ nhớ trong CPython, làm cho việc tích hợp các thư viện C không thread-safe trở nên dễ dàng hơn.</li>
+                    <li><strong>Khi nào GIL là vấn đề?</strong> Đối với các tác vụ <strong>CPU-bound</strong> (tính toán nặng như xử lý ảnh, machine learning), GIL trở thành một nút thắt cổ chai nghiêm trọng.</li>
+                    <li><strong>Khi nào GIL không phải là vấn đề?</strong> Đối với các tác vụ <strong>I/O-bound</strong> (chờ mạng, đọc/ghi file, truy vấn database), GIL không ảnh hưởng nhiều. Khi một luồng đang chờ I/O, Python sẽ giải phóng GIL, cho phép một luồng khác chạy.</li>
+                </ul>
+                <img src="images/python_gil.svg" alt="Python GIL Explanation">
+
+                <hr>
+                <h2>2. Module <code>threading</code></h2>
+                <p>Module <code>threading</code> của Python tạo ra các luồng được quản lý bởi hệ điều hành. Tuy nhiên, do GIL, chúng phù hợp nhất cho các tác vụ I/O-bound.</p>
+<pre><code class="language-python">import threading
+import time
+
+def network_task(name):
+    print(f"Thread {name}: Bắt đầu tải xuống...")
+    time.sleep(2) # Giả lập chờ mạng
+    print(f"Thread {name}: Tải xuống hoàn tất.")
+
+# Tạo và khởi chạy nhiều luồng
+threads = []
+for i in range(5):
+    t = threading.Thread(target=network_task, args=(i,))
+    threads.append(t)
+    t.start()
+
+# Chờ tất cả các luồng hoàn thành
+for t in threads:
+    t.join()
+
+print("Tất cả các tác vụ mạng đã hoàn thành.")
+</code></pre>
+                <p>Trong ví dụ trên, mặc dù có 5 luồng, tổng thời gian chạy sẽ chỉ khoảng 2 giây (thay vì 10 giây) vì các luồng có thể "chờ" mạng một cách đồng thời. GIL được giải phóng trong lúc `time.sleep()`.</p>
+
+                <hr>
+                <h2>3. Module <code>multiprocessing</code></h2>
+                <p>Module <code>multiprocessing</code> là giải pháp của Python để vượt qua GIL cho các tác vụ CPU-bound. Thay vì tạo luồng, nó tạo ra các <strong>tiến trình (processes)</strong> con riêng biệt.</p>
+                <ul>
+                    <li>Mỗi tiến trình có bộ nhớ và trình thông dịch Python riêng, do đó không bị ảnh hưởng bởi GIL của tiến trình khác.</li>
+                    <li>Điều này cho phép đạt được <strong>tính song song thực sự (true parallelism)</strong> trên các CPU đa lõi.</li>
+                    <li>Giao tiếp giữa các tiến trình (IPC) phức tạp hơn so với luồng và cần các cơ chế như <code>Queue</code>, <code>Pipe</code>.</li>
+                </ul>
+<pre><code class="language-python">import multiprocessing
+import time
+
+def cpu_task(name):
+    print(f"Process {name}: Bắt đầu tính toán...")
+    # Giả lập một tác vụ tính toán nặng
+    count = 0
+    for i in range(10**7):
+        count += i
+    print(f"Process {name}: Tính toán hoàn tất.")
+
+# Tạo và khởi chạy nhiều tiến trình
+processes = []
+if __name__ == "__main__": # Cần thiết trên một số HĐH
+    for i in range(4): # Giả sử có 4 lõi CPU
+        p = multiprocessing.Process(target=cpu_task, args=(i,))
+        processes.append(p)
+        p.start()
+
+    # Chờ tất cả các tiến trình hoàn thành
+    for p in processes:
+        p.join()
+
+    print("Tất cả các tác vụ CPU đã hoàn thành.")
+</code></pre>
+                <p>Nếu chạy đoạn code trên, bạn sẽ thấy 4 tiến trình thực sự chạy song song trên 4 lõi CPU, giúp giảm đáng kể tổng thời gian hoàn thành so với việc chạy tuần tự.</p>
+
+                <hr>
+                <h2>4. So sánh <code>threading</code> vs. <code>multiprocessing</code></h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tiêu chí</th>
+                            <th><code>threading</code></th>
+                            <th><code>multiprocessing</code></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Trường hợp sử dụng</strong></td>
+                            <td>I/O-bound (chờ mạng, file, DB)</td>
+                            <td>CPU-bound (tính toán, xử lý dữ liệu)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Song song thực sự</strong></td>
+                            <td>Không (do GIL)</td>
+                            <td>Có (mỗi tiến trình có GIL riêng)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chia sẻ bộ nhớ</strong></td>
+                            <td>Dễ dàng (dùng biến chung)</td>
+                            <td>Khó (cần IPC như Queues, Pipes)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Overhead</strong></td>
+                            <td>Thấp</td>
+                            <td>Cao (tạo tiến trình tốn kém hơn)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <blockquote>
+                    <p><strong>Quy tắc vàng:</strong> Dùng <strong><code>threading</code></strong> cho các tác vụ bị chặn bởi I/O. Dùng <strong><code>multiprocessing</code></strong> cho các tác vụ bị giới hạn bởi sức mạnh của CPU.</p>
+                </blockquote>
             </section>
         </main>
     </div>

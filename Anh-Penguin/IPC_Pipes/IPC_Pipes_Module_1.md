@@ -216,7 +216,7 @@ int main() {
     // --- Ví dụ 1: Đọc output từ một lệnh ngoại vi ("r" mode) ---
     const char *command_read = "uname -a";
     AppLogger::log(AppLogger::INFO_L, "Calling popen(\"" + std::string(command_read) + "\", \"r\")...");
-  
+
     memset(buffer, '\0', sizeof(buffer)); // Khởi tạo buffer
 
     pipe_fp = popen(command_read, "r");

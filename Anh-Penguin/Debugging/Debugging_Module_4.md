@@ -67,7 +67,7 @@ double my_sqrt(double x) {
     AppLogger::log(AppLogger::INFO_L, "my_sqrt: Checking assertion for x = " + std::to_string(x));
     // Assertion: x phải lớn hơn hoặc bằng 0
     assert(x >= 0.0); // Nếu x < 0.0, chương trình sẽ chấm dứt tại đây
-  
+
     // Nếu assertion vượt qua, tiếp tục tính toán
     return sqrt(x);
 }
@@ -76,15 +76,15 @@ double my_sqrt(double x) {
 int process_data(int* data_ptr) {
     // KHÔNG NÊN LÀM: Assertion có side effect
     // assert(data_ptr != nullptr && (*data_ptr)++ > 0); // *data_ptr++ là side effect
-  
+
     // CÁCH ĐÚNG: Tách side effect ra khỏi assertion
     bool is_valid_data = (data_ptr != nullptr);
     if (is_valid_data) {
         // Thực hiện side effect
-        (*data_ptr)++; 
+        (*data_ptr)++;
     }
     assert(is_valid_data); // Assertion chỉ kiểm tra điều kiện
-  
+
     return *data_ptr;
 }
 
@@ -103,7 +103,7 @@ int main() {
     double result2 = my_sqrt(-2.0); // Dòng này sẽ kích hoạt assertion nếu NDEBUG không được định nghĩa
 
     // Dòng này sẽ không bao giờ được thực thi nếu assertion thất bại
-    AppLogger::log(AppLogger::SUCCESS_L, "sqrt(-2.0) = " + std::to_string(result2)); 
+    AppLogger::log(AppLogger::SUCCESS_L, "sqrt(-2.0) = " + std::to_string(result2));
 
     // Ví dụ về side effect (nếu bạn bỏ comment và thử)
     // int val = 5;

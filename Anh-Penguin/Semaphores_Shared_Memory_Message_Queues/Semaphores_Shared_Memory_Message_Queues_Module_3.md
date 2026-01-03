@@ -161,7 +161,7 @@ int main(int argc, char *argv[]) {
 
     mqd_t mqd;
     ClientRequest request;
-    
+
     // 1. Mở message queue đã có
     mqd = mq_open(QUEUE_NAME, O_WRONLY);
     if (mqd == (mqd_t)-1) {
@@ -173,7 +173,7 @@ int main(int argc, char *argv[]) {
     request.client_id = getpid();
     strncpy(request.command, argv[2], sizeof(request.command) - 1);
     request.command[sizeof(request.command) - 1] = '\0';
-    
+
     unsigned int priority = atoi(argv[1]);
 
     // 3. Gửi tin nhắn

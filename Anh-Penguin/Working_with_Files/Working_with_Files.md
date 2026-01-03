@@ -191,7 +191,7 @@ int main() {
     int fd = open("non_existent_file.txt", O_RDONLY);
     if (fd == -1) {
         // Thay vì chỉ in "Error", hãy dùng perror
-        perror("open failed"); 
+        perror("open failed");
         exit(1);
     }
     // ... làm gì đó với fd ...
@@ -355,7 +355,7 @@ Bây giờ hãy xem code của chúng ta trở nên gọn gàng và dễ đọc 
 
             char buffer[BUFFER_SIZE];
             size_t bytes_read;
-            
+
             // Dùng fread/fwrite để copy theo khối
             while ((bytes_read = fread(buffer, 1, BUFFER_SIZE, fp)) > 0) {
                 fwrite(buffer, 1, bytes_read, stdout);

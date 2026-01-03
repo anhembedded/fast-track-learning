@@ -36,7 +36,7 @@ Một **Socket** là "lỗ giao tiếp" giữa hai tiến trình — giống nh�
 | **Server** | Lắng nghe, tạo đường truyền |
 | **Client** | Khởi tạo kết nối, yêu cầu dịch vụ |
 
-> Nghĩ như tiệm trà sữa (server): chờ khách tới order.  
+> Nghĩ như tiệm trà sữa (server): chờ khách tới order.
 > Khách (client) chủ động tới gọi món.
 
 ---
@@ -280,7 +280,7 @@ int main() {
     sockaddr_un server_addr;
     server_addr.sun_family = AF_UNIX;
     strncpy(server_addr.sun_path, SOCKET_PATH, sizeof(server_addr.sun_path) - 1);
-  
+
     if (bind(server_fd, (const sockaddr*)&server_addr, sizeof(server_addr)) == -1) {
         perror("bind");
         return 1;
@@ -292,7 +292,7 @@ int main() {
         perror("listen");
         return 1;
     }
-  
+
     // 4. Chấp nhận kết nối (block tại đây)
     std::cout << "[Server] Waiting for connection..." << std::endl;
     int client_fd = accept(server_fd, NULL, NULL);
@@ -303,14 +303,14 @@ int main() {
     char buffer[256] = {0};
     read(client_fd, buffer, sizeof(buffer));
     std::cout << "[Server] Received: " << buffer << std::endl;
-  
+
     write(client_fd, "Hello from Server!", 19);
-  
+
     // 6. Đóng kết nối và dọn dẹp
     close(client_fd);
     close(server_fd);
     unlink(SOCKET_PATH); // Xóa file socket
-  
+
     return 0;
 }
 ```
@@ -329,7 +329,7 @@ int main() {
     // 1. Tạo socket
     int client_fd = socket(AF_UNIX, SOCK_STREAM, 0);
     if (client_fd == -1) { perror("socket"); return 1; }
-  
+
     // 2. Chuẩn bị địa chỉ server
     sockaddr_un server_addr;
     server_addr.sun_family = AF_UNIX;

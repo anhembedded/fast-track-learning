@@ -291,7 +291,7 @@
 
       for (int i = 0; i < 10; ++i) {
           // Chờ buffer trống (nếu đầy)
-          sem_wait(&buffer_empty_sem); 
+          sem_wait(&buffer_empty_sem);
 
           pthread_mutex_lock(&buffer_mutex); // Khóa mutex để truy cập buffer
           shared_buffer.push_back(i);
@@ -304,7 +304,7 @@
       producer_finished = true;
       AppLogger::log(AppLogger::INFO_L, "Producer Thread " + std::to_string(thread_id) + ": Finished producing.");
       // Post thêm lần nữa để đảm bảo consumer không bị chặn mãi nếu còn chờ
-      sem_post(&data_available_sem); 
+      sem_post(&data_available_sem);
       pthread_exit(nullptr);
   }
 
@@ -315,7 +315,7 @@
 
       while (true) {
           // Chờ dữ liệu có sẵn (nếu trống)
-          sem_wait(&data_available_sem); 
+          sem_wait(&data_available_sem);
 
           if (producer_finished && shared_buffer.empty()) {
               AppLogger::log(AppLogger::INFO_L, "Consumer Thread " + std::to_string(thread_id) + ": Producer finished and buffer empty. Exiting.");

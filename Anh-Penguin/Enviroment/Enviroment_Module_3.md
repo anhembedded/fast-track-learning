@@ -285,7 +285,7 @@ Trong lập trình Linux, việc làm việc với thời gian và ngày tháng 
       struct tm parsed_time_info;
 
       // Khởi tạo struct tm về 0 để tránh các giá trị rác
-      memset(&parsed_time_info, 0, sizeof(struct tm)); 
+      memset(&parsed_time_info, 0, sizeof(struct tm));
 
       std::cout << "\nINFO    : Calling strptime with input: '" << date_string << "'" << std::endl;
       // Định dạng: "%a %d %b %Y, %R"

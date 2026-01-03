@@ -146,7 +146,7 @@
 
       // --- 2. Lấy độ ưu tiên hiện tại ---
       // Đặt errno về 0 trước khi gọi getpriority vì -1 là giá trị hợp lệ cho priority
-      errno = 0; 
+      errno = 0;
       priority = getpriority(PRIO_PROCESS, getpid());
       if (priority == -1 && errno != 0) {
           AppLogger::log(AppLogger::ERROR_L, "getpriority failed: " + std::string(strerror(errno)));

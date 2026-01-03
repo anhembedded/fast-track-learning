@@ -65,7 +65,7 @@
 
   ```
   (gdb) run
-  Starting program: /path/to/your/project/buggy_sort 
+  Starting program: /path/to/your/project/buggy_sort
   --- Initial Array ---
   array[0] = {bill, 3}
   array[1] = {neil, 4}
@@ -77,7 +77,7 @@
   Program received signal SIGSEGV, Segmentation fault.
   0x000000000040084d in sort (a=0x400b060, n=5) at buggy_sort.c:23
   23        if (a[j].key > a[j+1].key) {
-  (gdb) 
+  (gdb)
   ```
 
   * **Phân tích:** GDB báo hiệu chương trình nhận `SIGSEGV` tại dòng 23 của `buggy_sort.c` trong hàm `sort`. Đây chính là lỗi truy cập ngoài biên mà chúng ta đã dự đoán.
@@ -102,10 +102,10 @@
   (gdb) backtrace
   #0  0x000000000040084d in sort (a=0x400b060, n=5) at buggy_sort.c:23
   #1  0x000000000040092c in main () at buggy_sort.c:37
-  #2  0x00007ffff7a250b3 in __libc_start_main (main=0x4008ec <main>, argc=1, argv=0x7fffffffe0c8, init=<optimized out>, 
+  #2  0x00007ffff7a250b3 in __libc_start_main (main=0x4008ec <main>, argc=1, argv=0x7fffffffe0c8, init=<optimized out>,
       fini=<optimized out>, rtld_fini=<optimized out>, stack_end=0x7fffffffe0b8) at ../csu/libc-start.c:292
   #3  0x0000000000400789 in _start ()
-  (gdb) 
+  (gdb)
   ```
 
   * **Phân tích:** Output cho thấy lỗi xảy ra ở dòng 23 của hàm `sort` (`Frame 0`). Hàm `sort` được gọi từ dòng 37 của hàm `main` (`Frame 1`).
@@ -138,7 +138,7 @@
   Cannot access memory at address 0x400b0b0
   (gdb) print array[0]@5
   $4 = {{data = '\000' <repeats 4096 times>, key = 3}, {data = '\000' <repeats 4096 times>, key = 4}, {data = '\000' <repeats 4096 times>, key = 2}, {data = '\000' <repeats 4096 times>, key = 5}, {data = '\000' <repeats 4096 times>, key = 1}}
-  (gdb) 
+  (gdb)
   ```
 
   * **Phân tích:** `j=4`, `n=5`. Lỗi xảy ra khi truy cập `a[j+1]`, tức `a[5]`. Mảng `array` chỉ có 5 phần tử (chỉ số từ 0 đến 4), nên `a[5]` là truy cập ngoài biên.
@@ -159,7 +159,7 @@
   ```
   (gdb) list 20
   18        int s = 1;
-  19   
+  19
   20        for (; i < n && s != 0; i++) {
   21            s = 0;
   22            for (j = 0; j < n; j++) {
@@ -168,7 +168,7 @@
   25                    a[j] = a[j+1];
   26                    a[j+1] = t;
   27                    s++;
-  (gdb) 
+  (gdb)
   ```
 
   * **Phân tích:** Nhận thấy vòng lặp bên trong là `for (j = 0; j < n; j++)`. Khi `n=5`, `j` sẽ chạy từ 0 đến 4. Nhưng khi `j=4`, `a[j+1]` sẽ là `a[5]`, gây lỗi.

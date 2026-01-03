@@ -80,10 +80,10 @@ int main() {
         }
         buffer[n_bytes] = '\0'; // Đảm bảo chuỗi kết thúc null
 
-        std::cout << "[UDP Server] Received " << n_bytes << " bytes from " 
+        std::cout << "[UDP Server] Received " << n_bytes << " bytes from "
                   << inet_ntoa(client_addr.sin_addr) << ":" << ntohs(client_addr.sin_port)
                   << " - Message: " << buffer << std::endl;
-        
+
         // 4. Gửi phản hồi (echo) lại đúng địa chỉ client đó
         sendto(sock_fd, buffer, n_bytes, 0, (const sockaddr*)&client_addr, client_len);
     }

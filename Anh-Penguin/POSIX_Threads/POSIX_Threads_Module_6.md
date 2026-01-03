@@ -94,14 +94,14 @@ namespace AppLogger {
 // Hàm luồng (có lỗi truyền đối số)
 void *thread_function_buggy(void *arg) {
     // Ép kiểu con trỏ tới int cục bộ của vòng lặp chính
-    int my_number = *(static_cast<int*>(arg)); 
-  
+    int my_number = *(static_cast<int*>(arg));
+
     AppLogger::log(AppLogger::INFO_L, "Thread (ID: " + std::to_string(pthread_self()) + "): Running. Argument was " + std::to_string(my_number));
-  
+
     // Ngủ một khoảng thời gian ngẫu nhiên
     int rand_num = 1 + (int)(9.0 * rand() / (RAND_MAX + 1.0));
     sleep(rand_num);
-  
+
     AppLogger::log(AppLogger::INFO_L, "Thread (ID: " + std::to_string(pthread_self()) + "): Bye from " + std::to_string(my_number));
     pthread_exit(nullptr);
 }
@@ -109,7 +109,7 @@ void *thread_function_buggy(void *arg) {
 int main() {
     pthread_t a_thread[NUM_THREADS];
     int res;
-  
+
     srand(time(nullptr)); // Khởi tạo seed cho rand()
 
     AppLogger::log(AppLogger::INFO_L, "Main Thread: Starting Many Threads (BUGGY ARG PASSING) Demonstration.");
@@ -192,14 +192,14 @@ namespace AppLogger {
 // Hàm luồng (đã sửa lỗi truyền đối số)
 void *thread_function_fixed(void *arg) {
     // Sửa lỗi: Ép kiểu trực tiếp giá trị (long) từ void*
-    int my_number = static_cast<int>(reinterpret_cast<long>(arg)); 
-  
+    int my_number = static_cast<int>(reinterpret_cast<long>(arg));
+
     AppLogger::log(AppLogger::INFO_L, "Thread (ID: " + std::to_string(pthread_self()) + "): Running. Argument was " + std::to_string(my_number));
-  
+
     // Ngủ một khoảng thời gian ngẫu nhiên
     int rand_num = 1 + (int)(9.0 * rand() / (RAND_MAX + 1.0));
     sleep(rand_num);
-  
+
     AppLogger::log(AppLogger::INFO_L, "Thread (ID: " + std::to_string(pthread_self()) + "): Bye from " + std::to_string(my_number));
     pthread_exit(nullptr);
 }
@@ -207,7 +207,7 @@ void *thread_function_fixed(void *arg) {
 int main() {
     pthread_t a_thread[NUM_THREADS];
     int res;
-  
+
     srand(time(nullptr)); // Khởi tạo seed cho rand()
 
     AppLogger::log(AppLogger::INFO_L, "Main Thread: Starting Many Threads (FIXED ARG PASSING) Demonstration.");

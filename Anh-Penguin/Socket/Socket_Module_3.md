@@ -71,12 +71,12 @@ int main() {
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     server_addr.sin_port = htons(PORT);
-    
+
     bind(server_fd, (const sockaddr*)&server_addr, sizeof(server_addr));
     listen(server_fd, 5);
-    
+
     // Quan trọng: Tự động dọn dẹp các tiến trình con đã kết thúc
-    signal(SIGCHLD, SIG_IGN); 
+    signal(SIGCHLD, SIG_IGN);
 
     std::cout << "[Server] Waiting for connections..." << std::endl;
     while(true) {
@@ -133,7 +133,7 @@ int main() {
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     server_addr.sin_port = htons(PORT);
-    
+
     bind(server_fd, (const sockaddr*)&server_addr, sizeof(server_addr));
     listen(server_fd, 5);
 

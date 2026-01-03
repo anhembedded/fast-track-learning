@@ -160,7 +160,7 @@ Trong Module 2, bạn đã học cách tương tác trực tiếp với Kernel t
 #### **3.5. Di chuyển con trỏ Stream: `fseek()` ➡️**
 
 * **Lý thuyết:** `fseek()` là hàm tương đương cấp cao của `lseek()` dành cho streams. Nó thay đổi vị trí hiện tại của con trỏ đọc/ghi trong một stream.
-  
+
 
   ```c
   #include <stdio.h> // For fseek

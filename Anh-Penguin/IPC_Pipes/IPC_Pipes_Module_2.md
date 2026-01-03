@@ -190,7 +190,7 @@ Xây dựng **2 tiến trình riêng biệt** (gọi là `writer` và `reader`) 
 ## 🧠 Tổng quan pipeline
 
 ```text
-[writer.cpp] 
+[writer.cpp]
    |
    |--- pipe() tạo mảng 2 fd: [read_fd, write_fd]
    |
@@ -447,7 +447,7 @@ int main() {
           close(file_fd); // Đóng file output của cha
 
           AppLogger::log(AppLogger::INFO_L, "Parent: Waiting for child to finish...");
-          wait(nullptr); 
+          wait(nullptr);
           AppLogger::log(AppLogger::INFO_L, "Parent: Child finished. Check '" + std::string(output_filename) + "' for redirected output.");
       }
 

@@ -144,7 +144,7 @@ int main() {
     // Xóa các file cũ nếu tồn tại để đảm bảo một DB mới
     unlink(std::string(TEST_DB_FILE).append(".dir").c_str());
     unlink(std::string(TEST_DB_FILE).append(".pag").c_str());
-  
+
     AppLogger::log(AppLogger::INFO_L, "Opening DBM database: " + std::string(TEST_DB_FILE));
     dbm_ptr = dbm_open(TEST_DB_FILE, O_RDWR | O_CREAT, 0644); // r/w for owner, group, others
     if (dbm_ptr == nullptr) {
@@ -163,9 +163,9 @@ int main() {
     AppLogger::log(AppLogger::INFO_L, "Storing " + std::to_string(ITEMS_USED) + " items into database.");
     for (int i = 0; i < ITEMS_USED; ++i) {
         // Tạo khóa
-        sprintf(key_to_use, "%c%c%d", 
-                items_to_store[i].misc_chars[0], 
-                items_to_store[i].more_chars[0], 
+        sprintf(key_to_use, "%c%c%d",
+                items_to_store[i].misc_chars[0],
+                items_to_store[i].more_chars[0],
                 items_to_store[i].any_integer);
         key_datum.dptr = (void *)key_to_use;
         key_datum.dsize = strlen(key_to_use);

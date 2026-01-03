@@ -381,7 +381,7 @@
           AppLogger::log(AppLogger::INFO_L, "Child Process (PID: " + std::to_string(getpid()) + "): Redirecting STDOUT.");
 
           // Đóng STDOUT hiện tại của child (FD 1)
-          close(STDOUT_FILENO); 
+          close(STDOUT_FILENO);
           // Sao chép file_fd (FD của file) vào vị trí của STDOUT_FILENO (FD 1)
           // Bây giờ, mọi thứ ghi vào STDOUT_FILENO sẽ đi vào file_fd
           if (dup2(file_fd, STDOUT_FILENO) == -1) {

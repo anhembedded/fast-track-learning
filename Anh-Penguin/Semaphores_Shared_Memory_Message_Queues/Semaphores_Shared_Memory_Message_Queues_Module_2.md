@@ -272,4 +272,3 @@ munmap(mapped, 4096);
 |                   | Tối ưu cho file lớn, chia sẻ giữa tiến trình  |
 
 ---
-

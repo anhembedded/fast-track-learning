@@ -363,7 +363,7 @@ int main() {
     // - ICANON: Disable canonical mode (line buffering)
     // - ECHO: Disable echoing characters to the screen
     new_termios.c_lflag &= ~(ICANON | ECHO);
-  
+
     // Set VMIN and VTIME for non-blocking read of one character
     // VMIN = 1: read will return after 1 character is received
     // VTIME = 0: no timeout
@@ -428,4 +428,4 @@ int main() {
 Với kiến thức này, bạn sẽ có khả năng cao hơn trong việc phát triển các ứng dụng Linux tương tác mạnh mẽ, cũng như gỡ lỗi và quản lý hiệu quả các hệ thống nhúng qua giao diện console.
 
 Bạn muốn đào sâu thêm về một phần cụ thể nào, hay bạn đã sẵn sàng cho chủ đề tiếp theo? 🤔
-git 
+git
