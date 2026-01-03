@@ -1,102 +1,130 @@
-I’m not giving up, no matter what.
-Giving up isn't an option.
-I’ll push through, however hard it gets.
+> I’m not giving up, no matter what.
+*Giving up*: Bỏ cuộc.
+*No matter what*: Bất kể có chuyện gì xảy ra (thể hiện sự quyết tâm cực cao).
 
-He often goes against the grain to stand up for his beliefs.
-He often stands his ground against the majority.
-He has the courage of his convictions, even if it means going against everyone else.
+> I’ll push through, however hard it gets.
+*Push through*: Vượt qua, nỗ lực đi tiếp dù khó khăn.
+*However hard it gets*: Dù cho mọi việc có trở nên khó khăn đến mức nào đi nữa.
 
-I believe failure is just a stepping stone to success.
-I see failure as a necessary part of the path to success.
-Failure is success in progress
-What doesn't kill you makes you stronger
-Learn the hard way
+> He often goes against the grain to stand up for his beliefs.
+*Goes against the grain*: Đi ngược lại với đám đông/ thói quen thông thường.
+*Stand up for*: Bảo vệ/ đấu tranh cho (ý kiến, niềm tin).
 
-She always looks on the bright side, no matter what happens.
-She always finds the silver lining in every situation.
+> He has the courage of his convictions, even if it means going against everyone else.
+*Courage of his convictions*: Có bản lĩnh và tin tưởng tuyệt đối vào điều mình làm.
+*Going against everyone else*: Đi ngược lại với tất cả mọi người.
 
-I'm not sure what the outcome of this decision will be
-I'm not sure if this will lead to a good outcome.
+> I believe failure is just a stepping stone to success.
+*Stepping stone*: Bước đệm/ hòn đá kê chân để tiến xa hơn.
+*Success in progress*: Thành công đang trong quá trình thực hiện (tư duy rất tích cực về thất bại).
 
-He's a man of double standards; he says one thing and does another
-He's such a hypocrite. His actions never match his words
-He never walks the talk
+> What doesn't kill you makes you stronger.
+*What doesn't kill you*: Những gì không quật ngã được bạn (một câu nói cực kỳ nổi tiếng của Nietzsche).
+*Learn the hard way*: Học được bài học từ những trải nghiệm đau thương/ sai lầm thực tế.
 
-I want to step out of my comfort zone and try things I've never done before.
+> She always finds the silver lining in every situation.
+*Look on the bright side*: Nhìn vào mặt tích cực của vấn đề.
+*Silver lining*: Tia hy vọng/ điểm sáng trong một hoàn cảnh tối tăm (idiom: Every cloud has a silver lining).
 
-Sometimes, silence is the most powerful answer.
-Silence is an answer in itself.
-Don't mistake my silence for weakness.
+> I'm not sure what the outcome of this decision will be.
+*Outcome*: Kết quả/ hệ quả cuối cùng của một hành động.
+*Not sure*: Thể hiện sự không chắc chắn hoặc phân vân.
 
-She overcame every obstacle to reach her goal.
-She pushed through every challenge to get to where she is today.
+> He's a man of double standards; his actions never match his words.
+*Double standards*: Tiêu chuẩn kép (nói một đằng làm một nẻo).
+*Never walks the talk*: Nói mà không làm/ không thực hiện đúng lời hứa.
 
-I think we should look at the issue from different perspectives
-I think we should try to see it in a different light.
-Let's take a step back and look at the bigger picture.
+> I want to step out of my comfort zone and try things I've never done before.
+*Step out of my comfort zone*: Bước ra khỏi vùng an toàn.
+*Try things*: Thử những điều mới mẻ.
 
-He always keeps a cool head, even in the middle of a crisis.
-He always manages to keep it together when everything is falling apart.
+> Don't mistake my silence for weakness.
+*Silence is an answer in itself*: Im lặng cũng là một câu trả lời.
+*Mistake something for*: Nhầm lẫn thứ này với thứ khác.
 
-I can’t completely agree, but I see where you’re coming from
-I don’t entirely agree, but I understand your point of view.
-I'm not sure I'm 100% with you on this, but I get your point
+> She overcame every obstacle to reach her goal.
+*Overcome every obstacle*: Vượt qua mọi trở ngại.
+*Reach her goal*: Đạt được mục tiêu.
 
-Opportunities often come when you least expect them
+> Let's take a step back and look at the bigger picture.
+*Take a step back*: Lùi lại một bước (để bình tĩnh hoặc nhìn rõ hơn).
+*Look at the bigger picture*: Nhìn vào bức tranh tổng thể (đừng quá sa đà vào tiểu tiết).
 
-I want to live a life of purpose, not just exist.
-I want to make my life count, rather than just going through the motions.
+> He always manages to keep it together when everything is falling apart.
+*Keep a cool head*: Giữ một cái đầu lạnh/ bình tĩnh.
+*Keep it together*: Giữ vững tinh thần, không bị hoảng loạn.
+*Falling apart*: Sụp đổ/ tan rã.
 
-Don't judge a book by its cover.
-There’s more to him than meets the eye
+> I can’t completely agree, but I see where you’re coming from.
+*See where you’re coming from*: Tôi hiểu tại sao bạn lại nghĩ/ làm như vậy (cách nói lịch sự để bày tỏ sự thấu hiểu dù không đồng tình).
+*Not 100% with you*: Không hoàn toàn đồng ý (cách nói giảm nhẹ).
 
-She learned a valuable lesson the hard way.
-Her mistake provided a valuable takeaway for the future.
+> Opportunities often come when you least expect them.
+*When you least expect them*: Vào lúc bạn ít ngờ tới nhất.
 
-I believe everything happens for a reason.
-I'm a big believer that things happen as they're meant to.
-I guess it was just fate. Everything happens for a reason.
+> I want to make my life count, rather than just going through the motions.
+*Live a life of purpose*: Sống một cuộc đời có ý nghĩa/ mục đích.
+*Make my life count*: Làm cho cuộc đời mình trở nên có giá trị.
+*Going through the motions*: Làm việc một cách máy móc, hời hợt, không có tâm huyết.
 
+> Don’t judge a book by its cover.
+*There’s more to him than meets the eye*: Anh ấy có nhiều điều thú vị/ sâu sắc hơn là vẻ bề ngoài.
 
-I was going to the supermarket this afternoon, but I put it off because of the rain.
-I had a change of plans because of the rain; I’ll hit the supermarket later.
+> She learned a valuable lesson the hard way.
+*Valuable takeaway*: Một điều rút ra/ bài học giá trị sau một trải nghiệm.
 
-Once you visit Hanoi, you'll see for yourself why it has such a special place in people's hearts.
-If you’ve ever been to Hanoi, you’ll understand why so many people fall in love with the city.
-If you've spent any time in Hanoi, you’ll get why people are so captivated by its charm.
+> Everything happens for a reason.
+*A big believer*: Người tin tưởng mạnh mẽ vào điều gì đó.
+*Meant to*: Được định sẵn/ là ý trời.
 
-I’m trying to wrap things up by the end of the week, even though so many things keep popping up
+> I had a change of plans because of the rain; I’ll hit the supermarket later.
+*Put it off*: Trì hoãn một việc gì đó.
+*Hit the supermarket*: Đi siêu thị (số đông người bản xứ hay dùng "hit").
 
-Yesterday, I ran into an old friend I hadn't seen in 10 years.
-I ran into an old friend yesterday, and it was the first time we'd caught up in 10 years.
-was cooking when the phone rang, and it made me completely forget about what was on the stove.
-I used to drink coffee in the morning, but recently I’ve switched to tea for my health.
+> Once you visit Hanoi, you'll see for yourself why it has such a special place in people's hearts.
+*See for yourself*: Tự mình kiểm chứng/ thấy tận mắt.
+*Special place in someone's heart*: Có một vị trí đặc biệt trong lòng ai đó (dùng cho người, địa danh hoặc kỷ niệm).
 
-Even though I've studied English for years, I still find it hard to understand native speakers when they talk fast.
+> I’m trying to wrap things up by the end of the week, even though so many things keep popping up.
+*Wrap things up*: Hoàn tất/ đóng gói công việc.
+*Keep popping up*: Cứ liên tục xuất hiện bất ngờ (thường là những phiền toái hoặc việc không tên).
 
------
+> Yesterday, I ran into an old friend I hadn't seen in 10 years.
+*Ran into*: Tình cờ gặp (thay vì dùng met).
+*Caught up*: Tám chuyện/ cập nhật tình hình của nhau sau một thời gian dài.
 
-I was going to bring up that idea in the meeting, but I ended up keeping it to myself since it just didn't seem like the best moment.
+> I was cooking when the phone rang, and it made me completely forget about what was on the stove.
+*Completely forget*: Quên sạch sành sanh.
+*On the stove*: Đang nấu trên bếp.
 
-I originally planned to share my thoughts, but I chose to wait for a better opportunity as the vibe of the meeting wasn't quite there yet.
+> I originally planned to share my thoughts, but I chose to wait for a better opportunity.
+*Bring up*: Đề cập/ đưa ra một ý kiến hoặc chủ đề.
+*Keep it to myself*: Giữ kín cho riêng mình.
+*Vibe*: Bầu không khí/ cảm giác lúc đó.
 
-Despite his strong technical expertise, his lack of communication skills is holding him back from career advancement.
+> Despite his strong technical expertise, his lack of communication skills is holding him back.
+*Holding him back*: Cản bước/ giữ chân ai đó lại (không cho tiến bộ).
+*Climbing the corporate ladder*: Leo lên các nấc thang sự nghiệp.
 
-Even though he’s great at what he does, his weak people skills are stopping him from climbing the corporate ladder
+> Owning up to your mess-ups in front of the boss is tough, but it’s the only way to keep that trust alive.
+*Owning up to*: Thừa nhận lỗi lầm của mình.
+*Mess-ups*: Những sai sót/ lỗi lầm.
+*Keep that trust alive*: Duy trì sự tin tưởng.
 
-Owning up to your mess-ups in front of the boss is tough, but it’s the only way to keep that trust alive.
+> Let’s not jump the gun; we need to look at the downsides before making a call.
+*Rush into*: Vội vã làm gì đó mà chưa chuẩn bị kỹ.
+*Jump the gun*: Cầm đèn chạy trước ô tô/ vội vàng quyết định quá sớm.
+*Weighing all the potential risks*: Cân nhắc mọi rủi ro tiềm ẩn.
+*Making a call*: Đưa ra quyết định (thay cho making a decision).
 
+> Instead of stressing over things I can’t change, I’d rather focus on what’s actually within my control.
+*Beyond my control*: Nằm ngoài tầm kiểm soát.
+*Within my control*: Trong tầm kiểm soát.
+*Putting all my effort into*: Dồn hết tâm sức vào.
 
-We shouldn't rush into anything without weighing all the potential risks first.
-Let’s not jump the gun; we need to look at the downsides before making a call.
-We need to think it through before signing the contract.
-
-Instead of stressing over things I can’t change, I’d rather focus on what’s actually within my control.
-I’ve stopped wasting my energy on stuff I can't do anything about; I’m putting all my effort into things I can actually influence
-There's no point worrying about things beyond my control, so I just focus on my own actions.
-
-
-Sometimes we get so caught up in chasing big dreams that we forget to appreciate what’s right in front of us.
+> Sometimes we get so caught up in chasing big dreams that we forget to appreciate what’s right in front of us.
+*Get caught up in*: Bị cuốn vào/ quá đắm chìm vào.
+*Right in front of us*: Ngay trước mắt (nhấn mạnh sự trân trọng hiện tại).
 
 
 
