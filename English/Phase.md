@@ -144,9 +144,12 @@
 *Win-win solution*: Một giải pháp mà cả hai bên đều có lợi. Đây là thuật ngữ "vàng" trong giao tiếp và đàm phán.
 
 > Don’t take this the wrong way, but I’m only speaking up because I want us to get the best possible result for this project.
+> Don’t take this the wrong way, but I’m only speaking up because I want us to get the best possible result for this project.
 *Don’t take this the wrong way*: Đừng hiểu sai ý tôi nhé.
 *Speaking up*: Lên tiếng/đưa ra ý kiến.
 *The best possible result*: Kết quả tốt nhất có thể.
+> Don’t take this the wrong way, but I’m only speaking up because I want us to get the best possible result for this project.
+
 
 
 > I seriously couldn't have made the deadline without your help. You really saved my skin back there!
@@ -328,6 +331,7 @@
 > If you find yourself writing a custom destructor, you probably need to implement the rest of the Rule of Five to avoid issues like double frees.
 *Find yourself*: Bạn có thể. 
 
+
 ## Gợi ý nâng cấp từ vựng cho Embedded/C++ Engineer
 
 *Kill a bug*: Diệt gọn một lỗi.
@@ -353,3 +357,4 @@
 *Internal implementation vs. Public interface*: Cài đặt bên trong đối lập với giao diện bên ngoài.
 *Information hiding*: Che giấu thông tin (cốt lõi của Encapsulation).
 *Cohesion vs. Coupling*: Sự gắn kết (trong một module) đối lập với sự phụ thuộc (giữa các module).  
+
