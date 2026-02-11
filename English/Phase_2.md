@@ -139,8 +139,24 @@
 *Pick up*: Mua một vài món đồ nhỏ, nhanh gọn (rất tự nhiên trong giao tiếp hàng ngày).
 
 
+> I spent the whole afternoon debugging a logic error, only to find out the root cause was poor memory management."
+*Only to find out*: Diễn tả một kết quả bất ngờ sau một nỗ lực dài (mất cả buổi chiều chỉ để thấy rằng...).
+*Root cause*: Nguyên nhân gốc rễ (thuật ngữ chuẩn).
 
+> "We’re entering the final stretch of the project, so every single line of code must be spot on."
+*Final stretch*: Đoạn đường cuối/về đích (tương đương với giai đoạn nước rút).
+*Every single line of code*: Từng dòng code một (nghe nhấn mạnh hơn "từng dòng code").
+*Spot on*: Hoàn toàn chính xác/không sai lệch tí nào.
 
+> "Despite the highly detailed technical documentation, many unforeseen issues arose during actual implementation."
+*Highly detailed technical documentation*: Tài liệu kỹ thuật cực kỳ chi tiết.
+*Unforeseen issues*: Những vấn đề không lường trước được (Thuật ngữ chuẩn trong quản lý dự án).
+*Actual implementation*: Triển khai thực tế.
+
+> I propose that we refactor this module to optimize performance instead of just applying a quick fix.
+*Propose*: Đề xuất (nghe trang trọng và chủ động hơn suggest).
+*Optimize performance*: Tối ưu hóa hiệu suất.
+*Quick fix*: Vá lỗi tạm thời/sửa nhanh (thuật ngữ cực kỳ phổ biến để chỉ những giải pháp không triệt để).
 
 ## Gợi ý nâng cấp từ vựng 
 
