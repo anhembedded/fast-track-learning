@@ -1,0 +1,21 @@
+# Define executable
+add_executable(calculator_app
+    src/main.cpp
+)
+
+# Link libraries
+target_link_libraries(calculator_app
+    PRIVATE
+        UnitTest::calculator
+)
+
+# Compile options
+target_compile_options(calculator_app PRIVATE
+    $<$<CXX_COMPILER_ID:MSVC>:/W4>
+    $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic>
+)
+
+# Set output name
+set_target_properties(calculator_app PROPERTIES
+    OUTPUT_NAME "calculator"
+)

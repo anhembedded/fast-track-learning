@@ -1,0 +1,44 @@
+[
+{
+  "directory": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/lib",
+  "command": "C:\\Users\\hoang\\AppData\\Local\\Microsoft\\WinGet\\Packages\\MartinStorsjo.LLVM-MinGW.MSVCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\llvm-mingw-20251202-msvcrt-x86_64\\bin\\c++.exe  @CMakeFiles/calculator.dir/includes_CXX.rsp -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\calculator.dir\\src\\calculator.cpp.obj -c C:\\Users\\hoang\\Desktop\\fast-track-learning\\UnitTest\\lib\\src\\calculator.cpp",
+  "file": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/lib/src/calculator.cpp",
+  "output": "lib/CMakeFiles/calculator.dir/src/calculator.cpp.obj"
+},
+{
+  "directory": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/App",
+  "command": "C:\\Users\\hoang\\AppData\\Local\\Microsoft\\WinGet\\Packages\\MartinStorsjo.LLVM-MinGW.MSVCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\llvm-mingw-20251202-msvcrt-x86_64\\bin\\c++.exe  @CMakeFiles/calculator_app.dir/includes_CXX.rsp -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\calculator_app.dir\\src\\main.cpp.obj -c C:\\Users\\hoang\\Desktop\\fast-track-learning\\UnitTest\\App\\src\\main.cpp",
+  "file": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/App/src/main.cpp",
+  "output": "App/CMakeFiles/calculator_app.dir/src/main.cpp.obj"
+},
+{
+  "directory": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/Tests",
+  "command": "C:\\Users\\hoang\\AppData\\Local\\Microsoft\\WinGet\\Packages\\MartinStorsjo.LLVM-MinGW.MSVCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\llvm-mingw-20251202-msvcrt-x86_64\\bin\\c++.exe  @CMakeFiles/calculator_tests.dir/includes_CXX.rsp -std=c++17 -Wall -Wextra -Wpedantic -o CMakeFiles\\calculator_tests.dir\\test_calculator.cpp.obj -c C:\\Users\\hoang\\Desktop\\fast-track-learning\\UnitTest\\Tests\\test_calculator.cpp",
+  "file": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/Tests/test_calculator.cpp",
+  "output": "Tests/CMakeFiles/calculator_tests.dir/test_calculator.cpp.obj"
+},
+{
+  "directory": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/_deps/googletest-build/googlemock",
+  "command": "C:\\Users\\hoang\\AppData\\Local\\Microsoft\\WinGet\\Packages\\MartinStorsjo.LLVM-MinGW.MSVCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\llvm-mingw-20251202-msvcrt-x86_64\\bin\\c++.exe  @CMakeFiles/gmock.dir/includes_CXX.rsp -std=c++17 -Wall -Wshadow -Wconversion -Wundef -DGTEST_HAS_PTHREAD=0 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Winline -Wredundant-decls -Wchar-subscripts -o CMakeFiles\\gmock.dir\\src\\gmock-all.cc.obj -c C:\\Users\\hoang\\Desktop\\fast-track-learning\\UnitTest\\build\\_deps\\googletest-src\\googlemock\\src\\gmock-all.cc",
+  "file": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.obj"
+},
+{
+  "directory": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/_deps/googletest-build/googlemock",
+  "command": "C:\\Users\\hoang\\AppData\\Local\\Microsoft\\WinGet\\Packages\\MartinStorsjo.LLVM-MinGW.MSVCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\llvm-mingw-20251202-msvcrt-x86_64\\bin\\c++.exe  @CMakeFiles/gmock_main.dir/includes_CXX.rsp -std=c++17 -Wall -Wshadow -Wconversion -Wundef -DGTEST_HAS_PTHREAD=0 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Winline -Wredundant-decls -Wchar-subscripts -o CMakeFiles\\gmock_main.dir\\src\\gmock_main.cc.obj -c C:\\Users\\hoang\\Desktop\\fast-track-learning\\UnitTest\\build\\_deps\\googletest-src\\googlemock\\src\\gmock_main.cc",
+  "file": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.obj"
+},
+{
+  "directory": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/_deps/googletest-build/googletest",
+  "command": "C:\\Users\\hoang\\AppData\\Local\\Microsoft\\WinGet\\Packages\\MartinStorsjo.LLVM-MinGW.MSVCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\llvm-mingw-20251202-msvcrt-x86_64\\bin\\c++.exe  @CMakeFiles/gtest.dir/includes_CXX.rsp -std=c++17 -Wall -Wshadow -Wconversion -Wundef -DGTEST_HAS_PTHREAD=0 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Winline -Wredundant-decls -Wchar-subscripts -o CMakeFiles\\gtest.dir\\src\\gtest-all.cc.obj -c C:\\Users\\hoang\\Desktop\\fast-track-learning\\UnitTest\\build\\_deps\\googletest-src\\googletest\\src\\gtest-all.cc",
+  "file": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj"
+},
+{
+  "directory": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/_deps/googletest-build/googletest",
+  "command": "C:\\Users\\hoang\\AppData\\Local\\Microsoft\\WinGet\\Packages\\MartinStorsjo.LLVM-MinGW.MSVCRT_Microsoft.Winget.Source_8wekyb3d8bbwe\\llvm-mingw-20251202-msvcrt-x86_64\\bin\\c++.exe  @CMakeFiles/gtest_main.dir/includes_CXX.rsp -std=c++17 -Wall -Wshadow -Wconversion -Wundef -DGTEST_HAS_PTHREAD=0 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Winline -Wredundant-decls -Wchar-subscripts -o CMakeFiles\\gtest_main.dir\\src\\gtest_main.cc.obj -c C:\\Users\\hoang\\Desktop\\fast-track-learning\\UnitTest\\build\\_deps\\googletest-src\\googletest\\src\\gtest_main.cc",
+  "file": "C:/Users/hoang/Desktop/fast-track-learning/UnitTest/build/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj"
+}
+]
