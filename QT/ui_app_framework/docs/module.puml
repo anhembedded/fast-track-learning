@@ -1,0 +1,42 @@
+@startuml
+skinparam packageStyle rectangle
+
+package "Application Entry" {
+  [main.py]
+}
+
+package "Framework Core" {
+  [domain.py]
+  [registry.py]
+  [runtime_store.py]
+  [qt_adapter.py]
+  [views.py]
+  [presenter.py]
+  [manager.py]
+}
+
+[main.py] --> [manager.py]
+[manager.py] --> [registry.py]
+[manager.py] --> [runtime_store.py]
+[manager.py] --> [presenter.py]
+[manager.py] --> [views.py]
+[presenter.py] --> [views.py]
+[presenter.py] --> [qt_adapter.py]
+[presenter.py] --> [runtime_store.py]
+[presenter.py] --> [domain.py]
+[qt_adapter.py] --> [domain.py]
+[registry.py] --> [domain.py]
+[runtime_store.py] --> [domain.py]
+[views.py] --> [domain.py]
+
+note right of [domain.py]
+Innermost core:
+task abstractions, types, status,
+and factory contracts.
+end note
+
+note right of [manager.py]
+Framework facade/coordinator
+used by application code.
+end note
+@enduml

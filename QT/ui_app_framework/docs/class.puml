@@ -1,0 +1,217 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+
+package "domain.py" {
+    abstract class ProgressReporter {
+        + report_progress(percent: int)
+        + report_message(message: str)
+        + is_cancelled(): bool
+    }
+
+    abstract class DomainTask {
+        + name: str
+        + execute(reporter: ProgressReporter)
+    }
+
+    class DownloadTask {
+        + url: str
+        + save_path: str
+        + execute(reporter: ProgressReporter)
+    }
+
+    abstract class TaskFactory {
+        + create_task(): DomainTask
+        + build_title(): str
+    }
+
+    class DownloadTaskFactory {
+        + create_task(): DomainTask
+        + build_title(): str
+    }
+
+    class TaskDefinition {
+        + factory_cls: type
+        + start_text: str
+        + cancel_text: str
+    }
+
+    enum TaskType {
+        DOWNLOAD
+    }
+
+    enum TaskStatus {
+        PENDING
+        RUNNING
+        COMPLETED
+        CANCELLED
+        FAILED
+    }
+}
+
+package "registry.py" {
+    class TaskRegistry {
+        - _definitions: dict
+        + register(task_type: TaskType, definition: TaskDefinition)
+        + get_definition(task_type: TaskType): TaskDefinition
+        + create_factory(task_type: TaskType, *args, **kwargs): TaskFactory
+    }
+}
+
+package "runtime_store.py" {
+    class TaskRuntimeEntry {
+        + task_id: str
+        + task_type: TaskType
+        + task_name: str
+        + view_id: int
+        + status: TaskStatus
+        + progress: int
+        + last_message: str
+        + error_message: str
+        + cancellation_requested: bool
+    }
+
+    class TaskRuntimeStore <<QObject>> {
+        - _entries: dict
+        + entry_added(str)
+        + entry_updated(str)
+        + entry_removed(str)
+        + register_task(task_id, task_type, task_name, view_id)
+        + mark_running(task_id)
+        + update_progress(task_id, progress)
+        + update_message(task_id, message)
+        + mark_cancelling(task_id)
+        + set_error(task_id, message)
+        + mark_finished(task_id, status, final_message)
+        + get(task_id): TaskRuntimeEntry
+        + list_entries(): list
+        + remove_task(task_id)
+        + remove_tasks_for_view(view_id)
+    }
+}
+
+package "qt_adapter.py" {
+    class TaskSignals <<QObject>> {
+        + progress(int)
+        + message(str)
+        + error(str)
+        + finished(str)
+    }
+
+    class QtProgressReporter {
+        - _signals: TaskSignals
+        - _cancelled: bool
+        - _mutex: QMutex
+        + report_progress(percent: int)
+        + report_message(message: str)
+        + is_cancelled(): bool
+        + cancel()
+    }
+
+    class QtTaskRunner <<QRunnable>> {
+        - _signals: TaskSignals
+        - _task_id: str
+        + domain_task: DomainTask
+        + reporter: QtProgressReporter
+        + status: TaskStatus
+        + run()
+        + cancel()
+    }
+}
+
+package "views.py" {
+    interface TaskViewPort {
+        + connect_start(handler)
+        + connect_cancel(handler)
+        + set_title(title: str)
+        + reset_to_pending(message: str)
+        + set_progress(value: int)
+        + set_running(task_id: str)
+        + set_final_state(status: TaskStatus, message: str)
+        + set_message(text: str)
+        + set_cancelling()
+    }
+
+    class TaskView <<QFrame>> {
+        + connect_start(handler)
+        + connect_cancel(handler)
+        + set_title(title: str)
+        + reset_to_pending(message: str)
+        + set_progress(value: int)
+        + set_running(task_id: str)
+        + set_final_state(status: TaskStatus, message: str)
+        + set_message(text: str)
+        + set_cancelling()
+    }
+}
+
+package "presenter.py" {
+    class TaskPresenter <<QObject>> {
+        + task_type: TaskType
+        + factory: TaskFactory
+        + manager: TaskManager
+        + runner: QtTaskRunner
+        + reconfigure(task_type, factory)
+        + cancel_active_task()
+        + on_start()
+        + on_cancel()
+        + on_runner_progress(value)
+        + on_runner_message(message)
+        + on_runner_error(message)
+        + on_runner_finished(status_name)
+    }
+}
+
+package "manager.py" {
+    class TaskManager <<QObject>> {
+        + pool: QThreadPool
+        + registry: TaskRegistry
+        + runtime_store: TaskRuntimeStore
+        - _presenters_by_view_id: dict
+        + register_task_type(task_type, definition)
+        + create_task(task_type, *args, **kwargs): TaskView
+        + bind_task(view, task_type, *args, **kwargs): TaskPresenter
+        + submit_runner(runner)
+        - _cleanup_view(view_id)
+    }
+}
+
+DownloadTask --|> DomainTask
+DownloadTaskFactory --|> TaskFactory
+QtProgressReporter ..|> ProgressReporter
+TaskView ..|> TaskViewPort
+
+TaskRegistry --> TaskDefinition
+TaskRegistry --> TaskFactory
+TaskRegistry --> TaskType
+
+TaskRuntimeStore *-- TaskRuntimeEntry
+TaskRuntimeEntry --> TaskStatus
+TaskRuntimeEntry --> TaskType
+
+QtTaskRunner *-- TaskSignals
+QtTaskRunner *-- QtProgressReporter
+QtTaskRunner o-- DomainTask
+QtTaskRunner --> TaskStatus
+
+TaskPresenter --> TaskViewPort
+TaskPresenter --> TaskFactory
+TaskPresenter --> QtTaskRunner
+TaskPresenter --> TaskManager
+
+TaskManager --> TaskRegistry
+TaskManager --> TaskRuntimeStore
+TaskManager --> TaskPresenter
+TaskManager --> TaskView
+
+note top of TaskRegistry
+Open for extension:
+register new task types
+without editing dispatch logic.
+end note
+
+note top of TaskRuntimeStore
+Central runtime state for dashboards,
+logs, diagnostics, and future history UI.
+end note
+@enduml

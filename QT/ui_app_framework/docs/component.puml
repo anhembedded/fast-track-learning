@@ -1,0 +1,42 @@
+@startuml
+skinparam componentStyle rectangle
+
+rectangle "UI Thread" {
+    component "MainWindow" as MainWindow
+    component "TaskManager" as TaskManager
+    component "TaskRegistry" as TaskRegistry
+    component "TaskRuntimeStore" as TaskRuntimeStore
+    component "TaskPresenter" as TaskPresenter
+    component "TaskView" as TaskView
+}
+
+rectangle "Worker Thread" {
+    component "QtTaskRunner" as QtTaskRunner
+    component "QtProgressReporter" as QtProgressReporter
+    component "DomainTask" as DomainTask
+}
+
+MainWindow --> TaskManager : composition root
+TaskManager --> TaskRegistry : resolve task definition
+TaskManager --> TaskRuntimeStore : keep runtime state
+TaskManager --> TaskPresenter : bind view behavior
+TaskManager --> TaskView : create configured view
+
+TaskPresenter --> TaskView : user interaction + UI state
+TaskPresenter --> TaskRuntimeStore : runtime updates
+TaskPresenter --> QtTaskRunner : create per task start
+
+QtTaskRunner --> DomainTask : execute()
+QtTaskRunner --> QtProgressReporter : progress/cancel bridge
+QtProgressReporter --> TaskPresenter : error/finished via queued signal
+QtProgressReporter --> TaskView : progress/message via presenter callbacks
+
+note right of TaskManager
+Acts as a framework coordinator,
+not as domain logic.
+end note
+
+note bottom of Worker Thread
+Worker side never touches QWidget directly.
+end note
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+[*] --> Pending : view created / presenter reset
+
+Pending --> Running : Start clicked
+Running --> Cancelling : Cancel clicked
+Cancelling --> Cancelled : worker observes cancel flag
+Running --> Completed : task returns normally
+Running --> Failed : task raises exception
+
+Completed --> Pending : presenter reconfigure() or next start cycle
+Cancelled --> Pending : presenter reconfigure() or next start cycle
+Failed --> Pending : presenter reconfigure() or next start cycle
+
+state Pending {
+  note right
+  start enabled
+  cancel disabled
+  progress reset
+  end note
+}
+
+state Running {
+  note right
+  start disabled
+  cancel enabled
+  runtime store receives progress/message updates
+  end note
+}
+
+state Cancelling {
+  note right
+  UI sent cooperative cancel request.
+  Worker still decides final exit moment.
+  end note
+}
+@enduml

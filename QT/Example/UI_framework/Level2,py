@@ -1,0 +1,61 @@
+from PySide6.QtCore import QRunnable, QThreadPool, QObject, Signal, Slot, QMetaObject, Qt
+from PySide6.QtWidgets import QApplication, QMainWindow, QProgressBar, QPushButton, QVBoxLayout, QWidget, QTextEdit
+
+# SignalBridge – QObject sống ở main thread
+class TaskSignals(QObject):
+    progress = Signal(int)
+    message = Signal(str)
+    finished = Signal()
+
+class Worker(QRunnable):
+    def __init__(self, task_id):
+        super().__init__()
+        self.task_id = task_id
+        self.signals = TaskSignals()  # signal bridge
+
+    def run(self):
+        """Chạy trong thread pool."""
+        for i in range(1, 101):
+            # Phát signal an toàn qua invokeMethod
+            QMetaObject.invokeMethod(
+                self.signals, "progress", Qt.QueuedConnection,
+                (i,)
+            )
+            QMetaObject.invokeMethod(
+                self.signals, "message", Qt.QueuedConnection,
+                (f"Task {self.task_id}: {i}%",)
+            )
+            QThreadPool.globalInstance().thread().msleep(50)
+        QMetaObject.invokeMethod(self.signals, "finished", Qt.QueuedConnection)
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.threadpool = QThreadPool.globalInstance()
+        self.threadpool.setMaxThreadCount(3)
+
+        self.progress_bar = QProgressBar()
+        self.log = QTextEdit()
+        self.btn = QPushButton("Start Task")
+        self.btn.clicked.connect(self.start_task)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.progress_bar)
+        layout.addWidget(self.log)
+        layout.addWidget(self.btn)
+        container = QWidget()
+        container.setLayout(layout)
+        self.setCentralWidget(container)
+
+    def start_task(self):
+        worker = Worker(task_id=1)
+        # Kết nối signal bridge của worker với slots UI
+        worker.signals.progress.connect(self.progress_bar.setValue)
+        worker.signals.message.connect(self.log.append)
+        worker.signals.finished.connect(lambda: self.log.append("Task done!"))
+        self.threadpool.start(worker)
+
+app = QApplication([])
+window = MainWindow()
+window.show()
+app.exec()

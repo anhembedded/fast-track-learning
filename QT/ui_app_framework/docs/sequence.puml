@@ -1,0 +1,71 @@
+@startuml
+autonumber
+skinparam responseMessageBelowArrow true
+
+actor User
+participant "MainWindow" as UI
+participant "TaskManager" as TM
+participant "TaskRegistry" as Registry
+participant "TaskPresenter" as P
+participant "TaskRuntimeStore" as Store
+participant "TaskView" as V
+participant "QtTaskRunner" as R
+participant "DownloadTask" as D
+
+== Create or bind a task view ==
+UI -> TM: create_task(TaskType.DOWNLOAD, url, dest)
+TM -> Registry: create_factory(task_type, args)
+Registry --> TM: factory
+TM -> Registry: get_definition(task_type)
+Registry --> TM: TaskDefinition
+TM -> V: create configured TaskView
+TM -> TM: bind_task(view, task_type, args)
+TM -> P: create TaskPresenter(view, task_type, factory, manager)
+P -> V: connect start/cancel
+P -> V: set_title(...)
+P -> V: reset_to_pending()
+
+== Start ==
+User -> V: click Start
+V -> P: on_start()
+P -> D: factory.create_task()
+P -> R: create QtTaskRunner(task)
+P -> Store: register_task(task_id, type, task_name, view_id)
+P -> Store: mark_running(task_id)
+P -> V: set_running(task_id)
+P -> TM: submit_runner(runner)
+TM -> R: pool.start(runner)
+
+== Worker loop ==
+R -> D: execute(reporter)
+loop each step
+    D -> R: report_progress(i)
+    R --> P: progress_signal(i) [queued]
+    P -> Store: update_progress(task_id, i)
+    P -> V: set_progress(i)
+
+    D -> R: report_message("...i%")
+    R --> P: message_signal(text) [queued]
+    P -> Store: update_message(task_id, text)
+    P -> V: set_message(text)
+end
+
+== Cancel ==
+User -> V: click Cancel
+V -> P: on_cancel()
+P -> R: cancel()
+P -> Store: mark_cancelling(task_id)
+P -> V: set_cancelling()
+
+== Finish ==
+alt error
+    R --> P: error_signal(message) [queued]
+    P -> Store: set_error(task_id, message)
+    P -> V: set_message(message)
+end
+
+R --> P: finished(status_name) [queued]
+P -> Store: mark_finished(task_id, status, final_message)
+P -> V: set_final_state(status, final_message)
+P -> P: runner = None
+@enduml
